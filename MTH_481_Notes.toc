@@ -8,7 +8,7 @@
 \contentsline {subsection}{\numberline {3.1}Binomial Theorem}{8}{subsection.3.1}%
 \contentsline {subsection}{\numberline {3.2}Multichoose}{8}{subsection.3.2}%
 \contentsline {subsection}{\numberline {3.3}Other Identities}{9}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Properties of Sequence of Binomial Coefficients}{10}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.4}Properties of Sequence of Binomial Coefficients}{11}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}Multinomial Theorem}{11}{subsection.3.5}%
 \contentsline {subsection}{\numberline {3.6}Generalized Binomial Theorem}{11}{subsection.3.6}%
 \contentsline {section}{\numberline {4}Partitions}{13}{section.4}%

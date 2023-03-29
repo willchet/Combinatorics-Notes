@@ -688,6 +688,25 @@ For $2\leq k<n$, we have $k^n<\binom{kn}n$.
 Consider a $n\times k$ grid. $k^n$ chooses one entry from each column, while $\binom{kn}n$ may choose any $n$ entries in the grid.
 \end{proof}
 \end{hl}
+
+\begin{lemma}\label{bin_inv_prep_1}
+$\displaystyle\sum_{k=0}^n\binom nk\binom km(-1)^k=(-1)^n\delta_{nm}$
+
+\begin{hl}
+\begin{proof}
+By Theorem \ref{extended_absorption} and Theorem \ref{alternating_binom}:
+\begin{multline*}
+\sum_{k=0}^n\binom nk\binom km(-1)^k
+=\sum_{k=m}^n\binom nm\binom{n-m}{k-m}(-1)^k
+=\binom nm(-1)^m\sum_{k=0}^{n-m}\binom{n-m}{k}(-1)^k\\
+=\binom nm(-1)^m\delta_{nm}
+=(-1)^n\delta_{nm}
+\end{multline*}
+
+Or, note that $\sum_{k=0}^n\binom nk\binom km$ counts the number of ordered pairs $(T,S)$ for $T\subset S\subset [n]$ and $|T|=m$. Let $E,\mathcal O$ be the sets for which $|S|$ is even or odd, respectively. If $n\leq m$, the result is trivial. Otherwise, form the involution $(T,S)\mapsto (T, S\,\triangle\,\max([n]\setminus T))$, i.e., add/remove to $S$ the largest element in $[n]$ that is not in $T$. This maps $E\leftrightarrow\mathcal O$, so we have the result.
+\end{proof}
+\end{hl}
+\end{lemma}
 \end{example}
 
 \subsection{Properties of Sequence of Binomial Coefficients}
@@ -923,7 +942,9 @@ Suppose $n,k\geq1$. RHS conditions on whether $\{n\}$ is its own block. If so, t
 \end{theorem}
 
 \begin{theorem}
-$\displaystyle k!\setbinom nk=\sum_{j=0}^k(-1)^j\binom kj(k-j)^n$.
+$\displaystyle k!\setbinom nk
+=\sum_{j=0}^k(-1)^j\binom kj(k-j)^n
+=\sum_{j=0}^k(-1)^{k-j}\binom kjj^n$
 
 \begin{hl}
 \begin{proof}
@@ -955,6 +976,18 @@ $\displaystyle\sum_{k=0}^n(-1)^kk!\setbinom nk=(-1)^n$
 \begin{hl}
 \begin{proof}
 $(-1)^kk!=(-1)_k$, so apply Theorem \ref{monomial_as_falling}. Or, form an involution between the ordered set partitions with an even number of blocks and those with an odd number of blocks, excluding the set partition $1/2/\cdots/n$. If $\{1\}$ is not the first block, then either combine 1 with the block to its right (if $\{1\}$ is a block) or remove $1$ from its block and place it in its own block to the left. If $\{1\}$ is the first block, apply the same process with 2, then 3, and so on.
+
+\medskip
+
+This can also be proved using Theorem \ref{monomial_as_falling} and Lemma \ref{bin_inv_prep_1}:
+\begin{align*}
+\sum_{k=0}^m\binom mkk^n(-1)^k
+&= \sum_{k=0}^m\binom mk(-1)^k\sum_{j=0}^n\setbinom nj(k)_j
+= \sum_{j=0}^n\setbinom nj\sum_{k=0}^m\binom mk(-1)^k(k)_j\\
+&= \sum_{j=0}^nj!\setbinom nj\sum_{k=0}^m\binom mk\binom kj(-1)^k
+= \sum_{j=0}^nj!\setbinom nj(-1)^m\delta_{mj}
+= (-1)^mm!\setbinom nm\qedhere
+\end{align*}
 \end{proof}
 \end{hl}
 \end{theorem}
@@ -1079,44 +1112,6 @@ The transpose forms a bijection between these.
 \end{theorem}
 
 \section{Binomial Inversion}
-
-\begin{lemma}\label{bin_inv_prep_1}
-$\displaystyle\sum_{k=0}^n\binom nk\binom km(-1)^k=(-1)^n\delta_{nm}$
-
-\begin{hl}
-\begin{proof}
-By Theorem \ref{extended_absorption} and Theorem \ref{alternating_binom}:
-\begin{multline*}
-\sum_{k=0}^n\binom nk\binom km(-1)^k
-=\sum_{k=m}^n\binom nm\binom{n-m}{k-m}(-1)^k
-=\binom nm(-1)^m\sum_{k=0}^{n-m}\binom{n-m}{k}(-1)^k\\
-=\binom nm(-1)^m\delta_{nm}
-=(-1)^n\delta_{nm}
-\end{multline*}
-
-Or, note that $\sum_{k=0}^n\binom nk\binom km$ counts the number of ordered pairs $(T,S)$ for $T\subset S\subset [n]$ and $|T|=m$. Let $E,\mathcal O$ be the sets for which $|S|$ is even or odd, respectively. If $n\leq m$, the result is trivial. Otherwise, form the involution $(T,S)\mapsto (T, S\,\triangle\,\max([n]\setminus T))$, i.e., add/remove to $S$ the largest element in $[n]$ that is not in $T$. This maps $E\leftrightarrow\mathcal O$, so we have the result.
-\end{proof}
-\end{hl}
-\end{lemma}
-
-\begin{example}
-$\displaystyle\sum_{k=0}^m\binom mkk^n(-1)^k=(-1)^mm!\setbinom nm$
-
-\begin{hl}
-\begin{proof}
-Using Theorem \ref{monomial_as_falling} and Lemma \ref{bin_inv_prep_1}:
-\begin{align*}
-\sum_{k=0}^m\binom mkk^n(-1)^k
-&= \sum_{k=0}^m\binom mk(-1)^k\sum_{j=0}^n\setbinom nj(k)_j
-= \sum_{j=0}^n\setbinom nj\sum_{k=0}^m\binom mk(-1)^k(k)_j\\
-&= \sum_{j=0}^nj!\setbinom nj\sum_{k=0}^m\binom mk\binom kj(-1)^k
-= \sum_{j=0}^nj!\setbinom nj(-1)^m\delta_{mj}
-= (-1)^mm!\setbinom nm
-\end{align*}
-\end{proof}
-\end{hl}
-\end{example}
-
 \begin{theorem}[Binomial Inversion]\label{bin_inv}
 Let $\{a_n\},\{b_n\}$ be sequences for $n\geq0$. Then:
 \begin{equation*}
@@ -1124,11 +1119,12 @@ a_n=\sum_{k=0}^n\binom nkb_k\text{ for all }n\iff b_n=\sum_{k=0}^n\binom nka_k(-
 \end{equation*}
 \begin{arrows}
 \item The symmetric version is $\displaystyle a_n=\sum_{k=0}^n\binom nkb_k(-1)^k$ iff $\displaystyle b_n=\sum_{k=0}^n\binom nka_k(-1)^k$
+\item Binomial inversion can sometimes offer an alternative for proofs other than Inclusion/Exclusion
 \end{arrows}
 
 \begin{hl}
 \begin{proof}
-Suppose the RHS:
+Suppose the RHS. Using Lemma \ref{bin_inv_prep_1}:
 \begin{align*}
 \sum_{k=0}^n\binom nkb_k
 &=\sum_{k=0}^n\binom nk\sum_{j=0}^k\binom kja_j(-1)^{k-j}
@@ -1376,11 +1372,34 @@ Let $\widetilde a_n=(-1)^na_n$ and $\widetilde b_n=(-1)^nb_n$. By the above resu
 
 \section{Sieve Method}
 \begin{theorem}[Principal of Inclusion/Exclusion]
-Let $S$ be a collection of $N$ objects and let $P=\{p_1,\dots,p_r\}$ be a set of properties that one or more of the elements in $S$ possess. Let $N(p_{i_1},\dots,p_{i_n})$ count the number of objects that satisfy properties $p_{i_1},\dots,p_{i_n}$. Let $N_0$ count the number of objects with no properties. Then:
+Let $S$ be a collection of $N$ objects and let $P=\{p_1,\dots,p_r\}$ be a set of properties that one or more of the elements in $S$ possess. Let $N(p_{i_1},\dots,p_{i_n})$ count the number of objects that satisfy at least the properties $p_{i_1},\dots,p_{i_n}$, and let $P_i$ be the set of elements satisfying $p_i$. Let $e_j$ count the number of objects with exactly $j$ properties. Then:
 \begin{equation*}
-N_0
-=N-\sum_{j=1}^rN(p_j)+\sum_{j<k}N(p_j,p_k)-\sum_{j<k<\ell}N(p_j,p_k,p_\ell)+\cdots+(-1)^rN(p_1,\dots,p_r)
+e_0
+=\underbrace{N}_{N_0}-\underbrace{\sum_{j=1}^rN(p_j)}_{N_1}+\underbrace{\sum_{j<k}N(p_j,p_k)}_{N_2}-\underbrace{\sum_{j<k<\ell}N(p_j,p_k,p_\ell)}_{N_3}+\cdots+(-1)^r\underbrace{N(p_1,\dots,p_r)}_{N_r}
 \end{equation*}
+
+Alternatively, the number of objects satisfying at least one property is:
+\begin{equation*}
+\left|\bigcup_{j=1}^rP_j\right|
+=N_1-N_2+\cdots+(-1)^{r+1}N_r
+\end{equation*}
+
+The number satisfying at least $j$ properties is similarly computed, and by taking differences, the number satisfying exactly $j$ properties can be computed. Or, using generating functions $E(x)=\sum_ke_kx^k$ and $N(x)=\sum_kN_kx^k$, we have $E(x)=N(x-1)$, so that expanding $N(x-1)$ gives us all values of $e_j$.
+\begin{hl}
+\begin{proof}
+We have $N_k=\sum_{j=k}^r\binom jke_j$ by conditioning on the number of properties $j$ and then picking $k$ to use. Then the generating functions satisfy:
+\begin{equation*}
+N(x)
+=\sum_{k=0}^rN_kx^k
+=\sum_{k=0}^r\sum_{j=k}^r\binom jke_jx^k
+=\sum_{j=0}^re_j\sum_{k=0}^j\binom jkx^k
+=\sum_je_j(1+x)^j
+=E(1+x)
+\end{equation*}
+
+Then $E(x)=N(x-1)$. Substituting $x=0$ yields $e_0=N(-1)=\sum_kN_k(-1)^k$.
+\end{proof}
+\end{hl}
 \end{theorem}
 
 \begin{example}
