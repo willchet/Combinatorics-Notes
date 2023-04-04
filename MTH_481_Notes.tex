@@ -907,16 +907,6 @@ Or, form an involution from compositions with an even number of parts to those w
 \end{hl}
 \end{theorem}
 
-\begin{example}
-Let $F(n)$ be the number of all partitions of $[n]$ with no singleton blocks. Show $B(n)=F(n)+F(n+1)$.
-
-\begin{hl}
-\begin{proof}
-We prove $B(n)-F(n)=F(n+1)$. LHS counts partitions with a singleton block, and RHS counts partitions with a new element $n+1$ with no singletons. We can form the bijection which combines all singleton elements with $n+1$ into a new block (and the reverse takes all elements in the same block as $n+1$ and places them in singleton blocks).
-\end{proof}
-\end{hl}
-\end{example}
-
 \subsection{Set Partitions}
 
 \begin{definition}
@@ -1058,6 +1048,49 @@ For $n\geq3$, we have $B(n)<n!$.
 Use the representation where each block is listed in reverse order (so that dividers are not needed). Then every set partition of $[n]$ can be represented uniquely by a permutation in $S_n$. For $n\geq3$, not every permutation is a valid set partition, such as any beginning with $231$ (since 1 needs to appear in the first block).
 \end{hl}
 \end{theorem}
+
+\begin{example}
+Let $F(n)$ be the number of all partitions of $[n]$ with no singleton blocks. Show $B(n)=F(n)+F(n+1)$.
+
+\begin{hl}
+\begin{proof}
+We prove $B(n)-F(n)=F(n+1)$. LHS counts partitions with a singleton block, and RHS counts partitions with a new element $n+1$ with no singletons. We can form the bijection which combines all singleton elements with $n+1$ into a new block (and the reverse takes all elements in the same block as $n+1$ and places them in singleton blocks).
+\end{proof}
+\end{hl}
+\end{example}
+
+\begin{corollary}
+$F(n)=(-1)^n+\sum_{j=1}^n(-1)^{j-1}B(n-j)$
+
+\begin{hl}
+\begin{proof}
+$F(0)=1$, so for induction, suppose the result holds for $n$. Then:
+\begin{align*}
+F(n+1)
+&=B(n)-F(n)
+=B(n)+(-1)^{n+1}+\sum_{j=1}^n(-1)^{j}B(n-j)
+=(-1)^{n+1}+\sum_{j=0}^n(-1)^{j}B(n-j)\\
+&=(-1)^{n+1}+\sum_{j=1}^{n+1}(-1)^{j-1}B(n+1-j)
+\end{align*}
+\end{proof}
+\end{hl}
+\end{corollary}
+
+\begin{example}
+$F(n)=\sum_{i=0}^n(-1)^i\binom niB(n-i)$
+
+\begin{hl}
+\begin{proof}
+Let $p_i$ be the property that $i$ is a singleton. Then $N(p_i)=B(n-1)$. Similarly, $N(p_{i_1},\dots,p_{i_k})=B(n-k)$. Then $N_k=\binom nkB(n-k)$, so that Inclusion/Exclusion yields $F(n)=\sum_{i=0}^n(-1)^iN_i=\sum_{i=0}^n(-1)^i\binom niB(n-i)$.
+
+\medskip
+
+Or, use binomial inversion. Let $F(n,k)=\binom nkF(n-k)$ be the number with exactly $k$ singletons. By conditioning on the number of singletons, $B(n)=\sum_{k=0}^nF(n,k)=\sum_{k=0}^n\binom nkF(n-k)$. By binomial inversion, $F(n)=\sum_{k=0}^n\binom nkB(k)(-1)^{n-k}$. Perform a change of variables to obtain the desired formula.
+\end{proof}
+\end{hl}
+\end{example}
+
+
 
 \subsection{Integer Partitions}
 
