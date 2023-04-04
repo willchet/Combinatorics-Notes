@@ -17,4 +17,4 @@
 \contentsline {subsection}{\numberline {4.3}Integer Partitions}{15}{subsection.4.3}%
 \contentsline {section}{\numberline {5}Binomial Inversion}{17}{section.5}%
 \contentsline {section}{\numberline {6}Formal Power Series \& Generating Functions}{19}{section.6}%
-\contentsline {section}{\numberline {7}Sieve Method}{21}{section.7}%
+\contentsline {section}{\numberline {7}Sieve Method}{22}{section.7}%
