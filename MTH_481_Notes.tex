@@ -955,7 +955,7 @@ $\displaystyle x^n=\sum_{k=0}^n\setbinom nk(x)_k$ for $n\geq0$ and $x\in\R$
 
 \begin{hl}
 \begin{proof}
-Each side is a polynomial, so it suffices to prove it for all $\N$. LHS is number of ways to distribute $n$ identical balls into $x$ distinct bins. RHS conditions on the number of empty bins $k$, grouping the balls $\setbinom nk$ ways then picking the bins $(x)_k$ ways.
+Each side is a polynomial, so it suffices to prove it for all $\N$. LHS is number of ways to distribute $n$ identical balls into $x$ distinct bins. RHS conditions on the number of nonempty bins $k$, grouping the balls $\setbinom nk$ ways then picking the bins $(x)_k$ ways.
 \end{proof}
 \end{hl}
 \end{theorem}
@@ -1176,20 +1176,20 @@ The converse and symmetric version follow by applying the above to modified vers
 A permutation is called a \emph{derangement} if it has no fixed points.
 \end{definition}
 
-\begin{example}\label{derangements}
-To count the number of derangements in $S_n$, define $D(n,k)$ to equal the number of permutations with $k$ fixed points. $D(n,k)=\binom nkD(n-k,0)$ by the product rule. Conditioning permutations based on their number of fixed points:
+\begin{theorem}\label{derangements}
+To count the number of derangements $D(n)$ in $S_n$, define $D(n,k)$ to equal the number of permutations with $k$ fixed points. $D(n,k)=\binom nkD(n-k)$ by the product rule. Conditioning permutations based on their number of fixed points:
 \begin{equation*}
 n!
 =\sum_{k=0}^nD(n,k)
-=\sum_{k=0}^n\binom nkD(n-k,0)
-=\sum_{k=0}^n\binom n{n-k}D(n-k,0)
-=\sum_{k=0}^n\binom nkD(k,0)
+=\sum_{k=0}^n\binom nkD(n-k)
+=\sum_{k=0}^n\binom n{n-k}D(n-k)
+=\sum_{k=0}^n\binom nkD(k)
 \end{equation*}
 
-Thus, by Binomial Inversion, we have $D(n,0)=\sum_{k=0}^n\binom nkk!(-1)^{n-k}$. $D(n,0)$ is often denoted $!n$, the \emph{subfactorial}.
-\end{example}
+Thus, by Binomial Inversion, we have $D(n)=\sum_{k=0}^n\binom nkk!(-1)^{n-k}$. $D(n)$ is often denoted $!n$, the \emph{subfactorial}.
+\end{theorem}
 
-\begin{example}
+\begin{corollary}
 Find $\lim_{n\rightarrow\infty}\frac{!n}{n!}$, the fraction of permutations which are derangements.
 
 \begin{hl}
@@ -1203,6 +1203,30 @@ Find $\lim_{n\rightarrow\infty}\frac{!n}{n!}$, the fraction of permutations whic
 \end{equation*}
 \end{proof}
 \end{hl}
+\end{corollary}
+
+\begin{lemma}
+$D(n+1)=n(D(n)+D(n-1))$ for $n\geq1$.
+
+\begin{hl}
+\begin{proof}
+Write derangement $\pi\in S_{n+1}$ in cycle notation. There are $n$ options for $\pi_{n+1}\neq n+1$. If $(n+1,\pi_{n+1})$ is a transposition, then there are $D(n-1)$ ways to permute the remaining elements. Otherwise, removing $\pi_{n+1}$ is a bijection yielding a derangement in $S_n$, so that there are $D(n)$ options.
+\end{proof}
+\end{hl}
+\end{lemma}
+
+\begin{lemma}\label{one_fixed_point}
+The number of $n$-permutations with exactly one cycle of length one is $nD(n-1)=D(n)-(-1)^n$.
+
+\begin{hl}
+\begin{proof}
+Pick the fixed point $n$ ways, and permute the remaining via a derangement $D(n-1)$ ways to get $nD(n-1)=n(n-1)!\sum_{j=0}^{n-1}\frac{(-1)^j}{j!}=n!\sum_{j=0}^{n-1}\frac{(-1)^j}{j!}=D(n)-(-1)^n$.
+\end{proof}
+\end{hl}
+\end{lemma}
+
+\begin{example}
+We claim that the number of permutations $p=p_1\cdots p_n$ so that $p_i\neq i+1$ for all $i\in[n-1]$ is $2D(n)-(-1)^n$. Compose any of these permutations $p$ on the left with $\rho=(n,n-1,\dots,1)$ to obtain a permutation $q=\rho p$ such that $q_i\neq i$ for all $i\in[n-1]$. Either the resulting permutation is a derangement, $D(n)$ ways, or it has exactly one fixed point of $n$, $D(n-1)$ ways. Since $\rho$ is a bijection, we obtain $D(n)+D(n-1)$ permutations $p$.
 \end{example}
 
 \begin{definition}
@@ -1334,7 +1358,7 @@ This can be shown with the Generalized Binomial Theorem:
 
 Or, carry out the multiplication:
 \begin{equation*}
-(1-x)\sum_{n=0}^\infty x^n=\sum_{n=0}^\infty x^n-\sum_{n=0}^\infty x^{n+1}=x^0=1
+(1-x)\sum_{n=0}^\infty x^n=\sum_{n=0}^\infty x^n-\sum_{n=0}^\infty x^{n+1}=x^0=1\qedhere
 \end{equation*}
 \end{proof}
 \end{hl}
@@ -1403,17 +1427,30 @@ Let $\widetilde a_n=(-1)^na_n$ and $\widetilde b_n=(-1)^nb_n$. By the above resu
 \end{hl}
 \end{theorem}
 
-\begin{example}
-Let $a_n=2a_{n-1}$ with $a_0$ given. Let $\{a_n\}\longleftrightarrow A(x)$ and write:
-\begin{align*}
-A(x)
-=\sum_{n=0}^\infty a_nx^n
-= a_0+\sum_{n=1}^\infty 2a_{n-1}x^n
-= a_0+2x\sum_{n=1}^\infty a_{n-1}x^{n-1}
-= a_0+2xA(x)
-\end{align*}
+\begin{lemma}\label{generating_func_recip_linear}
+$\displaystyle[x^n]\frac1{1-ax}=a^n$
 
-Thus, $A(x)=\frac{a_0}{1-2x}$. Then $a_n=[x^n]\frac{a_0}{1-2x}=a_0[x^n]\frac{1}{1-2x}=a_02^n$ by !!!.
+\begin{hl}
+\begin{proof}
+Substitute $ax$ for $x$ in Example \ref{recip_1_minus_x}.
+\end{proof}
+\end{hl}
+\end{lemma}
+
+\begin{concept}
+Given a recurrence relation defining a sequence $\{a_n\}$, a closed form for the generating function $A(x)$ can then be found. To find a closed form for the original sequence, the typical procedure (for linear recurrences) is to apply partial fraction decomposition to obtain $A(x)$ as a sum of factors of the form $\frac{c}{1-ax}$. Then, applying $[x^n]$, linearity, and Lemma \ref{generating_func_recip_linear} yields $a_n$.
+\end{concept}
+
+\begin{example}
+Let $a_n=2a_{n-1}$ with $a_0$ given. Let $\{a_n\}\longleftrightarrow A(x)$. Then $\sum_{n=0}^\infty a_{n+1}x^{n+1}=2\sum_{n=0}^\infty a_nx^{n+1}$, so that $A(x)-a_0=2xA(x)$. Solving, $A(x)=\frac{a_0}{1-2x}$. Then $a_n=[x^n]\frac{a_0}{1-2x}=a_02^n$ by Lemma \ref{generating_func_recip_linear}.
+\end{example}
+
+\begin{example}
+Let $b_{n+1}=2b_n+1$ and $b_0=1$. Then $\sum_{n=0}^\infty b_{n+1}x^{n+1}=2\sum_{n=0}^\infty b_nx^{n+1}+\sum_{n=0}^\infty x^{n+1}$, so that $B(x)-b_0=2xB(x)+\frac x{1-x}$. Solving, $B(x)=\frac1{(1-x)(1-2x)}=-\frac1{1-x}+\frac2{1-2x}$. Thus, $b_n=[x^n]\left(-\frac1{1-x}+\frac2{1-2x}\right)=-1+2(2)^n=2^{n+1}-1$.
+\end{example}
+
+\begin{example}
+Let $a_n=n^2$. We find a closed form for the generating function $A(x)$. Note that $a_{n+2}=2a_{n+1}-a_{n}+2$. Thus, $\sum_{n=0}^\infty a_{n+2}x^{n+2}=2\sum_{n=0}^\infty a_{n+1}x^{n+2}-\sum_{n=0}^\infty a_nx^{n+2}+2\sum_{n=0}^\infty x^{n+2}$. So, $A(x)-x=2xA(x)-x^2A(x)+\frac{2x^2}{1-x}$. Solving, $(x^2-2x+1)A(x)=x+\frac{2x^2}{1-x}$, or $A(x)=\frac{x^2+x}{(1-x)^3}$.
 \end{example}
 
 \begin{definition}
@@ -1462,7 +1499,7 @@ Then $E(x)=N(x-1)$. Substituting $x=0$ yields $e_0=N(-1)=\sum_kN_k(-1)^k$.
 \end{theorem}
 
 \begin{example}
-Consider counting the derangements in $S_n$, as in \ref{derangements}. Letting $N=n!$ and $p_j$ be the property that the permutation fixes $j$, then $N(p_j)=(n-1)!$, $N(p_j,p_k)=(n-2)!$, and so on. Thus:
+Consider counting the derangements in $S_n$, as in Example \ref{derangements}. Letting $N=n!$ and $p_j$ be the property that the permutation fixes $j$, then $N(p_j)=(n-1)!$, $N(p_j,p_k)=(n-2)!$, and so on. Thus:
 \begin{align*}
 !n
 &=n!-\sum_{j}(n-1)!+\sum_{j<k}(n-2)!-\sum_{j<k<\ell}(n-3)!+\cdots+(-1)^r(n-n)!\\

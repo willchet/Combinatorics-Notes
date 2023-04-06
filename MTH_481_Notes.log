@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.3)  4 APR 2023 16:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.3)  6 APR 2023 15:20
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -2632,24 +2632,34 @@ Package mdframed Info: mdframed detected package amsthm
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 1196.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1212.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1222.
  [17
 
 ] [18]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1292.
+(mdframed)              on input line 1316.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1329.
+(mdframed)              on input line 1353.
  [19
 
 ]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1362.
+(mdframed)              on input line 1386.
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1389.
+(mdframed)              on input line 1413.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1434.
+ [20]
 \g__nicematrix_max_cell_width_dim=\dimen470
 \c@iRow=\count502
 \c@jCol=\count503
@@ -2673,10 +2683,10 @@ Package mdframed Info: mdframed detected package amsthm
 \l__nicematrix_initial_j_int=\count507
 \l__nicematrix_final_i_int=\count508
 \l__nicematrix_final_j_int=\count509
- [20] [21]
+ [21]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1448.
+(mdframed)              on input line 1485.
  [22
 
 ] (./MTH_481_Notes.aux)
@@ -2684,10 +2694,10 @@ Package rerunfilecheck Info: File `MTH_481_Notes.out' has not changed.
 (rerunfilecheck)             Checksum: 0EE22FF9FA1747EE479ED7582DBE677D;2776.
  ) 
 Here is how much of TeX's memory you used:
- 60370 strings out of 476024
- 1457607 string characters out of 5794017
- 2063959 words of memory out of 5000000
- 79722 multiletter control sequences out of 15000+600000
+ 60379 strings out of 476024
+ 1457738 string characters out of 5794017
+ 2064017 words of memory out of 5000000
+ 79724 multiletter control sequences out of 15000+600000
  531820 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  123i,16n,120p,1685b,825s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2714,10 +2724,10 @@ dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2022/texmf-dist/fonts
 lic/cm-super/sfrm0900.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-sup
 er/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfti100
 0.pfb>
-Output written on MTH_481_Notes.pdf (22 pages, 385053 bytes).
+Output written on MTH_481_Notes.pdf (22 pages, 389763 bytes).
 PDF statistics:
- 558 PDF objects out of 1000 (max. 8388607)
- 482 compressed objects within 5 object streams
- 195 named destinations out of 1000 (max. 500000)
+ 569 PDF objects out of 1000 (max. 8388607)
+ 493 compressed objects within 5 object streams
+ 202 named destinations out of 1000 (max. 500000)
  165 words of extra memory for PDF output out of 10000 (max. 10000000)
 
