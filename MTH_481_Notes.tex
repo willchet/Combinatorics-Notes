@@ -1453,6 +1453,27 @@ Let $b_{n+1}=2b_n+1$ and $b_0=1$. Then $\sum_{n=0}^\infty b_{n+1}x^{n+1}=2\sum_{
 Let $a_n=n^2$. We find a closed form for the generating function $A(x)$. Note that $a_{n+2}=2a_{n+1}-a_{n}+2$. Thus, $\sum_{n=0}^\infty a_{n+2}x^{n+2}=2\sum_{n=0}^\infty a_{n+1}x^{n+2}-\sum_{n=0}^\infty a_nx^{n+2}+2\sum_{n=0}^\infty x^{n+2}$. So, $A(x)-x=2xA(x)-x^2A(x)+\frac{2x^2}{1-x}$. Solving, $(x^2-2x+1)A(x)=x+\frac{2x^2}{1-x}$, or $A(x)=\frac{x^2+x}{(1-x)^3}$.
 \end{example}
 
+\begin{theorem}\label{gen_shortcut}
+Let $p,q$ be coprime polynomials with $0\leq k=\deg p<\deg q=m$. Write $q(x)=\sum_{j=0}^mq_jx^j$ and suppose $q_0\neq0$. Let $f(x)=\frac{p(x)}{q(x)}\overset{ogf}\longleftrightarrow\{f_n\}_{n\geq0}$. Then for all $n\geq0$, $f_n$ satisfies the recurrence $q_0f_{n+m}+q_1f_{n+m-1}+\cdots+q_mf_n=0$ with initial conditions $f_j=f^{(j)}(0)/j!$ for $0\leq j\leq m-1$.
+%!!! Proof
+\end{theorem}
+
+\begin{example}
+Let $G(x)=\frac1{1-ax-bx^2-cx^3}$ for $c\neq0$. $g_n$ satisfies the recurrence $g_{n+3}=ag_{n+2}+bg_{n+1}+cg_n$ by Theorem \ref{gen_shortcut}. The initial conditions are $g_0=G(0)=1$, $g_1=G'(0)=a$, and $g_2=G''(0)/2=a^2+b$.
+\end{example}
+
+\begin{theorem}[Wilf Rules]\label{wilf}
+\;
+\begin{enumerate}
+\item\label{wilf1} If $F(x)\overset{ogf}\longleftrightarrow\{f_n\}$, then for $k\geq0$, $\displaystyle\{f_{n+K}\}\overset{ogf}\longleftrightarrow\frac{F(x)-f_0-f_1x-\cdots-f_{k-1}x^{k-1}}{x^k}$
+\end{enumerate}
+%!!! Proof
+\end{theorem}
+
+\begin{example}
+Suppose $a_{n+2}=3a_{n+1}-a_n$ with $a_0=1$ and $a_1=-3$. Then by the first Wilf rule, $\frac{A(x)-a_0-a_1x^1}{x^2}=-3\frac{A(x)-a_0}x-A(x)$. Rearrange to obtain $A(x)-1+3x=-3xA(x)+3x-A(x)x^2$, or $A(x)=\frac1{1+3x+x^2}$.
+\end{example}
+
 \begin{definition}
 Other types of generating functions are also possible, such as:
 \begin{table}[H]
