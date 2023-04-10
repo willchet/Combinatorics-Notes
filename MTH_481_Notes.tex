@@ -1292,7 +1292,7 @@ b_n=\sum_{k=0}^n\binom nk\delta_{k1}(-1)^k=\binom n1(-1)^1=-n
 A \emph{formal power series} is a summation $\sum_{n=0}^\infty a_nx^n$ for a sequence of coefficients $\{a_n\}$
 \begin{arrows}
 \item Two series are equal if the coefficients are equal
-\item The formal power series corresponding to $\{a_n\}$ is called its \emph{ordinary generating function}, and the relationship is denoted $\sum_{n=0}^\infty a_nx^n\overset{ogf}\longleftrightarrow\{a_n\}$
+\item The formal power series corresponding to $\{a_n\}$ is called its \emph{ordinary generating function}, and the relationship is denoted $\sum_{n=0}^\infty a_nx^n\ogf \{a_n\}$
 \end{arrows}
 \end{definition}
 
@@ -1395,9 +1395,9 @@ $\displaystyle[x^n]\frac x{(1-x)^2}=n$
 \end{hl}
 \end{example}
 
-\begin{example}
+\begin{lemma}\label{binom_gen}
 $\displaystyle[x^n]\frac{x^k}{(1-x)^{k+1}}=\binom nk$ by Theorem \ref{sum_bin_times_monom}.
-\end{example}
+\end{lemma}
 
 \begin{example}
 $\displaystyle[x^n]\frac{2x}{(1-x)^8}=2[x^{n+6}]\frac{x^7}{(1-x)^8}=2\binom{n+6}7$
@@ -1454,7 +1454,7 @@ Let $a_n=n^2$. We find a closed form for the generating function $A(x)$. Note th
 \end{example}
 
 \begin{theorem}\label{gen_shortcut}
-Let $p,q$ be coprime polynomials with $0\leq k=\deg p<\deg q=m$. Write $q(x)=\sum_{j=0}^mq_jx^j$ and suppose $q_0\neq0$. Let $f(x)=\frac{p(x)}{q(x)}\overset{ogf}\longleftrightarrow\{f_n\}_{n\geq0}$. Then for all $n\geq0$, $f_n$ satisfies the recurrence $q_0f_{n+m}+q_1f_{n+m-1}+\cdots+q_mf_n=0$ with initial conditions $f_j=f^{(j)}(0)/j!$ for $0\leq j\leq m-1$.
+Let $p,q$ be coprime polynomials with $0\leq k=\deg p<\deg q=m$. Write $q(x)=\sum_{j=0}^mq_jx^j$ and suppose $q_0\neq0$. Let $f(x)=\frac{p(x)}{q(x)}\ogf \{f_n\}_{n\geq0}$. Then for all $n\geq0$, $f_n$ satisfies the recurrence $q_0f_{n+m}+q_1f_{n+m-1}+\cdots+q_mf_n=0$ with initial conditions $f_j=f^{(j)}(0)/j!$ for $0\leq j\leq m-1$.
 %!!! Proof
 \end{theorem}
 
@@ -1464,14 +1464,57 @@ Let $G(x)=\frac1{1-ax-bx^2-cx^3}$ for $c\neq0$. $g_n$ satisfies the recurrence $
 
 \begin{theorem}[Wilf Rules]\label{wilf}
 \;
-\begin{enumerate}
-\item\label{wilf1} If $F(x)\overset{ogf}\longleftrightarrow\{f_n\}$, then for $k\geq0$, $\displaystyle\{f_{n+K}\}\overset{ogf}\longleftrightarrow\frac{F(x)-f_0-f_1x-\cdots-f_{k-1}x^{k-1}}{x^k}$
+\begin{enumerate}[label=\Roman*.]
+\item\label{wilf1} If $F(x)\ogf \{f_n\}$, then for $k\geq0$, $\displaystyle\{f_{n+k}\}\ogf \frac{F(x)-f_0-f_1x-\cdots-f_{k-1}x^{k-1}}{x^k}$
+\item\label{wilf2} If $F(x)\ogf \{f_n\}$ and $P$ is a polynomial, then $\{P(n)a_n\}\ogf  P(xD)f$, where $D$ is the derivative operator with respect to $x$
+\item\label{wilf3} If $F(x)\ogf \{f_n\}$ and $G(x)\ogf \{g_n\}$, then $\displaystyle FG\ogf \left\{\sum_{k=0}^na_kb_{n-k}\right\}$
+\item\label{wilf4} If $F(x)\ogf\{f_n\}$ and $k\in\N$, then $\displaystyle F^k\ogf\left\{\sum_{n_1+\cdots+n_k=n}a_{n_1}\cdots a_{n_k}\right\}$
+\item\label{wilf5} If $F(x)\ogf\{f_n\}$, then $\displaystyle\frac1{1-x}F\ogf\left\{\sum_{k=0}^nf_k\right\}$, i.e., $\displaystyle\frac1{1-x}F$ is the generating function for the partial sums
+\item\label{wilf6} If $F(x)\ogf\{f_n\}$, then $x^kF\ogf\{a_{n-k}\}$, where $a_{n-k}=0$ when $n-k<0$
 \end{enumerate}
 %!!! Proof
 \end{theorem}
 
 \begin{example}
-Suppose $a_{n+2}=3a_{n+1}-a_n$ with $a_0=1$ and $a_1=-3$. Then by the first Wilf rule, $\frac{A(x)-a_0-a_1x^1}{x^2}=-3\frac{A(x)-a_0}x-A(x)$. Rearrange to obtain $A(x)-1+3x=-3xA(x)+3x-A(x)x^2$, or $A(x)=\frac1{1+3x+x^2}$.
+Suppose $a_{n+2}=3a_{n+1}-a_n$ with $a_0=1$ and $a_1=-3$. Then by Wilf I, $\frac{A(x)-a_0-a_1x^1}{x^2}=-3\frac{A(x)-a_0}x-A(x)$. Rearrange to obtain $A(x)-1+3x=-3xA(x)+3x-A(x)x^2$, or $A(x)=\frac1{1+3x+x^2}$.
+\end{example}
+
+\begin{example}
+Suppose $a_n=n^2$. Then by Wilf II and Lemma \ref{generating_func_recip_linear}:
+\begin{equation*}
+A(x)
+=(xD)^2\frac1{1-x}
+=x\frac{d}{dx}\left[x\frac d{dx}\frac1{1-x}\right]
+=x\frac{d}{dx}\frac x{(1-x)^2}
+=\frac{x(1+x)}{(1-x)^3}
+\end{equation*}
+\end{example}
+
+\begin{example}
+Suppose $a_{n+1}=2a_n+n$ with $a_0=1$. Let $b_n=n$, so that $\displaystyle B(x)=xD\frac1{1-x}=\frac x{(1-x)^2}$ by Wilf II. By Wilf I, $\frac{A(x)-a_0}x=2A(x)+B(x)$. Rearrange and substitute to obtain $A(x)=\frac{1-2x+2x^2}{(1-2x)(1-x)^2}$.
+\end{example}
+
+\begin{example}
+Suppose a semester of $n$ days is divided into two parts (of arbitrary length), and there is 1 holiday during the first part and 2 holidays during the second part. Let $s_n$ be the number of ways this can be accomplished. Condition on the number of days in the first part $k$. Choose the holiday in the first part $k$ ways, and choose the holidays in the second part $\binom{n-k}2$ ways. Thus, $s_n=\sum_{k=1}^{n-2}k\binom{n-k}2$.
+
+\medskip
+
+The appearance of this form suggests using the product of generating functions. Let $a_n=\binom n1$ and $b_n=\binom n2$, so that $S(x)=A(x)B(x)$. By Lemma \ref{binom_gen}:
+\begin{equation*}
+S(x)
+=A(x)B(x)
+=\frac{x}{(1-x)^2}\cdot \frac{x^2}{(1-x)^3}
+=\frac{x^3}{(1-x)^5}
+\end{equation*}
+
+Thus, we compute:
+\begin{equation*}
+s_n
+=[x^n]\frac{x^3}{(1-x)^5}
+=[x^n]\frac1x\frac{x^4}{(1-x)^5}
+=[x^{n+1}]\frac{x^4}{(1-x)^5}
+=\binom{n+1}4
+\end{equation*}
 \end{example}
 
 \begin{definition}
@@ -1480,9 +1523,9 @@ Other types of generating functions are also possible, such as:
 \centering
 \begin{NiceTabular}{llll}\toprule
 Type&Abbreviation&Form&Notation\\\midrule
-Ordinary Generating Function&ogf&$f(x)=\sum_{n=0}^\infty a_nx^n$&$f(x)\overset{ogf}{\longleftrightarrow}\{a_n\}$\\
-Exponential Generating Function&egf&$g(x)=\sum_{n=0}^\infty b_n\frac{x^n}{n!}$&$g(x)\overset{egf}{\longleftrightarrow}\{b_n\}$\\
-Dirichlet Generating Function&dgf&$h(s)=\sum_{n=1}^\infty\frac{c_n}{n^s}$&$h(s)\overset{dgf}{\longleftrightarrow}\{c_n\}$\\\bottomrule
+Ordinary Generating Function&ogf&$f(x)=\sum_{n=0}^\infty a_nx^n$&$f(x)\ogf \{a_n\}$\\
+Exponential Generating Function&egf&$g(x)=\sum_{n=0}^\infty b_n\frac{x^n}{n!}$&$g(x)\overset{\text{egf}}{\longleftrightarrow}\{b_n\}$\\
+Dirichlet Generating Function&dgf&$h(s)=\sum_{n=1}^\infty\frac{c_n}{n^s}$&$h(s)\overset{\text{dgf}}{\longleftrightarrow}\{c_n\}$\\\bottomrule
 \end{NiceTabular}
 \end{table}
 \end{definition}

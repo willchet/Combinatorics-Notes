@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.3)  7 APR 2023 10:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.3)  10 APR 2023 13:58
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -2194,7 +2194,7 @@ Package: fancyhdr 2022/11/09 v4.1 Extensive control of page headers and footers
 \symmathb=\mathgroup7
 \symsymbolsMN=\mathgroup8
 LaTeX Font Info:    Overwriting symbol font `symbolsMN' in version `bold'
-(Font)                  U/MnSymbolF/m/n --> U/MnSymbolF/b/n on input line 157.
+(Font)                  U/MnSymbolF/m/n --> U/MnSymbolF/b/n on input line 159.
 )
 runsystem(for ^%i in (pygmentize.exe pygmentize.bat pygmentize.cmd) do set > MT
 H_481_Notes.aex <nul: /p x=^%~$PATH:i>> MTH_481_Notes.aex)...executed.
@@ -2683,21 +2683,21 @@ Package mdframed Info: mdframed detected package amsthm
 \l__nicematrix_initial_j_int=\count507
 \l__nicematrix_final_i_int=\count508
 \l__nicematrix_final_j_int=\count509
- [21]
+ [21] [22]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1506.
- [22
+(mdframed)              on input line 1549.
+ [23
 
 ] (./MTH_481_Notes.aux)
 Package rerunfilecheck Info: File `MTH_481_Notes.out' has not changed.
 (rerunfilecheck)             Checksum: 0EE22FF9FA1747EE479ED7582DBE677D;2776.
  ) 
 Here is how much of TeX's memory you used:
- 60387 strings out of 476024
- 1457820 string characters out of 5794017
- 2064121 words of memory out of 5000000
- 79727 multiletter control sequences out of 15000+600000
+ 60403 strings out of 476024
+ 1457947 string characters out of 5794017
+ 2064356 words of memory out of 5000000
+ 79734 multiletter control sequences out of 15000+600000
  531820 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  123i,16n,120p,1685b,825s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2724,10 +2724,10 @@ dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2022/texmf-dist/fonts
 lic/cm-super/sfrm0900.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-sup
 er/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfti100
 0.pfb>
-Output written on MTH_481_Notes.pdf (22 pages, 393205 bytes).
+Output written on MTH_481_Notes.pdf (23 pages, 396750 bytes).
 PDF statistics:
- 576 PDF objects out of 1000 (max. 8388607)
- 500 compressed objects within 5 object streams
- 207 named destinations out of 1000 (max. 500000)
+ 593 PDF objects out of 1000 (max. 8388607)
+ 515 compressed objects within 6 object streams
+ 216 named destinations out of 1000 (max. 500000)
  165 words of extra memory for PDF output out of 10000 (max. 10000000)
 
