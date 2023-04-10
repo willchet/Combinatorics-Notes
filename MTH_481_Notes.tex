@@ -1437,6 +1437,16 @@ Substitute $ax$ for $x$ in Example \ref{recip_1_minus_x}.
 \end{hl}
 \end{lemma}
 
+\begin{lemma}\label{easier_gen_linear}
+$\displaystyle[x^n]\frac1{x-a}=\frac1{a^{n+1}}$
+
+\begin{hl}
+\begin{proof}
+Using Lemma \ref{generating_func_recip_linear}, $\displaystyle [x^n]\frac1{x-a}=-\frac1a[x^n]\frac1{1-\frac1ax}=-\frac1{a^{n+1}}$.
+\end{proof}
+\end{hl}
+\end{lemma}
+
 \begin{concept}
 Given a recurrence relation defining a sequence $\{a_n\}$, a closed form for the generating function $A(x)$ can then be found. To find a closed form for the original sequence, the typical procedure (for linear recurrences) is to apply partial fraction decomposition to obtain $A(x)$ as a sum of factors of the form $\frac{c}{1-ax}$. Then, applying $[x^n]$, linearity, and Lemma \ref{generating_func_recip_linear} yields $a_n$.
 \end{concept}
@@ -1514,6 +1524,41 @@ s_n
 =[x^n]\frac1x\frac{x^4}{(1-x)^5}
 =[x^{n+1}]\frac{x^4}{(1-x)^5}
 =\binom{n+1}4
+\end{equation*}
+\end{example}
+
+\begin{example}
+Consider the Fibonacci numbers, with the recurrence $f_{n+2}=f_{n+1}+f_n$ with initial conditions $f_0=f_1=1$. We first note that these have a combinatorial interpretation; namely, $f_n$ gives the number of ways to tile a $1\times n$ grid with monominoes and dominoes. Indeed, the result follows by conditioning on whether the leftmost square is covered by a monomino ($f_{n+1}$ ways to tile the remaining squares) or covered by a domino ($f_n$ ways to tile the remaining squares).
+
+\medskip
+
+Another way to derive the recurrence from the combinatorial interpretation is to use generating function. Note that $A_1(x)=x^1+x^2$ is a generating function whose coefficients on $x^n$ describes the number of ways to tile a $1\times n$ grid with just one tile. Then the number of ways with $j$ tiles is given by the coefficients of $A_j(x)=(x^1+x^2)^j$. So, using composition:
+\begin{equation*}
+F(x)
+=\sum_{j=0}^\infty A_j(x)
+=\sum_{j=0}^\infty(x+x^2)^j
+=\frac1{1-(x+x^2)}
+=\frac1{1-x-x^2}
+\end{equation*}
+
+Thus, the recurrence is $f_{n+2}=f_{n+1}+f_n$ by Theorem \ref{gen_shortcut}.
+
+\medskip
+
+We now find a closed-form for the Fibonacci numbers. $\frac{F(x)-f_0-f_1x}{x^2}=\frac{F(x)-f_0}{x}+F(x)$ by Wilf I, so solving yields:
+\begin{equation*}
+F(x)
+=\frac1{1-x-x^2}
+=-\frac1{(x-\frac{-1+\sqrt5}2)(x-\frac{-1-\sqrt5}2)}
+=\frac1{\sqrt5}\left(\frac1{x+\frac{1+\sqrt5}2}-\frac1{x-\frac{-1+\sqrt5}2}\right)
+\end{equation*}
+
+Thus, by Lemma \ref{easier_gen_linear}, we have:
+
+\begin{equation*}
+f_n
+=\frac1{\sqrt5}\left[\left(\frac{-1+\sqrt5}2\right)^{-n-1}-\left(-\frac{1+\sqrt5}2\right)^{-n-1}\right]
+=\frac1{\sqrt5}\left[\left(\frac{1+\sqrt5}2\right)^{n+1}-\left(\frac{1-\sqrt5}2\right)^{n+1}\right]
 \end{equation*}
 \end{example}
 
