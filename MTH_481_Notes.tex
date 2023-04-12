@@ -1438,7 +1438,7 @@ Substitute $ax$ for $x$ in Example \ref{recip_1_minus_x}.
 \end{lemma}
 
 \begin{lemma}\label{easier_gen_linear}
-$\displaystyle[x^n]\frac1{x-a}=\frac1{a^{n+1}}$
+$\displaystyle[x^n]\frac1{x-a}=-\frac1{a^{n+1}}$
 
 \begin{hl}
 \begin{proof}
@@ -1527,40 +1527,78 @@ s_n
 \end{equation*}
 \end{example}
 
-\begin{example}
-Consider the Fibonacci numbers, with the recurrence $f_{n+2}=f_{n+1}+f_n$ with initial conditions $f_0=f_1=1$. We first note that these have a combinatorial interpretation; namely, $f_n$ gives the number of ways to tile a $1\times n$ grid with monominoes and dominoes. Indeed, the result follows by conditioning on whether the leftmost square is covered by a monomino ($f_{n+1}$ ways to tile the remaining squares) or covered by a domino ($f_n$ ways to tile the remaining squares).
+\begin{definition}
+The \emph{Fibonacci Numbers} are those with the recurrence $f_{n+2}=f_{n+1}+f_n$ and initial values $f_0=f_1=1$. They count the number of ways to tile a $1\times n$ grid with monominoes and dominoes.
 
-\medskip
+\begin{hl}
+\begin{proof}
+The base case of $f_0=1$ and $f_1=1$ holds. Now, for arbitrary $n>1$, condition on whether the first tile is a monomino or domino. In the former, there are $f_{n+1}$ ways to cover the remaining squares. In the latter, there are $f_n$ ways to cover the remaining squares.
+\end{proof}
+\end{hl}
+\end{definition}
 
-Another way to derive the recurrence from the combinatorial interpretation is to use generating function. Note that $A_1(x)=x^1+x^2$ is a generating function whose coefficients on $x^n$ describes the number of ways to tile a $1\times n$ grid with just one tile. Then the number of ways with $j$ tiles is given by the coefficients of $A_j(x)=(x^1+x^2)^j$. So, using composition:
+\begin{lemma}
+The generating function of the Fibonacci Numbers is $\displaystyle F(x)=\frac1{1-x-x^2}$.
+
+\begin{hl}
+\begin{proof}
+Using the recurrence and Wilf I, $\frac{F(x)-f_0-f_1x}{x^2}=\frac{F(x)-f_0}x+F(x)$. Rearrange to obtain the desired result. Or, using the combinatorial interpretation, let $a_{n,j}$ be the number of ways to tile a $1\times n$ board with $j$ tiles. Let $A_j(x)$ be the associated generating function in $n$. Choosing any sequence of monominoes and dominoes yields $A_j(x)=(x^1+x^2)^j$. By composition, $F(x)=\sum_{j=0}^\infty A_j(x)=\sum_{j=0}^\infty(x+x^2)^j=\frac1{1-(x+x^2)}=\frac1{1-x-x^2}$.
+\end{proof}
+\end{hl}
+\end{lemma}
+
+\begin{lemma}
+$f_{n+2}-1=f_n+\cdots+f_0$
+
+\begin{hl}
+\begin{proof}
+LHS counts number of ways to tile a $1\times(n+2)$ grid with at least one domino. RHS conditions on the number of tiles to the left of the rightmost domino.
+\end{proof}
+\end{hl}
+\end{lemma}
+
+\begin{lemma}
+$f_j=\sum_{k=0}^\infty\binom{j-k}k$
+
+\begin{hl}
+\begin{proof}
 \begin{equation*}
 F(x)
-=\sum_{j=0}^\infty A_j(x)
-=\sum_{j=0}^\infty(x+x^2)^j
-=\frac1{1-(x+x^2)}
 =\frac1{1-x-x^2}
+=\sum_{n=0}^\infty(x+x^2)^n
+=\sum_{n=0}^\infty x^n(1+x)^n
+=\sum_{n=0}^\infty x^n\sum_{k=0}^n\binom nkx^k
+=\sum_{k=0}^\infty\sum_{n=k}^\infty\binom nkx^{n+k}
 \end{equation*}
 
-Thus, the recurrence is $f_{n+2}=f_{n+1}+f_n$ by Theorem \ref{gen_shortcut}.
-
-\medskip
-
-We now find a closed-form for the Fibonacci numbers. $\frac{F(x)-f_0-f_1x}{x^2}=\frac{F(x)-f_0}{x}+F(x)$ by Wilf I, so solving yields:
+Then:
 \begin{equation*}
-F(x)
-=\frac1{1-x-x^2}
-=-\frac1{(x-\frac{-1+\sqrt5}2)(x-\frac{-1-\sqrt5}2)}
-=\frac1{\sqrt5}\left(\frac1{x+\frac{1+\sqrt5}2}-\frac1{x-\frac{-1+\sqrt5}2}\right)
+f_j
+=[x^j]\sum_{k=0}^\infty\sum_{n=k}^\infty\binom nkx^{n+k}
+=\sum_{k=0}^\infty[x^j]\sum_{n=k}^\infty\binom nkx^{n+k}
+=\sum_{k=0}^\infty[x^{j-k}]\sum_{n=k}^\infty\binom nkx^n
+=\sum_{k=0}^\infty\binom{j-k}k\qedhere
 \end{equation*}
+\end{proof}
+\end{hl}
+\end{lemma}
 
-Thus, by Lemma \ref{easier_gen_linear}, we have:
+\begin{lemma}
+The closed form for the Fibonacci Numbers is $\displaystyle f_j=\frac{\varphi^{n+1}-\psi^{n+1}}{\sqrt5}$ where $\varphi=\frac{1+\sqrt5}2$ is the golden ratio and $\psi=\frac{1-\sqrt5}2$ is its conjugate.
 
+\begin{hl}
+\begin{proof}
+First note $\varphi\psi=-1$. Perform partial fraction decomposition to obtain $F(x)=\frac1{1-x-x^2}=\frac{-1}{(x+\varphi)(x+\psi)}=\frac{1/\sqrt5}{(x+\varphi)}-\frac{1/\sqrt5}{(x+\psi)}$. Then using Lemma \ref{easier_gen_linear}:
 \begin{equation*}
-f_n
-=\frac1{\sqrt5}\left[\left(\frac{-1+\sqrt5}2\right)^{-n-1}-\left(-\frac{1+\sqrt5}2\right)^{-n-1}\right]
-=\frac1{\sqrt5}\left[\left(\frac{1+\sqrt5}2\right)^{n+1}-\left(\frac{1-\sqrt5}2\right)^{n+1}\right]
+f_j
+=[x^j]F(x)
+=\frac1{\sqrt5}\left([x^j]\frac{1}{x+\varphi}-[x^j]\frac{1}{x+\psi}\right)
+=\frac{-(-\varphi)^{-j-1}+(-\psi)^{-j-1}}{\sqrt5}
+=\frac{\varphi^{j+1}-\psi^{j+1}}{\sqrt5}\qedhere
 \end{equation*}
-\end{example}
+\end{proof}
+\end{hl}
+\end{lemma}
 
 \begin{definition}
 Other types of generating functions are also possible, such as:
