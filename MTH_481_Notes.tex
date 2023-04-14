@@ -1582,7 +1582,6 @@ But this is the generating function for the partial sums of $f_n$ by Lemma \ref{
 \item LHS counts number of ways to tile a $1\times 2n$ grid with at least one monomino. RHS conditions on the number of tiles to the left of the rightmost monomino.
 \item LHS counts number of ways to tile a $1\times (2n+1)$ grid, which necessarily has at least one monomino. RHS conditions on the number of tiles to the left of the rightmost monomino.\qedhere
 \end{enumerate}
-
 \end{proof}
 \end{hl}
 \end{lemma}
@@ -1592,6 +1591,7 @@ $f_j=\sum_{k=0}^\infty\binom{j-k}k$
 
 \begin{hl}
 \begin{proof}
+Condition on the number of dominoes $k$. Then precisely $j-k$ tiles are needed; choose $k$ of them to be the dominoes. Or, prove it with generating functions:
 \begin{equation*}
 F(x)
 =\frac1{1-x-x^2}
@@ -1609,6 +1609,16 @@ f_j
 =\sum_{k=0}^\infty[x^{j-k}]\sum_{n=k}^\infty\binom nkx^n
 =\sum_{k=0}^\infty\binom{j-k}k\qedhere
 \end{equation*}
+\end{proof}
+\end{hl}
+\end{lemma}
+
+\begin{lemma}
+$\displaystyle\sum_{k=1}^n\binom nkf_{k-1}=f_{2n-1}$
+
+\begin{hl}
+\begin{proof}
+RHS counts the number of tilings of a $1\times(2n-1)$ grid into monominoes and dominoes. LHS conditions on the number of monominoes $k$ among the first $n$ tiles. There is at least one since otherwise the $n$ dominoes would fill a $1\times 2n$ grid. Choose which are monominoes $\binom nk$ ways. The monominoes take $k$ squares, and the $n-k$ dominoes take $2(n-k)$ squares, so that $2n-k$ squares are taken by the first $n$ tiles. The number of remaining squares is $2n-1-(2n-k)=k-1$; cover these $f_{k-1}$ ways.
 \end{proof}
 \end{hl}
 \end{lemma}
