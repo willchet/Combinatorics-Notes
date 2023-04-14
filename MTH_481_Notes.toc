@@ -16,5 +16,9 @@
 \contentsline {subsection}{\numberline {4.2}Set Partitions}{13}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Integer Partitions}{16}{subsection.4.3}%
 \contentsline {section}{\numberline {5}Binomial Inversion}{17}{section.5}%
-\contentsline {section}{\numberline {6}Formal Power Series \& Generating Functions}{19}{section.6}%
+\contentsline {section}{\numberline {6}Generating Functions}{19}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Definitions}{19}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Common Generating Functions}{20}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Recurrences}{21}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4}Counting Using Products}{23}{subsection.6.4}%
 \contentsline {section}{\numberline {7}Sieve Method}{24}{section.7}%

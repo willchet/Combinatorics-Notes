@@ -1286,7 +1286,9 @@ b_n=\sum_{k=0}^n\binom nk\delta_{k1}(-1)^k=\binom n1(-1)^1=-n
 \end{equation*}
 \end{example}
 
-\section{Formal Power Series \& Generating Functions}
+\section{Generating Functions}
+
+\subsection{Definitions}
 
 \begin{definition}
 A \emph{formal power series} is a summation $\sum_{n=0}^\infty a_nx^n$ for a sequence of coefficients $\{a_n\}$
@@ -1346,6 +1348,21 @@ Define the \emph{degree} of a formal power series $f(x)$ to be the smallest $n$ 
 Define \emph{differentiation} as $f'(x)=\sum_{n=0}^\infty na_nx^{n-1}$ for $f(x)=\sum_{n=0}^\infty a_nx^n$. All normal derivative rules such as the sum, product, and quotient rule hold for formal power series.
 \end{proposition}
 
+\begin{definition}
+Other types of generating functions are also possible, such as:
+\begin{table}[H]
+\centering
+\begin{NiceTabular}{llll}\toprule
+Type&Abbreviation&Form&Notation\\\midrule
+Ordinary Generating Function&ogf&$f(x)=\sum_{n=0}^\infty a_nx^n$&$f(x)\ogf \{a_n\}$\\
+Exponential Generating Function&egf&$g(x)=\sum_{n=0}^\infty b_n\frac{x^n}{n!}$&$g(x)\overset{\text{egf}}{\longleftrightarrow}\{b_n\}$\\
+Dirichlet Generating Function&dgf&$h(s)=\sum_{n=1}^\infty\frac{c_n}{n^s}$&$h(s)\overset{\text{dgf}}{\longleftrightarrow}\{c_n\}$\\\bottomrule
+\end{NiceTabular}
+\end{table}
+\end{definition}
+
+\subsection{Common Generating Functions}
+
 \begin{example}\label{recip_1_minus_x}
 $\displaystyle\frac1{1-x}=\sum_{n=0}^\infty x^n$, so that $\displaystyle[x^k]\frac1{1-x}=1$
 
@@ -1364,44 +1381,77 @@ Or, carry out the multiplication:
 \end{hl}
 \end{example}
 
-\begin{example}
-$\displaystyle\frac1{1+x}=\sum_{n=0}^\infty (-1)^nx^n$, so that $\displaystyle[x^k]\frac1{1+x}=(-1)^k$
-\end{example}
+\begin{lemma}\label{generating_func_recip_linear}
+$\displaystyle[x^n]\frac1{1-ax}=a^n$
+
+\begin{hl}
+\begin{proof}
+Substitute $ax$ for $x$ in Example \ref{recip_1_minus_x}.
+\end{proof}
+\end{hl}
+\end{lemma}
+
+\begin{lemma}\label{easier_gen_linear}
+$\displaystyle[x^n]\frac1{x-a}=-\frac1{a^{n+1}}$
+
+\begin{hl}
+\begin{proof}
+Using Lemma \ref{generating_func_recip_linear}, $\displaystyle [x^n]\frac1{x-a}=-\frac1a[x^n]\frac1{1-\frac1ax}=-\frac1{a^{n+1}}$.
+\end{proof}
+\end{hl}
+\end{lemma}
 
 \begin{example}
 $[x^n]x^kA(x)=[x^{n-k}]A(x)$ and $\displaystyle[x^n]\frac1{x^k}A(x)=[x^{n+k}]A(x)$ for appropriate $n,k$
 \end{example}
 
-\begin{example}
+\begin{lemma}\label{part_sums_gen}
 $\displaystyle[x^n]\frac{A(x)}{1-x}=\sum_{k=0}^na_k$ from Example \ref{recip_1_minus_x} and definition of multiplication
 \begin{arrows}
 \item In other words, dividing by $1-x$ gives the partial sums
 \end{arrows}
-\end{example}
-
-\begin{example}
-$\displaystyle[x^n]\frac x{(1-x)^2}=n$
-
-\begin{hl}
-\begin{proof}
-\begin{equation*}
-\frac x{(1-x)^2}
-=x\frac d{dx}\frac1{1-x}
-=x\frac d{dx}\sum_{n=0}^\infty x^n
-=x\sum_{n=0}^\infty nx^{n-1}
-=\sum_{n=0}^\infty nx^n\qedhere
-\end{equation*}
-\end{proof}
-\end{hl}
-\end{example}
+\end{lemma}
+%
+%\begin{example}
+%$\displaystyle[x^n]\frac x{(1-x)^2}=n$
+%
+%\begin{hl}
+%\begin{proof}
+%\begin{equation*}
+%\frac x{(1-x)^2}
+%=x\frac d{dx}\frac1{1-x}
+%=x\frac d{dx}\sum_{n=0}^\infty x^n
+%=x\sum_{n=0}^\infty nx^{n-1}
+%=\sum_{n=0}^\infty nx^n\qedhere
+%\end{equation*}
+%\end{proof}
+%\end{hl}
+%\end{example}
 
 \begin{lemma}\label{binom_gen}
 $\displaystyle[x^n]\frac{x^k}{(1-x)^{k+1}}=\binom nk$ by Theorem \ref{sum_bin_times_monom}.
 \end{lemma}
 
-\begin{example}
-$\displaystyle[x^n]\frac{2x}{(1-x)^8}=2[x^{n+6}]\frac{x^7}{(1-x)^8}=2\binom{n+6}7$
-\end{example}
+\begin{lemma}
+$\displaystyle [x^n]\frac1{(x-a)^k}=(-1)^k\left(\frac1a\right)^{n+k}\binom{n+k-1}{k-1}$
+
+\begin{hl}
+\begin{proof}
+\begin{align*}
+[x^n]\frac1{(x-a)^k}
+&=[x^{n+k-1}]\frac{x^{k-1}}{(x-a)^k}
+=\frac1a[x^{n+k-1}]\frac{(x/a)^{k-1}}{(x/a-1)^k}
+=(-1)^k\frac1a[x^{n+k-1}]\frac{(x/a)^{k-1}}{(1-x/a)^k}\\
+&\overset{\ref{binom_gen}}=(-1)^k\frac1a\cdot\left(\frac1a\right)^{n+k-1}\binom{n+k-1}{k-1}
+=(-1)^k\left(\frac1a\right)^{n+k}\binom{n+k-1}{k-1}\qedhere
+\end{align*}
+\end{proof}
+\end{hl}
+\end{lemma}
+
+%\begin{example}
+%$\displaystyle[x^n]\frac{2x}{(1-x)^8}=2[x^{n+6}]\frac{x^7}{(1-x)^8}=2\binom{n+6}7$
+%\end{example}
 
 \begin{theorem}
 Let $a_n=\sum_{k=0}^n\binom nkb_k$, so that by Binomial Inversion, $b_n=\sum_{k=0}^n\binom nka_k(-1)^{n-k}$. Let $A(x),B(x)$ be the corresponding power series. Then:
@@ -1427,25 +1477,7 @@ Let $\widetilde a_n=(-1)^na_n$ and $\widetilde b_n=(-1)^nb_n$. By the above resu
 \end{hl}
 \end{theorem}
 
-\begin{lemma}\label{generating_func_recip_linear}
-$\displaystyle[x^n]\frac1{1-ax}=a^n$
-
-\begin{hl}
-\begin{proof}
-Substitute $ax$ for $x$ in Example \ref{recip_1_minus_x}.
-\end{proof}
-\end{hl}
-\end{lemma}
-
-\begin{lemma}\label{easier_gen_linear}
-$\displaystyle[x^n]\frac1{x-a}=-\frac1{a^{n+1}}$
-
-\begin{hl}
-\begin{proof}
-Using Lemma \ref{generating_func_recip_linear}, $\displaystyle [x^n]\frac1{x-a}=-\frac1a[x^n]\frac1{1-\frac1ax}=-\frac1{a^{n+1}}$.
-\end{proof}
-\end{hl}
-\end{lemma}
+\subsection{Recurrences}
 
 \begin{concept}
 Given a recurrence relation defining a sequence $\{a_n\}$, a closed form for the generating function $A(x)$ can then be found. To find a closed form for the original sequence, the typical procedure (for linear recurrences) is to apply partial fraction decomposition to obtain $A(x)$ as a sum of factors of the form $\frac{c}{1-ax}$. Then, applying $[x^n]$, linearity, and Lemma \ref{generating_func_recip_linear} yields $a_n$.
@@ -1459,7 +1491,7 @@ Let $a_n=2a_{n-1}$ with $a_0$ given. Let $\{a_n\}\longleftrightarrow A(x)$. Then
 Let $b_{n+1}=2b_n+1$ and $b_0=1$. Then $\sum_{n=0}^\infty b_{n+1}x^{n+1}=2\sum_{n=0}^\infty b_nx^{n+1}+\sum_{n=0}^\infty x^{n+1}$, so that $B(x)-b_0=2xB(x)+\frac x{1-x}$. Solving, $B(x)=\frac1{(1-x)(1-2x)}=-\frac1{1-x}+\frac2{1-2x}$. Thus, $b_n=[x^n]\left(-\frac1{1-x}+\frac2{1-2x}\right)=-1+2(2)^n=2^{n+1}-1$.
 \end{example}
 
-\begin{example}
+\begin{example}\label{nsqgen}
 Let $a_n=n^2$. We find a closed form for the generating function $A(x)$. Note that $a_{n+2}=2a_{n+1}-a_{n}+2$. Thus, $\sum_{n=0}^\infty a_{n+2}x^{n+2}=2\sum_{n=0}^\infty a_{n+1}x^{n+2}-\sum_{n=0}^\infty a_nx^{n+2}+2\sum_{n=0}^\infty x^{n+2}$. So, $A(x)-x=2xA(x)-x^2A(x)+\frac{2x^2}{1-x}$. Solving, $(x^2-2x+1)A(x)=x+\frac{2x^2}{1-x}$, or $A(x)=\frac{x^2+x}{(1-x)^3}$.
 \end{example}
 
@@ -1476,7 +1508,7 @@ Let $G(x)=\frac1{1-ax-bx^2-cx^3}$ for $c\neq0$. $g_n$ satisfies the recurrence $
 \;
 \begin{enumerate}[label=\Roman*.]
 \item\label{wilf1} If $F(x)\ogf \{f_n\}$, then for $k\geq0$, $\displaystyle\{f_{n+k}\}\ogf \frac{F(x)-f_0-f_1x-\cdots-f_{k-1}x^{k-1}}{x^k}$
-\item\label{wilf2} If $F(x)\ogf \{f_n\}$ and $P$ is a polynomial, then $\{P(n)a_n\}\ogf  P(xD)f$, where $D$ is the derivative operator with respect to $x$
+\item\label{wilf2} If $F(x)\ogf \{f_n\}$ and $P$ is a polynomial, then $\{P(n)f_n\}\ogf  P(xD)f$, where $D$ is the derivative operator with respect to $x$
 \item\label{wilf3} If $F(x)\ogf \{f_n\}$ and $G(x)\ogf \{g_n\}$, then $\displaystyle FG\ogf \left\{\sum_{k=0}^na_kb_{n-k}\right\}$
 \item\label{wilf4} If $F(x)\ogf\{f_n\}$ and $k\in\N$, then $\displaystyle F^k\ogf\left\{\sum_{n_1+\cdots+n_k=n}a_{n_1}\cdots a_{n_k}\right\}$
 \item\label{wilf5} If $F(x)\ogf\{f_n\}$, then $\displaystyle\frac1{1-x}F\ogf\left\{\sum_{k=0}^nf_k\right\}$, i.e., $\displaystyle\frac1{1-x}F$ is the generating function for the partial sums
@@ -1490,7 +1522,7 @@ Suppose $a_{n+2}=3a_{n+1}-a_n$ with $a_0=1$ and $a_1=-3$. Then by Wilf I, $\frac
 \end{example}
 
 \begin{example}
-Suppose $a_n=n^2$. Then by Wilf II and Lemma \ref{generating_func_recip_linear}:
+Suppose $a_n=n^2$, as in Example \ref{nsqgen}. Then by Wilf II and Lemma \ref{generating_func_recip_linear}:
 \begin{equation*}
 A(x)
 =(xD)^2\frac1{1-x}
@@ -1502,29 +1534,6 @@ A(x)
 
 \begin{example}
 Suppose $a_{n+1}=2a_n+n$ with $a_0=1$. Let $b_n=n$, so that $\displaystyle B(x)=xD\frac1{1-x}=\frac x{(1-x)^2}$ by Wilf II. By Wilf I, $\frac{A(x)-a_0}x=2A(x)+B(x)$. Rearrange and substitute to obtain $A(x)=\frac{1-2x+2x^2}{(1-2x)(1-x)^2}$.
-\end{example}
-
-\begin{example}
-Suppose a semester of $n$ days is divided into two parts (of arbitrary length), and there is 1 holiday during the first part and 2 holidays during the second part. Let $s_n$ be the number of ways this can be accomplished. Condition on the number of days in the first part $k$. Choose the holiday in the first part $k$ ways, and choose the holidays in the second part $\binom{n-k}2$ ways. Thus, $s_n=\sum_{k=1}^{n-2}k\binom{n-k}2$.
-
-\medskip
-
-The appearance of this form suggests using the product of generating functions. Let $a_n=\binom n1$ and $b_n=\binom n2$, so that $S(x)=A(x)B(x)$. By Lemma \ref{binom_gen}:
-\begin{equation*}
-S(x)
-=A(x)B(x)
-=\frac{x}{(1-x)^2}\cdot \frac{x^2}{(1-x)^3}
-=\frac{x^3}{(1-x)^5}
-\end{equation*}
-
-Thus, we compute:
-\begin{equation*}
-s_n
-=[x^n]\frac{x^3}{(1-x)^5}
-=[x^n]\frac1x\frac{x^4}{(1-x)^5}
-=[x^{n+1}]\frac{x^4}{(1-x)^5}
-=\binom{n+1}4
-\end{equation*}
 \end{example}
 
 \begin{definition}
@@ -1548,11 +1557,32 @@ Using the recurrence and Wilf I, $\frac{F(x)-f_0-f_1x}{x^2}=\frac{F(x)-f_0}x+F(x
 \end{lemma}
 
 \begin{lemma}
-$f_{n+2}-1=f_n+\cdots+f_0$
+\;
+\begin{enumerate}
+\item $f_{n+2}-1=f_n+\cdots+f_0$
+\item $f_{2n}-1=f_1+f_3+\cdots+f_{2n-1}$
+\item $f_{2n+1}=f_{0}+f_2+\cdots+f_{2n}$
+\end{enumerate}
 
 \begin{hl}
 \begin{proof}
-LHS counts number of ways to tile a $1\times(n+2)$ grid with at least one domino. RHS conditions on the number of tiles to the left of the rightmost domino.
+\;
+\begin{enumerate}
+\item LHS counts number of ways to tile a $1\times(n+2)$ grid with at least one domino. RHS conditions on the number of tiles to the left of the rightmost domino. Or, we can use generating functions. By Wilf I, the generating function for RHS is:
+\begin{align*}
+\frac{F(x)-1-x}{x^2}-\frac1{1-x}
+&=\frac{\frac1{1-x-x^2}-1-x}{x^2}-\frac1{1-x}
+=\frac{\frac{2x^2+x^3}{1-x-x^2}}{x^2}-\frac1{1-x}
+=\frac{2+x}{1-x-x^2}-\frac1{1-x}\\
+&=\frac{1}{(1-x-x^2)(1-x)}
+=\frac{F(x)}{1-x}
+\end{align*}
+
+But this is the generating function for the partial sums of $f_n$ by Lemma \ref{part_sums_gen}.
+\item LHS counts number of ways to tile a $1\times 2n$ grid with at least one monomino. RHS conditions on the number of tiles to the left of the rightmost monomino.
+\item LHS counts number of ways to tile a $1\times (2n+1)$ grid, which necessarily has at least one monomino. RHS conditions on the number of tiles to the left of the rightmost monomino.\qedhere
+\end{enumerate}
+
 \end{proof}
 \end{hl}
 \end{lemma}
@@ -1600,18 +1630,33 @@ f_j
 \end{hl}
 \end{lemma}
 
-\begin{definition}
-Other types of generating functions are also possible, such as:
-\begin{table}[H]
-\centering
-\begin{NiceTabular}{llll}\toprule
-Type&Abbreviation&Form&Notation\\\midrule
-Ordinary Generating Function&ogf&$f(x)=\sum_{n=0}^\infty a_nx^n$&$f(x)\ogf \{a_n\}$\\
-Exponential Generating Function&egf&$g(x)=\sum_{n=0}^\infty b_n\frac{x^n}{n!}$&$g(x)\overset{\text{egf}}{\longleftrightarrow}\{b_n\}$\\
-Dirichlet Generating Function&dgf&$h(s)=\sum_{n=1}^\infty\frac{c_n}{n^s}$&$h(s)\overset{\text{dgf}}{\longleftrightarrow}\{c_n\}$\\\bottomrule
-\end{NiceTabular}
-\end{table}
-\end{definition}
+\subsection{Counting Using Products}
+
+
+\begin{example}
+Suppose a semester of $n$ days is divided into two parts (of arbitrary length), and there is 1 holiday during the first part and 2 holidays during the second part. Let $s_n$ be the number of ways this can be accomplished. Condition on the number of days in the first part $k$. Choose the holiday in the first part $k$ ways, and choose the holidays in the second part $\binom{n-k}2$ ways. Thus, $s_n=\sum_{k=1}^{n-2}k\binom{n-k}2$.
+
+\medskip
+
+The appearance of this form suggests using the product of generating functions. Let $a_n=\binom n1$ and $b_n=\binom n2$, so that $S(x)=A(x)B(x)$. By Lemma \ref{binom_gen}:
+\begin{equation*}
+S(x)
+=A(x)B(x)
+=\frac{x}{(1-x)^2}\cdot \frac{x^2}{(1-x)^3}
+=\frac{x^3}{(1-x)^5}
+\end{equation*}
+
+Thus, we compute:
+\begin{equation*}
+s_n
+=[x^n]\frac{x^3}{(1-x)^5}
+=[x^n]\frac1x\frac{x^4}{(1-x)^5}
+=[x^{n+1}]\frac{x^4}{(1-x)^5}
+=\binom{n+1}4
+\end{equation*}
+\end{example}
+
+
 
 \section{Sieve Method}
 \begin{theorem}[Principal of Inclusion/Exclusion]
