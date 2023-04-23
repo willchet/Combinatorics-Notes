@@ -1594,6 +1594,21 @@ Let $G(x)=\frac1{1-ax-bx^2-cx^3}$ for $c\neq0$. $g_n$ satisfies the recurrence $
 Suppose $a_{n+1}=2a_n+n$ with $a_0=1$. Let $b_n=n$, so that $\displaystyle B(x)=xD\frac1{1-x}=\frac x{(1-x)^2}$ by Wilf II. By Wilf I, $\frac{A(x)-a_0}x=2A(x)+B(x)$. Rearrange and substitute to obtain $A(x)=\frac{1-2x+2x^2}{(1-2x)(1-x)^2}$.
 \end{example}
 
+\begin{example}
+We find a closed form for $a_{n+1}=(n+1)a_n+n!$ with $a_0=0$. Using exponential generating function, Wilf I on LHS and Wilf II on RHS gives $A'(x)=(xD+1)A(x)+\frac1{1-x}$, so that $A'(x)=xA'(x)+A(x)+\frac1{1-x}$. This can be solved using integrating factors. Indeed, $(1-x)A'(x)-A(x)=\frac1{1-x}$, so that $D[(1-x)A(x)]=\frac1{1-x}$. Then $A(x)=-\frac{\ln(1-x)}{1-x}$. Note that this is of the form $A(x)=[\ln(1-x)]D[\ln(1-x)]$, so that by the chain rule $A(x)=\frac12D[\ln(1-x)^2]$. Then letting $h_n=\sum_{k=1}^n1/k$ be the $n$th harmonic number, we have:
+\begin{align*}
+a_n
+&=n![x^n]A(x)
+=\frac{n!}2[x^n]D(\ln(1-x)^2)
+=\frac{n!}2[x^{n+1}]xD(\ln(1-x)^2)
+=\frac{(n+1)!}2[x^{n+1}]\ln(1-x)^2\\
+&=\frac{(n+1)!}2\sum_{k=0}^{n+1}([x^k]\ln(1-x))([x^{n-k}]\ln(1-x))
+=\frac{(n+1)!}2\sum_{k=1}^{n}\frac1k\cdot\frac1{n+1-k}\\
+&=\frac{(n+1)!}2\sum_{k=1}^n\frac1{n+1}\left[\frac1k+\frac1{n+1-k}\right]
+=n!\,h_n
+\end{align*}
+\end{example}
+
 \subsection{Fibonacci Numbers}
 
 \begin{definition}
@@ -1708,6 +1723,8 @@ f_n
 \end{hl}
 \end{lemma}
 
+\subsection{Catalan Numbers}
+
 \begin{definition}
 The \emph{Catalan Numbers} $c_n$ count the number of sequences of $2n$ values in $\{\pm1\}$ that add to $0$ and have no negative partial sums. For example, all of the following are realizations of the Catalan Numbers:
 \begin{arrows}
@@ -1727,11 +1744,21 @@ For $w\in C_n$, let the \emph{index} of $w$ be the number of parenthesis pairs i
 \end{definition}
 
 \begin{theorem}
+The Catalan Numbers satisfy the recurrence $\displaystyle c_n=\sum_{k=1}^nc_{k-1}c_{n-k}$.
+
+\begin{hl}
+\begin{proof}
+The number of strings in $C_n$ with index $k$ is $c_{k-1}c_{n-k}$, since the prefix is primitive and thus can be chosen $c_{k-1}$ ways, the the remainder can be chosen $c_{n-k}$ ways. Sum over all $k$ to get $c_n=\sum_{k=1}^nc_{k-1}c_{n-k}$.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{theorem}
 The Catalan Numbers are given by $c_n=\frac1{n+1}\binom{2n}n$.
 
 \begin{hl}
 \begin{proof}
-The number of strings in $C_n$ with index $k$ is $c_{k-1}c_{n-k}$, since the prefix is primitive and thus can be chosen $c_{k-1}$ ways, the the remainder can be chosen $c_{n-k}$ ways. Sum over all $k$ to get $c_n=\sum_{k=1}^nc_{k-1}c_{n-k}$. Then the generating function is:
+The generating function for $c_n$ is:
 \begin{equation*}
 C(x)
 =\sum_{n=0}^\infty c_nx^n
@@ -1806,21 +1833,6 @@ When $n$ is even, we obtain $\binom n{n/2}$. When $n$ is odd, we obtain $\frac12
 \end{proof}
 \end{hl}
 \end{theorem}
-
-\begin{example}
-We find a closed form for $a_{n+1}=(n+1)a_n+n!$ with $a_0=0$. Using exponential generating function, Wilf I on LHS and Wilf II on RHS gives $A'(x)=(xD+1)A(x)+\frac1{1-x}$, so that $A'(x)=xA'(x)+A(x)+\frac1{1-x}$. This can be solved using integrating factors. Indeed, $(1-x)A'(x)-A(x)=\frac1{1-x}$, so that $D[(1-x)A(x)]=\frac1{1-x}$. Then $A(x)=-\frac{\ln(1-x)}{1-x}$. Note that this is of the form $A(x)=[\ln(1-x)]D[\ln(1-x)]$, so that by the chain rule $A(x)=\frac12D[\ln(1-x)^2]$. Then letting $h_n=\sum_{k=1}^n1/k$ be the $n$th harmonic number, we have:
-\begin{align*}
-a_n
-&=n![x^n]A(x)
-=\frac{n!}2[x^n]D(\ln(1-x)^2)
-=\frac{n!}2[x^{n+1}]xD(\ln(1-x)^2)
-=\frac{(n+1)!}2[x^{n+1}]\ln(1-x)^2\\
-&=\frac{(n+1)!}2\sum_{k=0}^{n+1}([x^k]\ln(1-x))([x^{n-k}]\ln(1-x))
-=\frac{(n+1)!}2\sum_{k=1}^{n}\frac1k\cdot\frac1{n+1-k}\\
-&=\frac{(n+1)!}2\sum_{k=1}^n\frac1{n+1}\left[\frac1k+\frac1{n+1-k}\right]
-=n!\,h_n
-\end{align*}
-\end{example}
 
 \subsection{Counting Using Products}
 
