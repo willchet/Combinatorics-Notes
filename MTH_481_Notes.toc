@@ -1,24 +1,26 @@
 \babel@toc {english}{}\relax 
 \contentsline {section}{\numberline {1}Pigeonhole Principle}{2}{section.1}%
-\contentsline {section}{\numberline {2}Permutations}{3}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Introduction}{3}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Inversions}{3}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3}Cycles}{5}{subsection.2.3}%
-\contentsline {section}{\numberline {3}Binomial Coefficient}{8}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Binomial Theorem}{8}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Multichoose}{8}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Other Identities}{9}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Properties of Sequence of Binomial Coefficients}{11}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Multinomial Theorem}{11}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}Generalized Binomial Theorem}{11}{subsection.3.6}%
-\contentsline {section}{\numberline {4}Partitions}{13}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Compositions}{13}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Set Partitions}{13}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Integer Partitions}{16}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Binomial Inversion}{17}{section.5}%
-\contentsline {section}{\numberline {6}Generating Functions}{19}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Definitions}{19}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}Common Generating Functions}{20}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Recurrences}{21}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4}Counting Using Products}{23}{subsection.6.4}%
-\contentsline {section}{\numberline {7}Sieve Method}{24}{section.7}%
+\contentsline {section}{\numberline {2}Binomial Coefficient}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Binomial Theorem}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Multichoose}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Other Identities}{4}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Properties of Sequence of Binomial Coefficients}{6}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Multinomial Theorem}{6}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Generalized Binomial Theorem}{6}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Binomial Inversion}{7}{subsection.2.7}%
+\contentsline {section}{\numberline {3}Permutations}{9}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Introduction}{9}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Inversions}{9}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Cycles}{11}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Derangements}{13}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Partitions}{15}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Compositions}{15}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Set Partitions}{15}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Integer Partitions}{18}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Generating Functions}{19}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Definitions}{19}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Common Generating Functions}{20}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Wilf Rules}{21}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Recurrences}{21}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Counting Using Products}{25}{subsection.5.5}%
+\contentsline {section}{\numberline {6}Sieve Method}{27}{section.6}%

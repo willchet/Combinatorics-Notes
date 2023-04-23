@@ -84,357 +84,6 @@ Divide the square into four triangles using the diagonals. By PHP, one of these 
 \end{hl}
 \end{example}
 
-
-\section{Permutations}
-
-\subsection{Introduction}
-
-\begin{definition}
-A \emph{permutation} of a set $S$ is a linear ordering of its elements. Let $S_n$ denote the set of permutations of $[n]$.
-\begin{arrows}
-\item $S_n$ is also called the \emph{symmetric group}
-\item We can also define $S_n$ to be the set of bijections $\pi:S\bij S$
-\end{arrows}
-\end{definition}
-
-\begin{theorem}
-The number of permutations of $n$ elements is $|S_n|=n!$.
-
-\begin{hl}
-\begin{proof}
-By induction, the number of choices for the first element is $n$, and the number of options for the remainder is $(n-1)!$.
-\end{proof}
-\end{hl}
-\end{theorem}
-
-\begin{example}
-Show $\sum_{i=1}^ni(n-i+1)=\binom{n+2}3$.
-
-\begin{hl}
-LHS conditions on the middle element chosen.
-\end{hl}
-\end{example}
-
-\begin{theorem}
-The number of \emph{distinguishable permutations} of a multiset $S=\{\{1^{n_1},2^{n_2},\dots,k^{n_k}\}\}$ is $\binom{n}{n_1\,n_2\,\cdots\,n_k}=\frac{n!}{n_1!n_2!\cdots n_k!}$ (this is called the \emph{multinomial coefficient}).
-
-\begin{hl}
-\begin{proof}
-Temporarily label each object to obtain $n!$ permutations. Then, for each object type $i$, divide by the number of permutations of these objects $n_i!$.
-\end{proof}
-\end{hl}
-\end{theorem}
-
-\begin{definition}
-A \emph{$k$-string} (or \emph{$k$-word}) over a set (\emph{alphabet}) $A$ is a sequence $a_1a_2\cdots a_k\subset A$.
-\end{definition}
-
-\begin{theorem}
-If $A$ is an alphabet with $|A|=n$, then the number of $k$-words is $n^k$.
-\end{theorem}
-
-\begin{definition}
-A \emph{$k$-permutation} of $S$ is a $k$-word on $S$ in which all elements are distinct.
-\end{definition}
-
-\begin{theorem}
-The number of $k$-permutations of $S$, for $|S|=n$, is $(n)_k=n(n-1)\cdots(n-k+1)=\frac{n!}{(n-k)!}$.
-\end{theorem}
-
-\subsection{Inversions}
-
-\begin{definition}
-If $\pi\in S_n$, let $\pi_j=\pi(j)$. Then $\pi$ can be represented as:
-\begin{itemize}
-\item 2-line representation: $\displaystyle\begin{pmatrix}1&2&\cdots&n\\\pi_1&\pi_2&\cdots&\pi_n\end{pmatrix}$
-\item 1-line representation: $\pi_1\pi_2\cdots\pi_n$
-\end{itemize}
-\end{definition}
-
-\begin{concept}
-The inverse of a permutation $\pi$ can be found with the 2-line representation by exchanging the two rows and then reordering the columns so that the first row is in order.
-\end{concept}
-
-\begin{definition}
-Let $\pi=\pi_1\cdots\pi_n\in S_n$. A pair $(\pi_i,\pi_j)$ for $i<j$ is called an \emph{inversion of $\pi$} if $\pi_i>\pi_j$. Let $E(\pi)$ denote the set of all inversions of $\pi$. Then the \emph{inversion table} $\pi_I$ of $\pi$ is constructed as $\pi_I=b_1\,b_2\,\cdots\,b_n$ by letting $b_j$ count the number of times that $j$ is the second component in $E(\pi)$. The \emph{inversion number} of $\pi$ is defined $i(\pi)=|E(\pi)|=\sum_{k=1}^nb_k$.
-\begin{arrows}
-\item $0\leq b_j<n$ for all $j$, so $b_n=0$
-\item The inversion table provides a unique representation of permutations. The 1-line representation can be reconstructed as follows. First place $n$. Then, work through $\pi_I$ in reverse. For each $b_j$, insert $j$ so that $b_j$ elements are to the left of it.
-\end{arrows}
-\end{definition}
-
-\begin{example}
-Consider $\pi=463512\in S_6$. Then:
-\begin{equation*}
-E(\pi)=\{(4,3),(4,1),(4,2),(6,3),(6,5),(6,1),(6,2),(3,1),(3,2),(5,1),(5,2)\}
-\end{equation*}
-
-We thus have $\pi_I=4\,4\,2\,0\,1\,0$. Now suppose we are given $\pi_I=4\,4\,2\,0\,1\,0$. To reconstruct $\pi$, first place $6$. Since $b_5=1$, we obtain $65$. Since $b_4=0$, place it at the left to obtain $465$. Continue to get $4635$, $46352$, and finally $463512$.
-\end{example}
-
-\begin{theorem}
-The inversion number of $\pi$ equals the inversion number of $\pi^{-1}$, so that $i(\pi)=i(\pi^{-1})$.
-
-\begin{hl}
-\begin{proof}
-$(\pi_i,\pi_j)\in E(\pi)$ $\iff$ $(\pi_i,\pi_j)$ appears in an opposite order as $(i,j)$ in the 2-line representation $\iff$ $(i,j)\in E(\pi^{-1})$. Thus, we have a bijection from $E(\pi)$ to $E(\pi^{-1})$, so that $i(\pi)=i(\pi^{-1})$.
-\end{proof}
-\end{hl}
-\end{theorem}
-
-\begin{definition}
-A permutation $\pi\in S_n$ can be represented via an \emph{inversion grid}. On an $n\times n$ grid, place $\bullet$ in cell $(j,k)$ whenever $\pi_j=k$ (so that each element of the permutation is represented by a row). Place $\times$ in any cell where there exists a $\bullet$ directly below it and another $\bullet$ directly right of it, so that $\times$ in cell $(i,j)$ means that $(\pi_i,\pi_j)$ is an inversion. The number of $\times$ in column $j$ is equal to $b_j$, and $|\pi_I|$ is the total number of $\times$. The \emph{transpose} of an inversion grid is formed by transposing the grid, and is the inversion grid of $\pi^{-1}$.
-
-\medskip
-
-For example, the inversion grid (and its transpose) of $\pi=531264$ is:
-
-\begin{figure}[H]
-\centering
-\begin{subfigure}{0.4\linewidth}
-\centering
-\begin{tblr}{rows={1.5em,rowsep=.5pt},columns={1.5em, colsep=.5pt},cells={m,c},hlines,vlines}
-$\times$&$\times$&$\times$&$\times$&$\bullet$\\
-$\times$&$\times$&$\bullet$\\
-$\bullet$\\
-&$\bullet$\\
-&&&$\times$&&$\bullet$\\
-&&&$\bullet$
-\end{tblr}
-\caption*{Inversion Grid for $\pi$}
-\end{subfigure}
-\begin{subfigure}{0.4\linewidth}
-\centering
-\begin{tblr}{rows={1.5em,rowsep=.5pt},columns={1.5em, colsep=.5pt},cells={m,c},hlines,vlines}
-$\times$&$\times$&$\bullet$\\
-$\times$&$\times$&&$\bullet$\\
-$\times$&$\bullet$\\
-$\times$&&&&$\times$&$\bullet$\\
-$\bullet$\\
-&&&&$\bullet$
-\end{tblr}
-\caption*{Inversion Grid for $\pi^{-1}$ (transpose)}
-\end{subfigure}
-\end{figure}
-\begin{arrows}
-\item Counting the number of $\times$ symbols directly gives $i(\pi)=i(\pi^{-1})$
-\end{arrows}
-\end{definition}
-
-\begin{definition}
-Let $I_n(k)$ count the number of permutations in $S_n$ with exactly $k$ inversions. Define $I_0(0)=1$.
-\end{definition}
-
-%!!! Add transitivity of $E$, $E^c$, and converse
-
-\begin{theorem}
-\;
-\begin{enumerate}
-\item $\displaystyle I_n(j)>0$ iff $0\leq j\leq\binom n2$
-\item $\displaystyle I_n\left(\binom n2\right)=1$
-\item $\displaystyle I_n(1)=n-1$
-\item $\displaystyle I_n(k)=I_n\left(\binom n2-k\right)$, so that $I_n(k)$ is symmetric
-\end{enumerate}
-
-\begin{hl}
-\begin{proof}
-\;
-\begin{enumerate}
-\item A permutation in $S_n$ with exactly $0\leq j\leq\binom n2$ inversions can be inductively constructed as follows. If $j\leq\binom{n-1}2$, then choose a permutation in $S_{n-1}$ with $j$ inversions and add $n$ at the end. Otherwise, pick $(n-1\;\cdots\;1)\in S_{n-1}$ and then add $n$ so that $j-\binom{n-1}2\leq n-1$ elements are to its right.
-\item A permutation $\pi\in S_n$ has $\binom n2$ inversions if every $(\pi_i,\pi_j)$ is an inversion, which occurs iff the permutation is $\pi=(n\;n-1\;\cdots\;2\;1)$.
-\item There is one inversion in $\pi\in S^n$ iff precisely one pair of adjacent entries in $(1\;2\;\cdots\;n)$ is swapped, which can be done $n-1$ ways.
-\item Compose the permutation $\pi\in S_n$ with $\sigma:(n\;n-1\;\cdots\;2\;1)$ to obtain an involution from permutations with $k$ inversions to permutations with $\binom n2-k$ inversions.
-\end{enumerate}
-\end{proof}
-\end{hl}
-\end{theorem}
-
-\begin{theorem}\label{inversion_recurrence}
-$\displaystyle I_n(k)=\sum_{j=0}^{n-1}I_{n-1}(k-j)$
-\begin{arrows}
-\item Given a permutation in $S_{n-1}$ with $k$ inversions, inserting $n$ to form a permutation in $S_n$ can produce any of $\{k,k+1,\dots,k+n-1\}$ inversions depending on the placement of $n$
-\end{arrows}
-\begin{hl}
-\begin{proof}
-We form the bijection from permutations in $S_n$ with $k$ inversions and permutations in $S_{n-1}$ with between $k-n+1$ and $k$ inversions. In the forward direction, remove $n$ from the permutation. In the reverse, add $n$ to the permutation in the location that causes $k$ inversions to be present. Specifically, if the permutation has $k-j$ inversions, insert $n$ so that $j$ values are right of it in the one-line representation.
-\end{proof}
-\end{hl}
-\end{theorem}
-
-\begin{theorem}\label{generating_ink}
-Let $J_n(x)=\sum_{k=0}^\infty I_n(k)x^k$ be the generating function for $\{I_n(k)\}_{k=0}^\infty$. Then $J_n(x)=(1+x+\cdots+x^{n-1})J_{n-1}(x)$.
-
-\begin{hl}
-\begin{proof}
-Using the recurrence in Theorem \ref{inversion_recurrence}:
-\begin{align*}
-J_n(x)
-&=\sum_{k=0}^\infty I_n(k)x^k
-=\sum_{k=0}^\infty\sum_{j=0}^{n-1}I_{n-1}(k-j)x^k
-=\sum_{j=0}^{n-1}\sum_{k=0}^\infty I_{n-1}(k-j)x^k\\
-&=\sum_{j=0}^{n-1}x^j\sum_{k=0}^\infty I_{n-1}(k-j)x^{k-j}
-=\sum_{j=0}^{n-1}x^jJ_{n-1}(x)
-=\left(\sum_{j=0}^{n-1}x^j\right)J_{n-1}(x)\qedhere
-\end{align*}
-\end{proof}
-\end{hl}
-\end{theorem}
-
-\begin{corollary}
-The generating function for $\{I_n(k)\}_{k=0}^\infty$ is:
-\begin{equation*}
-J_n(x)=\frac{(1-x^n)(1-x^{n-1})\cdots(1-x^2)(1-x)}{(1-x)^n}
-\end{equation*}.
-
-\begin{hl}
-\begin{proof}
-Write $(1+x+\cdots+x^{n-1})=\frac{1-x^n}{1-x}$ since it is the partial sum of a geometric series, and then apply the recursion in Theorem \ref{generating_ink}.
-\end{proof}
-\end{hl}
-\end{corollary}
-
-\begin{definition}
-The \emph{sign} of a permutation $\pi$ is $\operatorname{sgn}(\pi)=(-1)^{i(\pi)}$. If the sign is 1 (so that there are an even number of inversions), then the permutation is called \emph{even}. If the sign is $-1$ (so that there are an odd number of inversions), then the permutation is called \emph{odd}.
-\begin{arrows}
-\item Composing a simple transposition $\tau=(k,k+1)$ with $\pi$ causes it to switch sign. This is shown by forming a bijection $E(\pi)\setminus(k+1,k)\leftrightarrow E(\tau\pi)\setminus(k+1,k)$, then noting that precisely one of $E(\pi)$ or $E(\tau\pi)$ contains $(k+1,k)$, so that $E(\tau\pi)=E(\pi)\pm1$.
-\item Any transposition is the composition of an odd number of simple transpositions. This is shown by induction since $(i,i+k+1)=(i,i+k)=(i+k,i+k+1)(i,i+k)(i+k,i+k+1)$.
-\item Thus, applying any transposition switches the sign of a permutation.
-\item Any cycle of length $j$ can be written as a product of $j-1$ transpositions. This is shown by induction since $(a_1,\dots,a_j)=(a_1,a_j)(a_1,\dots,a_{j-1})$.
-\item Thus, a cycle of length $j$ is even iff $j$ is odd.
-\item $\operatorname{sgn}$ is a group homomorphism, so that $\operatorname{sgn}(\pi\delta)=\operatorname{sgn}(\pi)\operatorname{sgn}(\delta)$. This is shown by writing the cycle decomposition of each and then writing each cycle as transpositions.
-\item Using the cycle decomposition for a permutation, we have that a permutation is even if it can be written as an even number of transpositions, and odd if it can be written as an odd number of transpositions.
-\end{arrows}
-\end{definition}
-
-
-
-
-\subsection{Cycles}
-
-\begin{lemma}\label{every_element_in_cycle}
-Let $\pi\in S_n$ and $x\in[n]$. Then there exists a positive $1\leq k\leq n$ such that $\pi^k(x)=x$.
-
-\begin{hl}
-\begin{proof}
-Consider $\{\pi(x),\pi^2(x),\dots,\pi^n(x)\}$. Either one is equal to $x$ (in which case we are done), or by PHP $\pi^i(x)=\pi^j(x)$ for $i<j$. Apply $\pi^{-i}$ to each side.
-\end{proof}
-\end{hl}
-\end{lemma}
-
-\begin{definition}
-Let $\pi=(\pi_1\;\pi_2\;\cdots\;\pi_n)\in S_n$. For some $j\in[n]$, suppose $\pi(j),\pi^2(j),\dots,\pi^k(j)$ are distinct and $\pi^k(j)=j$. This sequence is called a \emph{cycle}. A permutation can be written in \emph{cycle notation} as a product of distinct cycles. For example, $\pi=145263$ can be written as $(1)(24)(356)$. Each cycle should start with its smallest element, and the collection of cycles is ordered by the smallest element in each cycle.
-\begin{arrows}
-\item Every element belongs to a cycle by Lemma \ref{every_element_in_cycle}
-\item The singletons are sometimes dropped from the notation
-\item There is one permutation in $S_n$ with $n$ cycles (the identity) and $(n-1)!$ with 1 cycle
-\end{arrows}
-\end{definition}
-
-\begin{theorem}
-Let $c_1,\dots,c_n$ be nonnegative integers with $\sum_{j=1}^njc_j=n$. Then the number of permutations from $S_n$ with $c_j$ cycles of length $j$ is:
-\begin{equation*}
-\frac{n!}{c_1!c_2!\cdots c_n!1^{c_1}2^{c_2}\cdots n^{c_n}}
-\end{equation*}
-
-\begin{hl}
-\begin{proof}
-Let $C$ be the set of permutations with the given number of cycles. We map $S_n\sur C$ by inserting parentheses from left to right to form all one-cycles, then all two-cycles, and so on. Each permutation in $C$ has $c_1!c_2!\cdots c_n!1^{c_1}2^{c_2}\cdots n^{c_n}$ preimages, since all cycles of length $c_i$ may be permuted $c_i!$ ways, and each cycle of length $j$ has $j$ equivalent ways to write it.
-\end{proof}
-\end{hl}
-\end{theorem}
-
-\begin{example}
-\;
-\begin{enumerate}
-\item The number of permutations with exactly one 3-cycle and two 4-cycles is $\frac{11!}{1!2!3^14^2}$
-\item The number of permutations with exactly one cycle in $S_n$ is $\frac{n!}{1!n^1}=(n-1)!$
-\end{enumerate}
-\end{example}
-
-\begin{example}
-We can also show that the number of permutations in $S_n$ with exactly one cycle is $(n-1)!$ via a combinatorial argument. Write the cycle in cycle notation such that $n$ is the leftmost element. Map this bijectively to a permutation in $S_{n-1}$ (written in one-line notation) by removing the character $n$.
-\end{example}
-
-\begin{definition}
-Let $\sqbinom{[n]}k$ denote the set of all $n$-permutations with exactly $k$ cycles. Let $\sqbinom00=1$ and $\sqbinom nk=\left|\sqbinom{[n]}k\right|$ otherwise. These are \emph{signless Stirling number of the first kind}. These are also denoted $c(n,k)$.
-\begin{arrows}
-\item This counts the number of ways to seat $n$ knights at $k$ unlabeled tables, so that no table is empty
-\end{arrows}
-\end{definition}
-
-\begin{example}
-$\sqbinom{[4]}2=\{(1)(234),(1)(243),(12)(34),(13)(24),(14)(23),(123)(4),(132)(4),(124)(3),$\linebreak $(142)(3),(134)(2),(143)(2)\}$, so that $\sqbinom42=11$.
-\end{example}
-
-\begin{proposition}
-$\displaystyle\sum_{k=0}^n\sqbinom nk=n!$
-
-\begin{hl}
-\begin{proof}
-RHS counts permutations of $[n]$, while LHS conditions on the number of cycles $k$.
-\end{proof}
-\end{hl}
-\end{proposition}
-
-\begin{proposition}
-For $n\geq k\geq l$, $\displaystyle\sqbinom nk=\sqbinom{n-1}{k-1}+(n-1)\sqbinom{n-1}k$.
-
-\begin{hl}
-\begin{proof}
-RHS conditions on whether $n$ is a fixed point (its own cycle). If so, permute the remaining $n-1$ elements in $k-1$ cycles. If not, permute the $n-1$ elements in $k$ cycles and then pick which of the $n-1$ elements $n$ should go after (indeed, for each cycle of length $p$, there are $p$ elements $n$ could go after, so sum over all cycles).
-\end{proof}
-\end{hl}
-\end{proposition}
-
-\begin{proposition}
-The generating function for $\sqbinom nk$ is $\displaystyle g_n(x)=\sum_k\sqbinom nkx^k=x^{\overline n}$.
-
-\begin{hl}
-\begin{proof}
-When $n=0$, we have $g_0(x)=1$ since $\sqbinom 00=1$ and $\sqbinom 0k=0$ for all $k\geq1$. Otherwise:
-\begin{align*}
-g_n(x)
-&= \sum_k\sqbinom nkx^k
-= \sum_k\sqbinom {n-1}{k-1}x^k+(n-1)\sum_k\sqbinom{n-1}kx^k
-= xg_{n-1}(x)+(n-1)g_{n-1}(x)\\
-&= g_{n-1}(x)\cdot(x+n-1)
-\end{align*}
-
-Thus, by induction, we have $g_n(x)=x\cdot(x+1)\cdot(x+n-1)=x^{\overline n}$.
-\end{proof}
-\end{hl}
-\end{proposition}
-
-\begin{corollary}
-$\displaystyle\sum_{k}(-1)^{n-k}\sqbinom nkx^k=(x)_n$.
-
-\begin{hl}
-\begin{proof}
-Begin with the generating function, the substitute $-x$ for $x$ and rearrange.
-\end{proof}
-\end{hl}
-\end{corollary}
-
-\begin{proposition}
-$\displaystyle\sqbinom n2=\frac{n!}2\sum_{m=1}^{n-1}\frac1{m(n-m)}$
-
-\begin{hl}
-\begin{proof}
-Rewrite this as $\sqbinom n2=\sum_{m=1}^{n-1}\frac{n!}2\frac1{m(n-m)}$. LHS counts the number of permutations in $S_n$ with two cycles. RHS counts the same thing via over-counting. First count all permutations of $[n]$, $n!$ ways. Now group the string by placing the first $m$ into a group and the remaining $n-m$ into another group. Of all such ways to do this, precisely $\frac1{2m(n-m)}$ ways yield a valid permutation in canonical form. Indeed, there are $m$ ways to rotate the first group, $n-m$ ways to rotate the second, and 2 ways to order the cycles, and all together only one combination of these is a valid permutation in canonical form. Thus, by summing over all $m$, we have our result.
-\end{proof}
-\end{hl}
-\end{proposition}
-
-\begin{proposition}
-$\displaystyle\sum_{k}\sqbinom nk(-1)^k=0$ for $n\geq2$
-
-\begin{hl}
-\begin{proof}
-We form an involution between permutations with an odd number of cycles and those with an even number of cycles. If 1 and 2 belong to different cycles, then concatenate these cycles; for example, $(134)(25)$ becomes $(13425)$. If 1 and 2 belong to the same cycle, then split the cycle at 2; for example, $(13425)$ becomes $(134)(25)$. This will always result in a valid permutation in canonical form. This is clearly an involution, and it changes the parity of the number of cycles, hence we have the result.
-\end{proof}
-\end{hl}
-\end{proposition}
-
 \section{Binomial Coefficient}
 
 \begin{definition}
@@ -767,9 +416,12 @@ The generalized binomial coefficient $\binom\alpha k$ for $\alpha\in\R$ and $k\i
 
 \begin{theorem}[Generalized Binomial Theorem]
 $(1+x)^\alpha=\sum_{n=0}^\infty\binom\alpha nx^n$ as a formal power series (this follows by computing the Taylor series)
+\begin{arrows}
+\item This is often useful when working with generating functions
+\end{arrows}
 \end{theorem}
 
-\begin{example}
+\begin{example}\label{ex_sqrt_gen_bin}
 \begin{align*}
 \sqrt{1-4x}
 &= \sum_{n=0}^\infty\binom{1/2}n(-4x)^n
@@ -839,6 +491,524 @@ By the Generalized Binomial Theorem and Theorem \ref{alt_binom}:
 \end{proof}
 \end{hl}
 \end{theorem}
+
+\subsection{Binomial Inversion}
+\begin{theorem}[Binomial Inversion]\label{bin_inv}
+Let $\{a_n\},\{b_n\}$ be sequences for $n\geq0$. Then:
+\begin{equation*}
+a_n=\sum_{k=0}^n\binom nkb_k\text{ for all }n\iff b_n=\sum_{k=0}^n\binom nka_k(-1)^{n-k}\text{ for all }n
+\end{equation*}
+\begin{arrows}
+\item The symmetric version is $\displaystyle a_n=\sum_{k=0}^n\binom nkb_k(-1)^k$ iff $\displaystyle b_n=\sum_{k=0}^n\binom nka_k(-1)^k$
+\item Binomial inversion can sometimes offer an alternative for proofs other than Inclusion/Exclusion, such as with derangements
+\end{arrows}
+
+\begin{hl}
+\begin{proof}
+Suppose the RHS. Using Lemma \ref{bin_inv_prep_1}:
+\begin{align*}
+\sum_{k=0}^n\binom nkb_k
+&=\sum_{k=0}^n\binom nk\sum_{j=0}^k\binom kja_j(-1)^{k-j}
+=\sum_{k=0}^n\binom nk\sum_{j=0}^k\binom kja_j(-1)^{k-j}\\
+&=\sum_{j=0}^na_j(-1)^{-j}\sum_{k=j}^n\binom nk\binom kj(-1)^k
+=\sum_{j=0}^na_j(-1)^{-j}(-1)^n\delta_{nj}
+=a_n
+\end{align*}
+
+The converse and symmetric version follow by applying the above to modified versions of $a_n$ and $b_n$.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{definition}
+The \emph{binomial transform} of $\{a_n\}$ is $b_n=\sum_{k=0}^n\binom nka_k(-1)^k$.
+\begin{arrows}
+\item This is an involution, corresponding to the symmetric form of binomial inversion
+\item We also have $b_n=(-1)^n(\delta^na)_0$, the $n$th forward difference with alternating sign
+\end{arrows}
+\end{definition}
+
+\begin{example}
+Using Theorem \ref{surjection_count}, the binomial transform of $a_n=n^2$ is:
+\begin{equation*}
+b_n=\sum_{k=0}^n\binom nkk^2(-1)^k=(-1)^nn!\setbinom 2n=\{0,-1,2,0,0,\dots\}
+\end{equation*}
+
+This can also be found using the forward difference interpretation:
+\begin{equation*}
+\begin{array}{ccccccccc}
+\boxed{0}&&1&&4&&9&&16\\
+&\boxed{1}&&3&&5&&7\\
+&&\boxed{2}&&2&&2\\
+&&&\boxed{0}&&0
+\end{array}
+\end{equation*}
+\end{example}
+
+\begin{example}
+The binomial transform of $a_n=1$ is:
+\begin{equation*}
+b_n=\sum_{k=0}^n\binom nka_k(-1)^k=\sum_{k=0}^n\binom nk(-1)^k=\delta_{n0}
+\end{equation*}
+\end{example}
+
+\begin{example}
+Using Extraction/Absorption, the binomial transform of $a_n=n$ is:
+\begin{equation*}
+b_n=\sum_{k=0}^n\binom nkk(-1)^k
+=\sum_{k=1}^nn\binom{n-1}{k-1}(-1)^k
+=-n\sum_{k=0}^{n-1}\binom{n-1}{k}(-1)^k
+=-n\delta_{n1}
+=-\delta_{n1}
+\end{equation*}
+\end{example}
+
+\begin{example}
+The binomial transform of $a_n=a^n$ is:
+\begin{equation*}
+b_n=\sum_{k=0}^n\binom nka^k(-1)^k=\sum_{k=0}^n\binom nk(-a)^k=(1-a)^n
+\end{equation*}
+\end{example}
+
+\begin{example}
+The binomial transform of $a_n=\delta_{n1}$ is:
+\begin{equation*}
+b_n=\sum_{k=0}^n\binom nk\delta_{k1}(-1)^k=\binom n1(-1)^1=-n
+\end{equation*}
+\end{example}
+
+\section{Permutations}
+
+\subsection{Introduction}
+
+\begin{definition}
+A \emph{permutation} of a set $S$ is a linear ordering of its elements. Let $S_n$ denote the set of permutations of $[n]$.
+\begin{arrows}
+\item $S_n$ is also called the \emph{symmetric group}
+\item We can also define $S_n$ to be the set of bijections $\pi:S\bij S$
+\end{arrows}
+\end{definition}
+
+\begin{theorem}
+The number of permutations of $n$ elements is $|S_n|=n!$.
+
+\begin{hl}
+\begin{proof}
+By induction, the number of choices for the first element is $n$, and the number of options for the remainder is $(n-1)!$.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{example}
+Show $\sum_{i=1}^ni(n-i+1)=\binom{n+2}3$.
+
+\begin{hl}
+LHS conditions on the middle element chosen.
+\end{hl}
+\end{example}
+
+\begin{theorem}
+The number of \emph{distinguishable permutations} of a multiset $S=\{\{1^{n_1},2^{n_2},\dots,k^{n_k}\}\}$ is $\binom{n}{n_1\,n_2\,\cdots\,n_k}=\frac{n!}{n_1!n_2!\cdots n_k!}$ (this is called the \emph{multinomial coefficient}).
+
+\begin{hl}
+\begin{proof}
+Temporarily label each object to obtain $n!$ permutations. Then, for each object type $i$, divide by the number of permutations of these objects $n_i!$.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{definition}
+A \emph{$k$-string} (or \emph{$k$-word}) over a set (\emph{alphabet}) $A$ is a sequence $a_1a_2\cdots a_k\subset A$.
+\end{definition}
+
+\begin{theorem}
+If $A$ is an alphabet with $|A|=n$, then the number of $k$-words is $n^k$.
+\end{theorem}
+
+\begin{definition}
+A \emph{$k$-permutation} of $S$ is a $k$-word on $S$ in which all elements are distinct.
+\end{definition}
+
+\begin{theorem}
+The number of $k$-permutations of $S$, for $|S|=n$, is $(n)_k=n(n-1)\cdots(n-k+1)=\frac{n!}{(n-k)!}$.
+\end{theorem}
+
+\subsection{Inversions}
+
+\begin{definition}
+If $\pi\in S_n$, let $\pi_j=\pi(j)$. Then $\pi$ can be represented as:
+\begin{itemize}
+\item 2-line representation: $\displaystyle\begin{pmatrix}1&2&\cdots&n\\\pi_1&\pi_2&\cdots&\pi_n\end{pmatrix}$
+\item 1-line representation: $\pi_1\pi_2\cdots\pi_n$
+\end{itemize}
+\end{definition}
+
+\begin{concept}
+The inverse of a permutation $\pi$ can be found with the 2-line representation by exchanging the two rows and then reordering the columns so that the first row is in order.
+\end{concept}
+
+\begin{definition}
+Let $\pi=\pi_1\cdots\pi_n\in S_n$. A pair $(\pi_i,\pi_j)$ for $i<j$ is called an \emph{inversion of $\pi$} if $\pi_i>\pi_j$. Let $E(\pi)$ denote the set of all inversions of $\pi$. Then the \emph{inversion table} $\pi_I$ of $\pi$ is constructed as $\pi_I=b_1\,b_2\,\cdots\,b_n$ by letting $b_j$ count the number of times that $j$ is the second component in $E(\pi)$. The \emph{inversion number} of $\pi$ is defined $i(\pi)=|E(\pi)|=\sum_{k=1}^nb_k$.
+\begin{arrows}
+\item $0\leq b_j<n$ for all $j$, so $b_n=0$
+\item The inversion table provides a unique representation of permutations. The 1-line representation can be reconstructed as follows. First place $n$. Then, work through $\pi_I$ in reverse. For each $b_j$, insert $j$ so that $b_j$ elements are to the left of it.
+\end{arrows}
+\end{definition}
+
+\begin{example}
+Consider $\pi=463512\in S_6$. Then:
+\begin{equation*}
+E(\pi)=\{(4,3),(4,1),(4,2),(6,3),(6,5),(6,1),(6,2),(3,1),(3,2),(5,1),(5,2)\}
+\end{equation*}
+
+We thus have $\pi_I=4\,4\,2\,0\,1\,0$. Now suppose we are given $\pi_I=4\,4\,2\,0\,1\,0$. To reconstruct $\pi$, first place $6$. Since $b_5=1$, we obtain $65$. Since $b_4=0$, place it at the left to obtain $465$. Continue to get $4635$, $46352$, and finally $463512$.
+\end{example}
+
+\begin{theorem}
+The inversion number of $\pi$ equals the inversion number of $\pi^{-1}$, so that $i(\pi)=i(\pi^{-1})$.
+
+\begin{hl}
+\begin{proof}
+$(\pi_i,\pi_j)\in E(\pi)$ $\iff$ $(\pi_i,\pi_j)$ appears in an opposite order as $(i,j)$ in the 2-line representation $\iff$ $(i,j)\in E(\pi^{-1})$. Thus, we have a bijection from $E(\pi)$ to $E(\pi^{-1})$, so that $i(\pi)=i(\pi^{-1})$.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{definition}
+A permutation $\pi\in S_n$ can be represented via an \emph{inversion grid}. On an $n\times n$ grid, place $\bullet$ in cell $(j,k)$ whenever $\pi_j=k$ (so that each element of the permutation is represented by a row). Place $\times$ in any cell where there exists a $\bullet$ directly below it and another $\bullet$ directly right of it, so that $\times$ in cell $(i,j)$ means that $(\pi_i,\pi_j)$ is an inversion. The number of $\times$ in column $j$ is equal to $b_j$, and $|\pi_I|$ is the total number of $\times$. The \emph{transpose} of an inversion grid is formed by transposing the grid, and is the inversion grid of $\pi^{-1}$.
+
+\medskip
+
+For example, the inversion grid (and its transpose) of $\pi=531264$ is:
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.4\linewidth}
+\centering
+\begin{tblr}{rows={1.5em,rowsep=.5pt},columns={1.5em, colsep=.5pt},cells={m,c},hlines,vlines}
+$\times$&$\times$&$\times$&$\times$&$\bullet$\\
+$\times$&$\times$&$\bullet$\\
+$\bullet$\\
+&$\bullet$\\
+&&&$\times$&&$\bullet$\\
+&&&$\bullet$
+\end{tblr}
+\caption*{Inversion Grid for $\pi$}
+\end{subfigure}
+\begin{subfigure}{0.4\linewidth}
+\centering
+\begin{tblr}{rows={1.5em,rowsep=.5pt},columns={1.5em, colsep=.5pt},cells={m,c},hlines,vlines}
+$\times$&$\times$&$\bullet$\\
+$\times$&$\times$&&$\bullet$\\
+$\times$&$\bullet$\\
+$\times$&&&&$\times$&$\bullet$\\
+$\bullet$\\
+&&&&$\bullet$
+\end{tblr}
+\caption*{Inversion Grid for $\pi^{-1}$ (transpose)}
+\end{subfigure}
+\end{figure}
+\begin{arrows}
+\item Counting the number of $\times$ symbols directly gives $i(\pi)=i(\pi^{-1})$
+\end{arrows}
+\end{definition}
+
+\begin{definition}
+Let $I_n(k)$ count the number of permutations in $S_n$ with exactly $k$ inversions. Define $I_0(0)=1$.
+\end{definition}
+
+%!!! Add transitivity of $E$, $E^c$, and converse
+
+\begin{theorem}
+\;
+\begin{enumerate}
+\item $\displaystyle I_n(j)>0$ iff $0\leq j\leq\binom n2$
+\item $\displaystyle I_n\left(\binom n2\right)=1$
+\item $\displaystyle I_n(1)=n-1$
+\item $\displaystyle I_n(k)=I_n\left(\binom n2-k\right)$, so that $I_n(k)$ is symmetric
+\end{enumerate}
+
+\begin{hl}
+\begin{proof}
+\;
+\begin{enumerate}
+\item A permutation in $S_n$ with exactly $0\leq j\leq\binom n2$ inversions can be inductively constructed as follows. If $j\leq\binom{n-1}2$, then choose a permutation in $S_{n-1}$ with $j$ inversions and add $n$ at the end. Otherwise, pick $(n-1\;\cdots\;1)\in S_{n-1}$ and then add $n$ so that $j-\binom{n-1}2\leq n-1$ elements are to its right.
+\item A permutation $\pi\in S_n$ has $\binom n2$ inversions if every $(\pi_i,\pi_j)$ is an inversion, which occurs iff the permutation is $\pi=(n\;n-1\;\cdots\;2\;1)$.
+\item There is one inversion in $\pi\in S^n$ iff precisely one pair of adjacent entries in $(1\;2\;\cdots\;n)$ is swapped, which can be done $n-1$ ways.
+\item Compose the permutation $\pi\in S_n$ with $\sigma:(n\;n-1\;\cdots\;2\;1)$ to obtain an involution from permutations with $k$ inversions to permutations with $\binom n2-k$ inversions.
+\end{enumerate}
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{theorem}\label{inversion_recurrence}
+$\displaystyle I_n(k)=\sum_{j=0}^{n-1}I_{n-1}(k-j)$
+\begin{arrows}
+\item Given a permutation in $S_{n-1}$ with $k$ inversions, inserting $n$ to form a permutation in $S_n$ can produce any of $\{k,k+1,\dots,k+n-1\}$ inversions depending on the placement of $n$
+\end{arrows}
+\begin{hl}
+\begin{proof}
+We form the bijection from permutations in $S_n$ with $k$ inversions and permutations in $S_{n-1}$ with between $k-n+1$ and $k$ inversions. In the forward direction, remove $n$ from the permutation. In the reverse, add $n$ to the permutation in the location that causes $k$ inversions to be present. Specifically, if the permutation has $k-j$ inversions, insert $n$ so that $j$ values are right of it in the one-line representation.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{theorem}\label{generating_ink}
+Let $J_n(x)=\sum_{k=0}^\infty I_n(k)x^k$ be the generating function for $\{I_n(k)\}_{k=0}^\infty$. Then $J_n(x)=(1+x+\cdots+x^{n-1})J_{n-1}(x)$.
+
+\begin{hl}
+\begin{proof}
+Using the recurrence in Theorem \ref{inversion_recurrence}:
+\begin{align*}
+J_n(x)
+&=\sum_{k=0}^\infty I_n(k)x^k
+=\sum_{k=0}^\infty\sum_{j=0}^{n-1}I_{n-1}(k-j)x^k
+=\sum_{j=0}^{n-1}\sum_{k=0}^\infty I_{n-1}(k-j)x^k\\
+&=\sum_{j=0}^{n-1}x^j\sum_{k=0}^\infty I_{n-1}(k-j)x^{k-j}
+=\sum_{j=0}^{n-1}x^jJ_{n-1}(x)
+=\left(\sum_{j=0}^{n-1}x^j\right)J_{n-1}(x)\qedhere
+\end{align*}
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{corollary}
+The generating function for $\{I_n(k)\}_{k=0}^\infty$ is:
+\begin{equation*}
+J_n(x)=\frac{(1-x^n)(1-x^{n-1})\cdots(1-x^2)(1-x)}{(1-x)^n}
+\end{equation*}.
+
+\begin{hl}
+\begin{proof}
+Write $(1+x+\cdots+x^{n-1})=\frac{1-x^n}{1-x}$ since it is the partial sum of a geometric series, and then apply the recursion in Theorem \ref{generating_ink}.
+\end{proof}
+\end{hl}
+\end{corollary}
+
+\begin{definition}
+The \emph{sign} of a permutation $\pi$ is $\operatorname{sgn}(\pi)=(-1)^{i(\pi)}$. If the sign is 1 (so that there are an even number of inversions), then the permutation is called \emph{even}. If the sign is $-1$ (so that there are an odd number of inversions), then the permutation is called \emph{odd}.
+\begin{arrows}
+\item Composing a simple transposition $\tau=(k,k+1)$ with $\pi$ causes it to switch sign. This is shown by forming a bijection $E(\pi)\setminus(k+1,k)\leftrightarrow E(\tau\pi)\setminus(k+1,k)$, then noting that precisely one of $E(\pi)$ or $E(\tau\pi)$ contains $(k+1,k)$, so that $E(\tau\pi)=E(\pi)\pm1$.
+\item Any transposition is the composition of an odd number of simple transpositions. This is shown by induction since $(i,i+k+1)=(i,i+k)=(i+k,i+k+1)(i,i+k)(i+k,i+k+1)$.
+\item Thus, applying any transposition switches the sign of a permutation.
+\item Any cycle of length $j$ can be written as a product of $j-1$ transpositions. This is shown by induction since $(a_1,\dots,a_j)=(a_1,a_j)(a_1,\dots,a_{j-1})$.
+\item Thus, a cycle of length $j$ is even iff $j$ is odd.
+\item $\operatorname{sgn}$ is a group homomorphism, so that $\operatorname{sgn}(\pi\delta)=\operatorname{sgn}(\pi)\operatorname{sgn}(\delta)$. This is shown by writing the cycle decomposition of each and then writing each cycle as transpositions.
+\item Using the cycle decomposition for a permutation, we have that a permutation is even if it can be written as an even number of transpositions, and odd if it can be written as an odd number of transpositions.
+\end{arrows}
+\end{definition}
+
+
+
+
+\subsection{Cycles}
+
+\begin{lemma}\label{every_element_in_cycle}
+Let $\pi\in S_n$ and $x\in[n]$. Then there exists a positive $1\leq k\leq n$ such that $\pi^k(x)=x$.
+
+\begin{hl}
+\begin{proof}
+Consider $\{\pi(x),\pi^2(x),\dots,\pi^n(x)\}$. Either one is equal to $x$ (in which case we are done), or by PHP $\pi^i(x)=\pi^j(x)$ for $i<j$. Apply $\pi^{-i}$ to each side.
+\end{proof}
+\end{hl}
+\end{lemma}
+
+\begin{definition}
+Let $\pi=(\pi_1\;\pi_2\;\cdots\;\pi_n)\in S_n$. For some $j\in[n]$, suppose $\pi(j),\pi^2(j),\dots,\pi^k(j)$ are distinct and $\pi^k(j)=j$. This sequence is called a \emph{cycle}. A permutation can be written in \emph{cycle notation} as a product of distinct cycles. For example, $\pi=145263$ can be written as $(1)(24)(356)$. Each cycle should start with its smallest element, and the collection of cycles is ordered by the smallest element in each cycle.
+\begin{arrows}
+\item Every element belongs to a cycle by Lemma \ref{every_element_in_cycle}
+\item The singletons are sometimes dropped from the notation
+\item There is one permutation in $S_n$ with $n$ cycles (the identity) and $(n-1)!$ with one cycle
+\end{arrows}
+\end{definition}
+
+\begin{theorem}
+Let $c_1,\dots,c_n$ be nonnegative integers with $\sum_{j=1}^njc_j=n$. Then the number of permutations from $S_n$ with $c_j$ cycles of length $j$ is:
+\begin{equation*}
+\frac{n!}{c_1!c_2!\cdots c_n!1^{c_1}2^{c_2}\cdots n^{c_n}}
+\end{equation*}
+
+\begin{hl}
+\begin{proof}
+Let $C$ be the set of permutations with the given number of cycles. We map $S_n\sur C$ by inserting parentheses from left to right to form all one-cycles, then all two-cycles, and so on. Each permutation in $C$ has $c_1!c_2!\cdots c_n!1^{c_1}2^{c_2}\cdots n^{c_n}$ preimages, since all cycles of length $c_i$ may be permuted $c_i!$ ways, and each cycle of length $j$ has $j$ equivalent ways to write it.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{example}
+\;
+\begin{enumerate}
+\item The number of permutations with exactly one 3-cycle and two 4-cycles is $\frac{11!}{1!2!3^14^2}$
+\item The number of permutations with exactly one cycle in $S_n$ is $\frac{n!}{1!n^1}=(n-1)!$
+\end{enumerate}
+\end{example}
+
+\begin{example}
+We can also show that the number of permutations in $S_n$ with exactly one cycle is $(n-1)!$ via a combinatorial argument. Write the cycle in cycle notation such that $n$ is the leftmost element. Map this bijectively to a permutation in $S_{n-1}$ (written in one-line notation) by removing the character $n$.
+\end{example}
+
+\begin{definition}
+Let $\sqbinom{[n]}k$ denote the set of all $n$-permutations with exactly $k$ cycles. Let $\sqbinom00=1$ and $\sqbinom nk=\left|\sqbinom{[n]}k\right|$ otherwise. These are \emph{signless Stirling number of the first kind}. These are also denoted $c(n,k)$.
+\begin{arrows}
+\item This counts the number of ways to seat $n$ knights at $k$ unlabeled tables, so that no table is empty
+\end{arrows}
+\end{definition}
+
+\begin{example}
+$\sqbinom{[4]}2=\{(1)(234),(1)(243),(12)(34),(13)(24),(14)(23),(123)(4),(132)(4),(124)(3),$\linebreak $(142)(3),(134)(2),(143)(2)\}$, so that $\sqbinom42=11$.
+\end{example}
+
+\begin{proposition}
+$\displaystyle\sum_{k=0}^n\sqbinom nk=n!$
+
+\begin{hl}
+\begin{proof}
+RHS counts permutations of $[n]$, while LHS conditions on the number of cycles $k$.
+\end{proof}
+\end{hl}
+\end{proposition}
+
+\begin{proposition}
+For $n\geq k\geq l$, $\displaystyle\sqbinom nk=\sqbinom{n-1}{k-1}+(n-1)\sqbinom{n-1}k$.
+
+\begin{hl}
+\begin{proof}
+RHS conditions on whether $n$ is a fixed point (its own cycle). If so, permute the remaining $n-1$ elements in $k-1$ cycles. If not, permute the $n-1$ elements in $k$ cycles and then pick which of the $n-1$ elements $n$ should go after (indeed, for each cycle of length $p$, there are $p$ elements $n$ could go after, so sum over all cycles).
+\end{proof}
+\end{hl}
+\end{proposition}
+
+\begin{proposition}
+The generating function for $\sqbinom nk$ is $\displaystyle g_n(x)=\sum_k\sqbinom nkx^k=x^{\overline n}$.
+
+\begin{hl}
+\begin{proof}
+When $n=0$, we have $g_0(x)=1$ since $\sqbinom 00=1$ and $\sqbinom 0k=0$ for all $k\geq1$. Otherwise:
+\begin{align*}
+g_n(x)
+&= \sum_k\sqbinom nkx^k
+= \sum_k\sqbinom {n-1}{k-1}x^k+(n-1)\sum_k\sqbinom{n-1}kx^k
+= xg_{n-1}(x)+(n-1)g_{n-1}(x)\\
+&= g_{n-1}(x)\cdot(x+n-1)
+\end{align*}
+
+Thus, by induction, we have $g_n(x)=x\cdot(x+1)\cdot(x+n-1)=x^{\overline n}$.
+\end{proof}
+\end{hl}
+\end{proposition}
+
+\begin{corollary}
+$\displaystyle\sum_{k}(-1)^{n-k}\sqbinom nkx^k=(x)_n$.
+
+\begin{hl}
+\begin{proof}
+Begin with the generating function, the substitute $-x$ for $x$ and rearrange.
+\end{proof}
+\end{hl}
+\end{corollary}
+
+\begin{proposition}
+$\displaystyle\sqbinom n2=\frac{n!}2\sum_{m=1}^{n-1}\frac1{m(n-m)}$
+
+\begin{hl}
+\begin{proof}
+Rewrite this as $\sqbinom n2=\sum_{m=1}^{n-1}\frac{n!}2\frac1{m(n-m)}$. LHS counts the number of permutations in $S_n$ with two cycles. RHS counts the same thing via over-counting. First count all permutations of $[n]$, $n!$ ways. Now group the string by placing the first $m$ into a group and the remaining $n-m$ into another group. Of all such ways to do this, precisely $\frac1{2m(n-m)}$ ways yield a valid permutation in canonical form. Indeed, there are $m$ ways to rotate the first group, $n-m$ ways to rotate the second, and 2 ways to order the cycles, and all together only one combination of these is a valid permutation in canonical form. Thus, by summing over all $m$, we have our result.
+\end{proof}
+\end{hl}
+\end{proposition}
+
+\begin{proposition}
+$\displaystyle\sum_{k}\sqbinom nk(-1)^k=0$ for $n\geq2$
+
+\begin{hl}
+\begin{proof}
+We form an involution between permutations with an odd number of cycles and those with an even number of cycles. If 1 and 2 belong to different cycles, then concatenate these cycles; for example, $(134)(25)$ becomes $(13425)$. If 1 and 2 belong to the same cycle, then split the cycle at 2; for example, $(13425)$ becomes $(134)(25)$. This will always result in a valid permutation in canonical form. This is clearly an involution, and it changes the parity of the number of cycles, hence we have the result.
+\end{proof}
+\end{hl}
+\end{proposition}
+
+\subsection{Derangements}
+
+\begin{definition}
+A permutation is called a \emph{derangement} if it has no fixed points.
+\end{definition}
+
+\begin{theorem}\label{derangements}
+The number of derangements in $S_n$ is $D_n=\sum_{k=0}^n\binom nkk!(-1)^{n-k}$.
+\begin{arrows}
+\item $D_n$ is often denoted $!n$, the \emph{subfactorial}
+\end{arrows}
+
+\begin{hl}
+\begin{proof}
+To count the number of derangements $D_n$ in $S_n$, define $D_{n,k}$ to equal the number of permutations with $k$ fixed points. $D_{n,k}=\binom nkD_{n-k}$ by the product rule. Conditioning permutations based on their number of fixed points:
+\begin{equation*}
+n!
+=\sum_{k=0}^nD_{n,k}
+=\sum_{k=0}^n\binom nkD_{n-k}
+=\sum_{k=0}^n\binom n{n-k}D_{n-k}
+=\sum_{k=0}^n\binom nkD_k
+\end{equation*}
+
+Thus, by Binomial Inversion, we have $D_n=\sum_{k=0}^n\binom nkk!(-1)^{n-k}$.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{corollary}
+The asymptotic fraction of permutations which are derangements is $\displaystyle\lim_{n\rightarrow\infty}\frac{!n}{n!}=e^{-1}$.
+
+\begin{hl}
+\begin{proof}
+\begin{equation*}
+\lim_{n\rightarrow\infty}\frac{!n}{n!}
+=\lim_{n\rightarrow\infty}\frac1{n!}\sum_{k=0}^n\binom nkk!(-1)^{n-k}
+=\lim_{n\rightarrow\infty}\sum_{k=0}^n\frac1{(n-k)!}(-1)^{n-k}
+=\sum_{k=0}^{\infty}\frac{(-1)^{k}}{k!}
+=e^{-1}\qedhere
+\end{equation*}
+\end{proof}
+\end{hl}
+\end{corollary}
+
+\begin{lemma}
+$D_{n+1}=n(D_n+D_{n-1})$ for $n\geq1$.
+
+\begin{hl}
+\begin{proof}
+Write derangement $\pi\in S_{n+1}$ in cycle notation. There are $n$ options for $\pi_{n+1}\neq n+1$. If $(n+1,\pi_{n+1})$ is a transposition, then there are $D_{n-1}$ ways to permute the remaining elements. Otherwise, removing $\pi_{n+1}$ is a bijection yielding a derangement in $S_n$, so that there are $D_n$ options.
+\end{proof}
+\end{hl}
+\end{lemma}
+
+\begin{lemma}\label{one_fixed_point}
+The number of $n$-permutations with exactly one cycle of length one is $nD_{n-1}=D_n-(-1)^n$.
+
+\begin{hl}
+\begin{proof}
+Pick the fixed point $n$ ways, and permute the remaining via a derangement $D_{n-1}$ ways to get $nD_{n-1}=n(n-1)!\sum_{j=0}^{n-1}\frac{(-1)^j}{j!}=n!\sum_{j=0}^{n-1}\frac{(-1)^j}{j!}=D_n-(-1)^n$.
+\end{proof}
+\end{hl}
+\end{lemma}
+
+\begin{example}
+We claim that the number of permutations $p=p_1\cdots p_n$ so that $p_i\neq i+1$ for all $i\in[n-1]$ is $2D_n-(-1)^n$. Compose any of these permutations $p$ on the left with $\rho=(n,n-1,\dots,1)$ to obtain a permutation $q=\rho p$ such that $q_i\neq i$ for all $i\in[n-1]$. Either the resulting permutation is a derangement, $D_n$ ways, or it has exactly one fixed point of $n$, $D_{n-1}$ ways. Since $\rho$ is a bijection, we obtain $D_n+D_{n-1}$ permutations $p$.
+\end{example}
+
+\begin{proposition}
+The exponential generating function of the number of derangements $D_n$ is $D(x)=\frac{e^{-x}}{1-x}$. This yields $D_n=n!\sum_{k=0}^n\frac{(-1)^k}{k!}$ as before.
+
+\begin{hl}
+\begin{proof}
+$n!=\sum_{k=0}^n\binom nkD_{n-k}$ by Theorem \ref{derangements}. LHS has the EGF $\frac1{1-x}$ and by Wilf III, RHS has the EGF $D(x)e^x$. So, $D(x)=\frac{e^{-x}}{1-x}$. Thus, using Wilf V:
+\begin{equation*}
+D_n=n![x^n]\frac{e^{-x}}{1-x}
+=n!\sum_{k=0}^n[x^k]e^{-x}
+=n!\sum_{k=0}^n\frac{(-1)^k}{k!}\qedhere
+\end{equation*}
+\end{proof}
+\end{hl}
+\end{proposition}
 
 
 \section{Partitions}
@@ -912,7 +1082,7 @@ Or, form an involution from compositions with an even number of parts to those w
 \begin{definition}
 Let $S$ be a set. A collection of non-empty disjoint subsets whose union is $S$ is a \emph{set partition}. Let $\setbinom{S}k$ denote set partitions of $S$ into $k$ blocks, and $\mathcal P_n$ be the set partitions of $[n]$. Let $S(n,k)=\setbinom nk=\left|\setbinom{[n]}k\right|$ be the number of such set partitions (called \emph{Stirling set numbers of the second kind}).
 \begin{arrows}
-\item The \emph{Bell numbers} count all partitions of $n$: $B(n)=\sum_{k=1}^n\setbinom{n}{k}$
+\item The \emph{Bell numbers} count all partitions of $n$: $b_n=\sum_{k=1}^n\setbinom{n}{k}$
 \item The number of \emph{ordered set partitions} is $k!\setbinom nk$
 \item For $S=[n]$, we represent $\{1,2,4\},\{6\},\{5,3\}$ by $124/35/6$, so that each block is ascending and blocks are ordered by their first element
 \item One can also reverse the order of each block (e.g., $421/53/6$) so that the dividers may be removed
@@ -931,7 +1101,7 @@ Suppose $n,k\geq1$. RHS conditions on whether $\{n\}$ is its own block. If so, t
 \end{hl}
 \end{theorem}
 
-\begin{theorem}
+\begin{theorem}\label{surjection_count}
 $\displaystyle k!\setbinom nk
 =\sum_{j=0}^k(-1)^j\binom kj(k-j)^n
 =\sum_{j=0}^k(-1)^{k-j}\binom kjj^n$
@@ -1012,8 +1182,8 @@ LHS counts set partitions of $[n+1]$ into $m+1$ blocks. RHS conditions on the nu
 \end{hl}
 \end{theorem}
 
-\begin{theorem}
-$\displaystyle B(n+1)=\sum_{k=0}^n\binom nkB(k)$
+\begin{theorem}\label{bell_recurrence}
+$\displaystyle b_{n+1}=\sum_{k=0}^n\binom nkb_k$
 
 \begin{hl}
 \begin{proof}
@@ -1042,7 +1212,7 @@ Using this, we get a telescoping sum.
 \end{theorem}
 
 \begin{theorem}
-For $n\geq3$, we have $B(n)<n!$.
+For $n\geq3$, we have $b_n<n!$.
 
 \begin{hl}
 Use the representation where each block is listed in reverse order (so that dividers are not needed). Then every set partition of $[n]$ can be represented uniquely by a permutation in $S_n$. For $n\geq3$, not every permutation is a valid set partition, such as any beginning with $231$ (since 1 needs to appear in the first block).
@@ -1050,42 +1220,42 @@ Use the representation where each block is listed in reverse order (so that divi
 \end{theorem}
 
 \begin{example}
-Let $F(n)$ be the number of all partitions of $[n]$ with no singleton blocks. Show $B(n)=F(n)+F(n+1)$.
+Let $q_n$ be the number of all partitions of $[n]$ with no singleton blocks. Then $b_n=q_n+q_{n+1}$.
 
 \begin{hl}
 \begin{proof}
-We prove $B(n)-F(n)=F(n+1)$. LHS counts partitions with a singleton block, and RHS counts partitions with a new element $n+1$ with no singletons. We can form the bijection which combines all singleton elements with $n+1$ into a new block (and the reverse takes all elements in the same block as $n+1$ and places them in singleton blocks).
+We prove $b_n-q_n=q_{n+1}$. LHS counts partitions with a singleton block, and RHS counts partitions with a new element $n+1$ with no singletons. We can form the bijection which combines all singleton elements with $n+1$ into a new block (and the reverse takes all elements in the same block as $n+1$ and places them in singleton blocks).
 \end{proof}
 \end{hl}
 \end{example}
 
 \begin{corollary}
-$F(n)=(-1)^n+\sum_{j=1}^n(-1)^{j-1}B(n-j)$
+$q_n=(-1)^n+\sum_{j=1}^n(-1)^{j-1}b_{n-j}$
 
 \begin{hl}
 \begin{proof}
-$F(0)=1$, so for induction, suppose the result holds for $n$. Then:
+$q_0=1$, so for induction, suppose the result holds for $n$. Then:
 \begin{align*}
-F(n+1)
-&=B(n)-F(n)
-=B(n)+(-1)^{n+1}+\sum_{j=1}^n(-1)^{j}B(n-j)
-=(-1)^{n+1}+\sum_{j=0}^n(-1)^{j}B(n-j)\\
-&=(-1)^{n+1}+\sum_{j=1}^{n+1}(-1)^{j-1}B(n+1-j)
+q_{n+1}
+&=b_n-q_n
+=b_n+(-1)^{n+1}+\sum_{j=1}^n(-1)^{j}b_{n-j}
+=(-1)^{n+1}+\sum_{j=0}^n(-1)^{j}b_{n-j}\\
+&=(-1)^{n+1}+\sum_{j=1}^{n+1}(-1)^{j-1}b_{n+1-j}\qedhere
 \end{align*}
 \end{proof}
 \end{hl}
 \end{corollary}
 
 \begin{example}
-$F(n)=\sum_{i=0}^n(-1)^i\binom niB(n-i)$
+$q_n=\sum_{i=0}^n(-1)^i\binom nib_{n-i}$
 
 \begin{hl}
 \begin{proof}
-Let $p_i$ be the property that $i$ is a singleton. Then $N(p_i)=B(n-1)$. Similarly, $N(p_{i_1},\dots,p_{i_k})=B(n-k)$. Then $N_k=\binom nkB(n-k)$, so that Inclusion/Exclusion yields $F(n)=\sum_{i=0}^n(-1)^iN_i=\sum_{i=0}^n(-1)^i\binom niB(n-i)$.
+Let $p_i$ be the property that $i$ is a singleton. Then $N(p_i)=b_{n-1}$. Similarly, $N(p_{i_1},\dots,p_{i_k})=b_{n-k}$. Then $N_k=\binom nkb_{n-k}$, so that Inclusion/Exclusion yields $q_n=\sum_{i=0}^n(-1)^iN_i=\sum_{i=0}^n(-1)^i\binom nib_{n-i}$.
 
 \medskip
 
-Or, use binomial inversion. Let $F(n,k)=\binom nkF(n-k)$ be the number with exactly $k$ singletons. By conditioning on the number of singletons, $B(n)=\sum_{k=0}^nF(n,k)=\sum_{k=0}^n\binom nkF(n-k)$. By binomial inversion, $F(n)=\sum_{k=0}^n\binom nkB(k)(-1)^{n-k}$. Perform a change of variables to obtain the desired formula.
+Or, use binomial inversion. Let $q_{n,k}=\binom nkq_{n-k}$ be the number with exactly $k$ singletons. By conditioning on the number of singletons, $b_n=\sum_{k=0}^nq_{n,k}=\sum_{k=0}^n\binom nkq_{n-k}$. By binomial inversion, $q_n=\sum_{k=0}^n\binom nkb_k(-1)^{n-k}$. Perform a change of variables to obtain the desired formula.
 \end{proof}
 \end{hl}
 \end{example}
@@ -1144,147 +1314,7 @@ The transpose forms a bijection between these.
 \end{hl}
 \end{theorem}
 
-\section{Binomial Inversion}
-\begin{theorem}[Binomial Inversion]\label{bin_inv}
-Let $\{a_n\},\{b_n\}$ be sequences for $n\geq0$. Then:
-\begin{equation*}
-a_n=\sum_{k=0}^n\binom nkb_k\text{ for all }n\iff b_n=\sum_{k=0}^n\binom nka_k(-1)^{n-k}\text{ for all }n
-\end{equation*}
-\begin{arrows}
-\item The symmetric version is $\displaystyle a_n=\sum_{k=0}^n\binom nkb_k(-1)^k$ iff $\displaystyle b_n=\sum_{k=0}^n\binom nka_k(-1)^k$
-\item Binomial inversion can sometimes offer an alternative for proofs other than Inclusion/Exclusion
-\end{arrows}
 
-\begin{hl}
-\begin{proof}
-Suppose the RHS. Using Lemma \ref{bin_inv_prep_1}:
-\begin{align*}
-\sum_{k=0}^n\binom nkb_k
-&=\sum_{k=0}^n\binom nk\sum_{j=0}^k\binom kja_j(-1)^{k-j}
-=\sum_{k=0}^n\binom nk\sum_{j=0}^k\binom kja_j(-1)^{k-j}\\
-&=\sum_{j=0}^na_j(-1)^{-j}\sum_{k=j}^n\binom nk\binom kj(-1)^k
-=\sum_{j=0}^na_j(-1)^{-j}(-1)^n\delta_{nj}
-=a_n
-\end{align*}
-
-The converse and symmetric version follow by applying the above to modified versions of $a_n$ and $b_n$.
-\end{proof}
-\end{hl}
-\end{theorem}
-
-\begin{definition}
-A permutation is called a \emph{derangement} if it has no fixed points.
-\end{definition}
-
-\begin{theorem}\label{derangements}
-To count the number of derangements $D(n)$ in $S_n$, define $D(n,k)$ to equal the number of permutations with $k$ fixed points. $D(n,k)=\binom nkD(n-k)$ by the product rule. Conditioning permutations based on their number of fixed points:
-\begin{equation*}
-n!
-=\sum_{k=0}^nD(n,k)
-=\sum_{k=0}^n\binom nkD(n-k)
-=\sum_{k=0}^n\binom n{n-k}D(n-k)
-=\sum_{k=0}^n\binom nkD(k)
-\end{equation*}
-
-Thus, by Binomial Inversion, we have $D(n)=\sum_{k=0}^n\binom nkk!(-1)^{n-k}$. $D(n)$ is often denoted $!n$, the \emph{subfactorial}.
-\end{theorem}
-
-\begin{corollary}
-Find $\lim_{n\rightarrow\infty}\frac{!n}{n!}$, the fraction of permutations which are derangements.
-
-\begin{hl}
-\begin{proof}
-\begin{equation*}
-\lim_{n\rightarrow\infty}\frac{!n}{n!}
-=\lim_{n\rightarrow\infty}\frac1{n!}\sum_{k=0}^n\binom nkk!(-1)^{n-k}
-=\lim_{n\rightarrow\infty}\sum_{k=0}^n\frac1{(n-k)!}(-1)^{n-k}
-=\sum_{k=0}^{\infty}\frac{(-1)^{k}}{k!}
-=e^{-1}\qedhere
-\end{equation*}
-\end{proof}
-\end{hl}
-\end{corollary}
-
-\begin{lemma}
-$D(n+1)=n(D(n)+D(n-1))$ for $n\geq1$.
-
-\begin{hl}
-\begin{proof}
-Write derangement $\pi\in S_{n+1}$ in cycle notation. There are $n$ options for $\pi_{n+1}\neq n+1$. If $(n+1,\pi_{n+1})$ is a transposition, then there are $D(n-1)$ ways to permute the remaining elements. Otherwise, removing $\pi_{n+1}$ is a bijection yielding a derangement in $S_n$, so that there are $D(n)$ options.
-\end{proof}
-\end{hl}
-\end{lemma}
-
-\begin{lemma}\label{one_fixed_point}
-The number of $n$-permutations with exactly one cycle of length one is $nD(n-1)=D(n)-(-1)^n$.
-
-\begin{hl}
-\begin{proof}
-Pick the fixed point $n$ ways, and permute the remaining via a derangement $D(n-1)$ ways to get $nD(n-1)=n(n-1)!\sum_{j=0}^{n-1}\frac{(-1)^j}{j!}=n!\sum_{j=0}^{n-1}\frac{(-1)^j}{j!}=D(n)-(-1)^n$.
-\end{proof}
-\end{hl}
-\end{lemma}
-
-\begin{example}
-We claim that the number of permutations $p=p_1\cdots p_n$ so that $p_i\neq i+1$ for all $i\in[n-1]$ is $2D(n)-(-1)^n$. Compose any of these permutations $p$ on the left with $\rho=(n,n-1,\dots,1)$ to obtain a permutation $q=\rho p$ such that $q_i\neq i$ for all $i\in[n-1]$. Either the resulting permutation is a derangement, $D(n)$ ways, or it has exactly one fixed point of $n$, $D(n-1)$ ways. Since $\rho$ is a bijection, we obtain $D(n)+D(n-1)$ permutations $p$.
-\end{example}
-
-\begin{definition}
-The \emph{binomial transform} of $\{a_n\}$ is $b_n=\sum_{k=0}^n\binom nka_k(-1)^k$.
-\begin{arrows}
-\item This is an involution, corresponding to the symmetric form of binomial inversion
-\item We also have $b_n=(-1)^n(\delta^na)_0$, the $n$th forward difference with alternating sign
-\end{arrows}
-\end{definition}
-
-\begin{example}
-The binomial transform of $a_n=n^2$ is:
-\begin{equation*}
-b_n=\sum_{k=0}^n\binom nkk^2(-1)^k=(-1)^nn!\setbinom 2n=\{0,-1,2,0,0,\dots\}
-\end{equation*}
-
-This can also be found using the forward difference interpretation:
-\begin{equation*}
-\begin{array}{ccccccccc}
-\boxed{0}&&1&&4&&9&&16\\
-&\boxed{1}&&3&&5&&7\\
-&&\boxed{2}&&2&&2\\
-&&&\boxed{0}&&0
-\end{array}
-\end{equation*}
-\end{example}
-
-\begin{example}
-The binomial transform of $a_n=1$ is:
-\begin{equation*}
-b_n=\sum_{k=0}^n\binom nka_k(-1)^k=\sum_{k=0}^n\binom nk(-1)^k=\delta_{n0}
-\end{equation*}
-\end{example}
-
-\begin{example}
-Using Extraction/Absorption, the binomial transform of $a_n=n$ is:
-\begin{equation*}
-b_n=\sum_{k=0}^n\binom nkk(-1)^k
-=\sum_{k=1}^nn\binom{n-1}{k-1}(-1)^k
-=-n\sum_{k=0}^{n-1}\binom{n-1}{k}(-1)^k
-=-n\delta_{n1}
-=-\delta_{n1}
-\end{equation*}
-\end{example}
-
-\begin{example}
-The binomial transform of $a_n=a^n$ is:
-\begin{equation*}
-b_n=\sum_{k=0}^n\binom nka^k(-1)^k=\sum_{k=0}^n\binom nk(-a)^k=(1-a)^n
-\end{equation*}
-\end{example}
-
-\begin{example}
-The binomial transform of $a_n=\delta_{n1}$ is:
-\begin{equation*}
-b_n=\sum_{k=0}^n\binom nk\delta_{k1}(-1)^k=\binom n1(-1)^1=-n
-\end{equation*}
-\end{example}
 
 \section{Generating Functions}
 
@@ -1477,10 +1507,56 @@ Let $\widetilde a_n=(-1)^na_n$ and $\widetilde b_n=(-1)^nb_n$. By the above resu
 \end{hl}
 \end{theorem}
 
+\subsection{Wilf Rules}
+
+\begin{theorem}[Wilf Rules for OGFs]\label{wilf}
+\;
+\begin{enumerate}[label=\Roman*.]
+\item\label{wilf1} If $F(x)\ogf \{f_n\}$, then for $k\geq0$, $\displaystyle\{f_{n+k}\}\ogf \frac{F(x)-f_0-f_1x-\cdots-f_{k-1}x^{k-1}}{x^k}$
+\item\label{wilf2} If $F(x)\ogf \{f_n\}$ and $P$ is a polynomial, then $\{P(n)f_n\}\ogf  P(xD)F(x)$, where $D$ is the derivative operator with respect to $x$
+\begin{arrows}
+\item For example, $(xD)^2F(x)=x\frac d{dx}\left[x\frac d{dx}F(x)\right]$
+\end{arrows}
+\item\label{wilf3} If $F(x)\ogf \{f_n\}$ and $G(x)\ogf \{g_n\}$, then $\displaystyle F(x)G(x)\ogf \left\{\sum_{k=0}^na_kb_{n-k}\right\}$
+\item\label{wilf4} If $F(x)\ogf\{f_n\}$ and $k\in\N$, then $\displaystyle F^k(x)\ogf\left\{\sum_{n_1+\cdots+n_k=n}a_{n_1}\cdots a_{n_k}\right\}$
+\item\label{wilf5} If $F(x)\ogf\{f_n\}$, then $\displaystyle\frac1{1-x}F(x)\ogf\left\{\sum_{k=0}^nf_k\right\}$, i.e., $\displaystyle\frac1{1-x}F(x)$ is the generating function for the partial sums
+\item\label{wilf6} If $F(x)\ogf\{f_n\}$, then $x^kF(x)\ogf\{a_{n-k}\}$, where $a_{n-k}=0$ when $n-k<0$
+\end{enumerate}
+%!!! Proof
+\end{theorem}
+
+\begin{example}
+Suppose $a_{n+2}=3a_{n+1}-a_n$ with $a_0=1$ and $a_1=-3$. Then by Wilf I, $\frac{A(x)-a_0-a_1x^1}{x^2}=-3\frac{A(x)-a_0}x-A(x)$. Rearrange to obtain $A(x)-1+3x=-3xA(x)+3x-A(x)x^2$, or $A(x)=\frac1{1+3x+x^2}$.
+\end{example}
+
+\begin{example}
+Suppose $a_n=n^2$, as in Example \ref{nsqgen}. Then by Wilf II and Lemma \ref{generating_func_recip_linear}:
+\begin{equation*}
+A(x)
+=(xD)^2\frac1{1-x}
+=x\frac{d}{dx}\left[x\frac d{dx}\frac1{1-x}\right]
+=x\frac{d}{dx}\frac x{(1-x)^2}
+=\frac{x(1+x)}{(1-x)^3}
+\end{equation*}
+\end{example}
+
+\begin{theorem}[Wilf Rules for EGFs]\label{wilf_egf}
+\;
+\begin{enumerate}[label=\Roman*.]
+\item If $F(x)\egf \{f_n\}$, then for $k\geq0$, $\displaystyle\{f_{n+k}\}\egf D^kF(x)$
+\item If $F(x)\egf \{f_n\}$ and $P$ is a polynomial, then $\{P(n)f_n\}\egf  P(xD)F(x)$, where $D$ is the derivative operator with respect to $x$
+\begin{arrows}
+\item This is the same as for OGFs
+\end{arrows}
+\item If $F(x)\egf \{f_n\}$ and $G(x)\egf \{g_n\}$, then $\displaystyle F(x)G(x)\egf \left\{\sum_{k=0}^n\binom nkf_kg_{n-k}\right\}$
+\end{enumerate}
+%!!! Proof
+\end{theorem}
+
 \subsection{Recurrences}
 
 \begin{concept}
-Given a recurrence relation defining a sequence $\{a_n\}$, a closed form for the generating function $A(x)$ can then be found. To find a closed form for the original sequence, the typical procedure (for linear recurrences) is to apply partial fraction decomposition to obtain $A(x)$ as a sum of factors of the form $\frac{c}{1-ax}$. Then, applying $[x^n]$, linearity, and Lemma \ref{generating_func_recip_linear} yields $a_n$.
+Given a recurrence relation defining a sequence $\{a_n\}$, a closed form for the generating function $A(x)$ can then be found. To find a closed form for the original sequence, the typical procedure (for linear recurrences) is to apply partial fraction decomposition to obtain $A(x)$ as a sum of factors of the form $\frac{c}{1-ax}$. Then, applying $[x^n]$, linearity, and Lemma \ref{generating_func_recip_linear} yields $a_n$. For non-linear recurrences, the procedure may be more complicated (or exponential generating functions may be required).
 \end{concept}
 
 \begin{example}
@@ -1502,34 +1578,6 @@ Let $p,q$ be coprime polynomials with $0\leq k=\deg p<\deg q=m$. Write $q(x)=\su
 
 \begin{example}
 Let $G(x)=\frac1{1-ax-bx^2-cx^3}$ for $c\neq0$. $g_n$ satisfies the recurrence $g_{n+3}=ag_{n+2}+bg_{n+1}+cg_n$ by Theorem \ref{gen_shortcut}. The initial conditions are $g_0=G(0)=1$, $g_1=G'(0)=a$, and $g_2=G''(0)/2=a^2+b$.
-\end{example}
-
-\begin{theorem}[Wilf Rules]\label{wilf}
-\;
-\begin{enumerate}[label=\Roman*.]
-\item\label{wilf1} If $F(x)\ogf \{f_n\}$, then for $k\geq0$, $\displaystyle\{f_{n+k}\}\ogf \frac{F(x)-f_0-f_1x-\cdots-f_{k-1}x^{k-1}}{x^k}$
-\item\label{wilf2} If $F(x)\ogf \{f_n\}$ and $P$ is a polynomial, then $\{P(n)f_n\}\ogf  P(xD)f$, where $D$ is the derivative operator with respect to $x$
-\item\label{wilf3} If $F(x)\ogf \{f_n\}$ and $G(x)\ogf \{g_n\}$, then $\displaystyle FG\ogf \left\{\sum_{k=0}^na_kb_{n-k}\right\}$
-\item\label{wilf4} If $F(x)\ogf\{f_n\}$ and $k\in\N$, then $\displaystyle F^k\ogf\left\{\sum_{n_1+\cdots+n_k=n}a_{n_1}\cdots a_{n_k}\right\}$
-\item\label{wilf5} If $F(x)\ogf\{f_n\}$, then $\displaystyle\frac1{1-x}F\ogf\left\{\sum_{k=0}^nf_k\right\}$, i.e., $\displaystyle\frac1{1-x}F$ is the generating function for the partial sums
-\item\label{wilf6} If $F(x)\ogf\{f_n\}$, then $x^kF\ogf\{a_{n-k}\}$, where $a_{n-k}=0$ when $n-k<0$
-\end{enumerate}
-%!!! Proof
-\end{theorem}
-
-\begin{example}
-Suppose $a_{n+2}=3a_{n+1}-a_n$ with $a_0=1$ and $a_1=-3$. Then by Wilf I, $\frac{A(x)-a_0-a_1x^1}{x^2}=-3\frac{A(x)-a_0}x-A(x)$. Rearrange to obtain $A(x)-1+3x=-3xA(x)+3x-A(x)x^2$, or $A(x)=\frac1{1+3x+x^2}$.
-\end{example}
-
-\begin{example}
-Suppose $a_n=n^2$, as in Example \ref{nsqgen}. Then by Wilf II and Lemma \ref{generating_func_recip_linear}:
-\begin{equation*}
-A(x)
-=(xD)^2\frac1{1-x}
-=x\frac{d}{dx}\left[x\frac d{dx}\frac1{1-x}\right]
-=x\frac{d}{dx}\frac x{(1-x)^2}
-=\frac{x(1+x)}{(1-x)^3}
-\end{equation*}
 \end{example}
 
 \begin{example}
@@ -1624,21 +1672,153 @@ RHS counts the number of tilings of a $1\times(2n-1)$ grid into monominoes and d
 \end{lemma}
 
 \begin{lemma}
-The closed form for the Fibonacci Numbers is $\displaystyle f_j=\frac{\varphi^{n+1}-\psi^{n+1}}{\sqrt5}$ where $\varphi=\frac{1+\sqrt5}2$ is the golden ratio and $\psi=\frac{1-\sqrt5}2$ is its conjugate.
+The closed form for the Fibonacci Numbers is $\displaystyle f_n=\frac{\varphi^{n+1}-\psi^{n+1}}{\sqrt5}$ where $\varphi=\frac{1+\sqrt5}2$ is the golden ratio and $\psi=\frac{1-\sqrt5}2$ is its conjugate.
 
 \begin{hl}
 \begin{proof}
-First note $\varphi\psi=-1$. Perform partial fraction decomposition to obtain $F(x)=\frac1{1-x-x^2}=\frac{-1}{(x+\varphi)(x+\psi)}=\frac{1/\sqrt5}{(x+\varphi)}-\frac{1/\sqrt5}{(x+\psi)}$. Then using Lemma \ref{easier_gen_linear}:
+First note $\varphi\psi=-1$ and $\varphi+\psi=1$. Perform partial fraction decomposition to obtain $F(x)=\frac1{1-x-x^2}=\frac{-1}{(x+\varphi)(x+\psi)}=\frac{1/\sqrt5}{(x+\varphi)}-\frac{1/\sqrt5}{(x+\psi)}$. Then using Lemma \ref{easier_gen_linear}:
 \begin{equation*}
-f_j
-=[x^j]F(x)
-=\frac1{\sqrt5}\left([x^j]\frac{1}{x+\varphi}-[x^j]\frac{1}{x+\psi}\right)
-=\frac{-(-\varphi)^{-j-1}+(-\psi)^{-j-1}}{\sqrt5}
-=\frac{\varphi^{j+1}-\psi^{j+1}}{\sqrt5}\qedhere
+f_n
+=[x^n]F(x)
+=\frac1{\sqrt5}\left([x^n]\frac{1}{x+\varphi}-[x^n]\frac{1}{x+\psi}\right)
+=\frac{-(-\varphi)^{-n-1}+(-\psi)^{-n-1}}{\sqrt5}
+=\frac{\varphi^{n+1}-\psi^{n+1}}{\sqrt5}
+\end{equation*}
+
+This could also be solved using exponential generating functions. Let $F(x)\egf\{f_n\}$. Then $F''(x)=F'(x)+F(x)$ by Wilf I with $F(0)=f_0=1$ and $F'(0)=f_1=1$. This is a second order linear homogeneous differential equation. The characteristic polynomial is $r^2-r-1$ with roots $\varphi,\psi$, so that $G(x)=c_1e^{\varphi x}+c_2e^{\psi x}$. Applying the initial conditions, we obtain $c_1=\frac{1-\psi}{\varphi-\psi}=\frac{\varphi}{\sqrt 5}$ and $c_2=\frac{\varphi-1}{\varphi-\psi}=-\frac{\psi}{\sqrt5}$, so that $F(x)=\frac1{\sqrt5}[\varphi e^{\varphi x}-\psi e^{\psi x}]$. Thus:
+\begin{equation*}
+f_n
+=n![x^n]\left(\frac1{\sqrt5}[\varphi e^{\varphi x}-\psi e^{\psi x}]\right)
+=\frac{\varphi}{\sqrt5} n![x^n]e^{\varphi x}-\frac{\psi}{\sqrt5} n![x^n]e^{\psi x}
+=\frac{\varphi^{n+1}-\psi^{n+1}}{\sqrt5}\qedhere
 \end{equation*}
 \end{proof}
 \end{hl}
 \end{lemma}
+
+\begin{proposition}
+The exponential generating function of the Bell numbers $b_n$ is $B(x)=e^{e^x-1}$.
+
+\begin{hl}
+\begin{proof}
+$b_{n+1}=\sum_{k=0}^n\binom nk b_k$ by Theorem \ref{bell_recurrence} with $b_0=1$. The generating function for $b_{n+1}$ is $B'(x)$ by Wilf I, and the generating function for the right side is $B(x)\sum_{n=0}^\infty\frac{x^n}{n!}=B(x)e^x$ by Wilf III. Then $B'(x)=B(x)e^x$, or $\frac{B'(x)}{B(x)}=e^x$. The integral of LHS is $\log(B(x))$, and the integral of RHS is $e^x$, up to a constant. Thus, $\log(B(x))=e^x+c$, or $B(x)=e^{e^x+c}$. $B(0)=b_0=1$ yields $c=-1$.
+\end{proof}
+\end{hl}
+\end{proposition}
+
+\begin{definition}
+The \emph{Catalan Numbers} $c_n$ count the number of sequences of $2n$ values in $\{\pm1\}$ that add to $0$ and have no negative partial sums. For example, all of the following are realizations of the Catalan Numbers:
+\begin{arrows}
+\item A person begins with an empty jar, and each day adds a penny or removes a penny. After $2n$ days it is empty again. How many ways could this have occurred?
+\item Two candidates received an equal number of votes. How many ways can the votes be tallied so that candidate $A$ never trails candidate $B$?
+\item Consider a string of matched parentheses such that all left parentheses are eventually closed by right parentheses. How many such strings are there?
+\end{arrows}
+We will use the last interpretation to derive more about the Catalan Numbers.
+\end{definition}
+
+\begin{definition}
+A string of parentheses is called \emph{legal} if there are an equal number of left and right parentheses, and while reading from left to right, the number of right parentheses never exceeds the number of left parentheses. Let $C_n$ denote the set of all legal strings of $2n$ parentheses, and let $c_n=|C_n|$. Note $C_1=\{()\}$, $C_2=\{()(),(())\}$, and $C_3=\{()()(),(())(),()(()),((())),(()())\}$, so that $c_1=1$ $c_2=2$, and $c_3=5$.
+
+\medskip
+
+For $w\in C_n$, let the \emph{index} of $w$ be the number of parenthesis pairs in the first legal substring (and let this substring be the \emph{prefix}). For example, the indices in $C_3$ above are $1,2,1,3,3$ respectively. $w$ is \emph{primitive} if its index is $n$. The number of primitive strings is $c_{n-1}$ (indeed, form a bijection by removing/adding the outermost set of parentheses).
+\end{definition}
+
+\begin{theorem}
+The Catalan Numbers are given by $c_n=\frac1{n+1}\binom{2n}n$.
+
+\begin{hl}
+\begin{proof}
+The number of strings in $C_n$ with index $k$ is $c_{k-1}c_{n-k}$, since the prefix is primitive and thus can be chosen $c_{k-1}$ ways, the the remainder can be chosen $c_{n-k}$ ways. Sum over all $k$ to get $c_n=\sum_{k=1}^nc_{k-1}c_{n-k}$. Then the generating function is:
+\begin{equation*}
+C(x)
+=\sum_{n=0}^\infty c_nx^n
+=c_0+\sum_{n=1}^\infty\sum_{k=1}^nc_{k-1}c_{n-k}x^n
+=1+\sum_{k=1}^\infty c_{k-1}\sum_{n=k}^\infty c_{n-k}x^n
+=1+xC(x)^2
+\end{equation*}
+
+By the quadratic formula applied to $C(x)$, we have $C(x)=\frac{1\pm\sqrt{1-4x}}{2x}$. But $C(0)=c_0=1$, so by L'H\^opital's Rule, we must have $C(x)=\frac{1-\sqrt{1-4x}}{2x}$. Then using Example \ref{ex_sqrt_gen_bin} (or the Generalized Binomial Theorem):
+\begin{align*}
+c_n
+=[x^n]\frac{1-\sqrt{1-4x}}{2x}
+=[x^n]\frac1{2x}\left[2x+\sum_{n=2}^\infty\frac{2(2n-2)!}{n!(n-1)!}x^n\right]
+=[x^n]\sum_{n=0}^\infty\frac{(2n)!}{(n+1)!n!}x^n
+=\frac1{n+1}\binom{2n}n
+\end{align*}
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{theorem}
+Consider a string of parentheses that satisfies the criteria to be legal, except that not all left parentheses need to be closed. Let $q_n$ count the number of possible strings of length $n$. Then $q_n=\binom n{\lfloor n/2\rfloor}$, the Central Binomial Coefficients.
+
+\begin{hl}
+\begin{proof}
+If no prefix exists, then removing the leading left parenthesis is a bijection to $q_{n-1}$. Otherwise, condition on the index, so that there are $\sum_{k=1}^{\lfloor n/2\rfloor}c_{k-1}q_{n-2k}$ options. Together, we have $q_n=q_{n-1}+\sum_{k=1}^{\lfloor n/2\rfloor}c_{k-1}q_{n-2k}$ for $n>0$ and $q_0=1$. The corresponding generating function is:
+\begin{align*}
+Q(x)
+&=\sum_{n=0}^\infty q_nx^n
+=q_0+\sum_{n=1}^\infty\left[q_{n-1}+\sum_{k=1}^{\lfloor n/2\rfloor}c_{k-1}q_{n-2k}\right]x^n
+=1+\sum_{n=1}^\infty q_{n-1}x^n+\sum_{n=1}^\infty\sum_{k=1}^{\lfloor n/2\rfloor}c_{k-1}q_{n-2k}x^n\\
+&=1+xQ(x)+\sum_{k=1}^{\infty}\sum_{n=2k}^\infty c_{k-1}q_{n-2k}x^n
+=1+xQ(x)+\sum_{k=1}^{\infty}c_{k-1}x^{2k}\sum_{n=2k}^\infty q_{n-2k}x^{n-2k}\\
+&=1+xQ(x)+Q(x)x^2\sum_{k=0}^{\infty}c_{k}x^{2k}
+=1+xQ(x)+Q(x)x^2C(x^2)
+\end{align*}
+
+Solving:
+\begin{align*}
+Q(x)
+&=-\frac{1}{x^2C(x^2)+x-1}
+=-\frac{1}{\frac{1-\sqrt{1-4x^2}}{2}+x-1}
+=\frac{2}{\sqrt{1-4x^2}-2x+1}\\
+&=\frac{2(\sqrt{1-4x^2}+2x-1)}{(\sqrt{1-4x^2}-2x+1)(\sqrt{1-4x^2}+2x-1)}
+=\frac{2\sqrt{1-4x^2}+4x-2}{1-4x^2-(2x-1)^2}
+=\frac{2\sqrt{1-4x^2}+4x-2}{-8x^2+4x}\\
+&=\frac{\sqrt{1-4x^2}+2x-1}{2x(1-2x)}
+\end{align*}
+
+Thus:
+%!!! Make inside step a lemma. (alternating truncated binomial sum)
+\begin{align*}
+q_n
+&=[x^n]Q(x)
+=\frac12[x^n]\frac{\sqrt{1-4x^2}+2x-1}{x(1-2x)}
+=\frac12[x^{n+1}]\left(\frac{\sqrt{1-4x^2}}{1-2x}-1\right)
+=\frac12[x^{n+1}]\frac{\sqrt{1-4x^2}}{1-2x}\\
+&=2^n[x^{n+1}]\frac{\sqrt{1-x^2}}{1-x}
+=2^n\sum_{k=0}^{n+1}[x^k](1-x^2)^{1/2}
+=2^n\sum_{k=0}^{n+1}[x^k]\sum_{k=0}^\infty\binom{1/2}k(-1)^kx^{2k}\\
+&=2^n\sum_{k=0}^{n+1}[x^k]\sum_{k=0}^\infty[k\text{ even}]\binom{1/2}{k/2}(-1)^{k/2}x^{k}
+=2^n\sum_{\substack{k=0\\k\text{ even}}}^{n+1}\binom{1/2}{k/2}(-1)^{k/2}\\
+&=2^n\sum_{k=0}^{\lfloor\frac{n+1}2\rfloor}\binom{1/2}{k}(-1)^{k}
+=2^n[x^{\lfloor\frac{n+1}2\rfloor}]\frac{\sum_{k=0}^{\infty}\binom{1/2}{k}(-1)^{k}x^k}{1-x}
+=2^n[x^{\lfloor\frac{n+1}2\rfloor}]\frac{\sqrt{1-x}}{1-x}\\
+&=2^n[x^{\lfloor\frac{n+1}2\rfloor}](1-x)^{-1/2}
+=2^n\binom{-1/2}{\lfloor(n+1)/2\rfloor}(-1)^{\lfloor(n+1)/2\rfloor}
+=2^{n-2\lfloor\frac{n+1}2\rfloor}\binom{2\lfloor\frac{n+1}2\rfloor}{\lfloor\frac{n+1}2\rfloor}
+\end{align*}
+
+When $n$ is even, we obtain $\binom n{n/2}$. When $n$ is odd, we obtain $\frac12\binom{n+1}{(n+1)/2}=\frac12\frac{n+1}{(n+1)/2}\binom{n}{(n-1)/2}=\binom n{(n-1)/2}$. In either case, $q_n=\binom n{\lfloor n/2\rfloor}$.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{example}
+We find a closed form for $a_{n+1}=(n+1)a_n+n!$ with $a_0=0$. Using exponential generating function, Wilf I on LHS and Wilf II on RHS gives $A'(x)=(xD+1)A(x)+\frac1{1-x}$, so that $A'(x)=xA'(x)+A(x)+\frac1{1-x}$. This can be solved using integrating factors. Indeed, $(1-x)A'(x)-A(x)=\frac1{1-x}$, so that $D[(1-x)A(x)]=\frac1{1-x}$. Then $A(x)=-\frac{\ln(1-x)}{1-x}$. Note that this is of the form $A(x)=[\ln(1-x)]D[\ln(1-x)]$, so that by the chain rule $A(x)=\frac12D[\ln(1-x)^2]$. Then letting $h_n=\sum_{k=1}^n1/k$ be the $n$th harmonic number, we have:
+\begin{align*}
+a_n
+&=n![x^n]A(x)
+=\frac{n!}2[x^n]D(\ln(1-x)^2)
+=\frac{n!}2[x^{n+1}]xD(\ln(1-x)^2)
+=\frac{(n+1)!}2[x^{n+1}]\ln(1-x)^2\\
+&=\frac{(n+1)!}2\sum_{k=0}^{n+1}([x^k]\ln(1-x))([x^{n-k}]\ln(1-x))
+=\frac{(n+1)!}2\sum_{k=1}^{n}\frac1k\cdot\frac1{n+1-k}\\
+&=\frac{(n+1)!}2\sum_{k=1}^n\frac1{n+1}\left[\frac1k+\frac1{n+1-k}\right]
+=n!\,h_n
+\end{align*}
+\end{example}
 
 \subsection{Counting Using Products}
 
@@ -1665,8 +1845,6 @@ s_n
 =\binom{n+1}4
 \end{equation*}
 \end{example}
-
-
 
 \section{Sieve Method}
 \begin{theorem}[Principal of Inclusion/Exclusion]
