@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.3)  23 APR 2023 18:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2023.3.3)  24 APR 2023 10:50
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -3174,32 +3174,43 @@ Package mdframed Info: mdframed detected package amsthm
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 1786.
+Package mdframed Info: Not enough space on this page on input line 1789.
+ [24]
+Package mdframed Info: Not enough space on this page on input line 1789.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1796.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1831.
+Package mdframed Info: mdframed detected package amsthm 
+ changed the theorem header of amsthm
+(mdframed)              on input line 1925.
 
-Overfull \hbox (0.18686pt too wide) detected at line 1797
+Overfull \hbox (0.18686pt too wide) detected at line 1936
 []
  []
 
-Package mdframed Info: Not enough space on this page on input line 1834.
-[24]
-Package mdframed Info: Not enough space on this page on input line 1834.
- [25] [26]
+[25]
+Package mdframed Info: Not enough space on this page on input line 1973.
+ [26] [27]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 1879.
- [27
+(mdframed)              on input line 2018.
+ [28
 
 ] (./MTH_481_Notes.aux)
 Package rerunfilecheck Info: File `MTH_481_Notes.out' has not changed.
 (rerunfilecheck)             Checksum: F1D42CAD2131F8918D1F7DE834D994BF;3780.
  ) 
 Here is how much of TeX's memory you used:
- 60643 strings out of 476024
- 1464057 string characters out of 5794017
- 2072601 words of memory out of 5000000
- 79932 multiletter control sequences out of 15000+600000
+ 62067 strings out of 476024
+ 1487647 string characters out of 5794017
+ 2072661 words of memory out of 5000000
+ 81350 multiletter control sequences out of 15000+600000
  531820 words of font info for 85 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 123i,17n,120p,1698b,825s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 124i,17n,122p,1698b,2117s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {c:/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{c:/texl
 ive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2022/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2022/texmf-dis
@@ -3223,10 +3234,10 @@ dist/fonts/type1/public/cm-super/sfbx1440.pfb><c:/texlive/2022/texmf-dist/fonts
 lic/cm-super/sfrm0900.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-sup
 er/sfrm1000.pfb><c:/texlive/2022/texmf-dist/fonts/type1/public/cm-super/sfti100
 0.pfb>
-Output written on MTH_481_Notes.pdf (27 pages, 426811 bytes).
+Output written on MTH_481_Notes.pdf (28 pages, 433517 bytes).
 PDF statistics:
- 697 PDF objects out of 1000 (max. 8388607)
- 613 compressed objects within 7 object streams
- 251 named destinations out of 1000 (max. 500000)
+ 711 PDF objects out of 1000 (max. 8388607)
+ 626 compressed objects within 7 object streams
+ 257 named destinations out of 1000 (max. 500000)
  229 words of extra memory for PDF output out of 10000 (max. 10000000)
 

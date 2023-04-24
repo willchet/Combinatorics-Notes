@@ -1743,7 +1743,7 @@ A string of parentheses is called \emph{legal} if there are an equal number of l
 For $w\in C_n$, let the \emph{index} of $w$ be the number of parenthesis pairs in the first legal substring (and let this substring be the \emph{prefix}). For example, the indices in $C_3$ above are $1,2,1,3,3$ respectively. $w$ is \emph{primitive} if its index is $n$. The number of primitive strings is $c_{n-1}$ (indeed, form a bijection by removing/adding the outermost set of parentheses).
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}\label{catalan_recur}
 The Catalan Numbers satisfy the recurrence $\displaystyle c_n=\sum_{k=1}^nc_{k-1}c_{n-k}$.
 
 \begin{hl}
@@ -1775,6 +1775,145 @@ c_n
 =[x^n]\sum_{n=0}^\infty\frac{(2n)!}{(n+1)!n!}x^n
 =\frac1{n+1}\binom{2n}n
 \end{align*}
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{theorem}\label{catalan_mult}
+$c_n$ count the number of ways to parenthesize a product of $n+1$ objects.
+
+\begin{hl}
+\begin{proof}
+Write the multiplication scheme with outermost enclosing parentheses. We form a bijection to strings on the alphabet $\{A,B\}$ such that reading left to right, the number of $A$s never trails the number of $B$s. In particular, form a bijection by associating all multiplication symbols with $A$ and all right parentheses with $B$. This results in a valid string since a right parenthesis must have an associated multiplication operation to its left.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{corollary}
+$c_n$ counts the number of full binary trees with $n+1$ leaves.
+
+\begin{hl}
+\begin{proof}
+There is a bijection between multiplication schemes given in Theorem \ref{catalan_mult} and full binary trees representing the order of multiplication.
+\end{proof}
+\end{hl}
+\end{corollary}
+
+\begin{theorem}
+$c_n$ counts the number of non-overlapping triangulations of a convex $(n+2)$-gon.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.5,xscale=0.5]
+\draw (40.7,146.98) -- (93.72,108.46) -- (146.74,146.98) -- (126.49,209.31) -- (60.95,209.31) -- cycle ;
+\draw (40.7,146.98) -- (146.74,146.98) -- (60.95,209.31);
+\end{tikzpicture}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.5,xscale=0.5]
+\draw (40.7,146.98) -- (93.72,108.46) -- (146.74,146.98) -- (126.49,209.31) -- (60.95,209.31) -- cycle ;
+\draw (93.72,108.46) -- (126.49,209.31) -- (40.7,146.98);
+\end{tikzpicture}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.5,xscale=0.5]
+\draw (40.7,146.98) -- (93.72,108.46) -- (146.74,146.98) -- (126.49,209.31) -- (60.95,209.31) -- cycle ;
+\draw (146.74,146.98) -- (60.95,209.31) -- (93.72,108.46);
+\end{tikzpicture}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.5,xscale=0.5]
+\draw (40.7,146.98) -- (93.72,108.46) -- (146.74,146.98) -- (126.49,209.31) -- (60.95,209.31) -- cycle ;
+\draw (126.49,209.31) -- (40.7,146.98) -- (146.74,146.98);
+\end{tikzpicture}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.5,xscale=0.5]
+\draw (40.7,146.98) -- (93.72,108.46) -- (146.74,146.98) -- (126.49,209.31) -- (60.95,209.31) -- cycle ;
+\draw (60.95,209.31) -- (93.72,108.46) -- (126.49,209.31);
+\end{tikzpicture}
+\caption*{5 Non-Overlapping Triangulations of a Pentagon}
+\end{figure}
+
+\begin{hl}
+\begin{proof}
+\;
+\medskip
+
+\begin{minipage}{0.69\linewidth}
+Let $t_n$ count the number of triangulations of an $n$-gon. Pick an edge of the polygon. There are $n-2$ triangles it could belong to, since there are $n-2$ other vertices. In each case, it splits the polygon into two smaller ones with number of sides $k$ and $n+3-k$ for $2\leq k\leq n+1$. The number of ways to finish the triangulation is thus $t_{k-2}t_{n+1-k}$. Summing over all $k$, we have $\sum_{k=2}^{n+1}t_{k-2}t_{n+1-k}=\sum_{k=1}^{n}t_{k-1}t_{n-k}$. But this is the same recurrence as the Catalan Numbers in Theorem \ref{catalan_recur}. Since $t_2=1=c_0$ and $t_3=1=c_1$, we have that $t_{n+2}=c_n$.
+\end{minipage}%
+\begin{minipage}{0.3\linewidth}
+\centering
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.4,xscale=0.4]
+\path [fill=gray!50] (431.34,140.89) -- (233.39,255.18) -- (167.4,140.89) -- cycle;
+\draw (431.34,140.89) -- (365.36,255.18);
+\draw (365.36,255.18) -- (233.39,255.18);
+\draw (233.39,255.18) -- (167.4,140.89);
+\draw (167.4,140.89) -- (233.39,26.6);
+\draw (233.39,26.6) -- (365.36,26.6);
+\draw (365.36,26.6) -- (431.34,140.89);
+\draw (431.34,140.89) -- (233.39,255.18);
+\draw (431.34,140.89) -- (167.4,140.89);
+\node at (299.375,90) {$t_4$};
+\node at (345,230) {$t_3$};
+\end{tikzpicture}
+\end{minipage}
+
+\medskip
+
+Another proof bijects triangulations to full binary trees whose vertices are the $n+2$ exterior edges and the $n-1$ internal edges (resulting in $n+1$ leaf nodes). Fix an edge to be the root of the tree, and identify the triangle it belongs to. Let the other two edges be the children of the root. Now continue recursively. Any exterior edge encountered is a leaf node. For any internal edge, it borders two triangles: the one used to reach that edge, and a triangle not yet counted. Let the children of the edge be the other two edges of the uncounted triangle.
+
+\medskip
+
+A final proof bijects triangulations to parenthesizations. Label all except one of the edges, so that there are $n+1$ labeled edges. Now, iteratively label the interior edges by combining labels, using parentheses to specify the order in which they are combined. The final parenthesization is the label of the last exterior edge.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.6\linewidth}
+\raisebox{-.5\height}{\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.5,xscale=0.5]
+\node (1) at (431.34,140.89) {2};
+\node (2) at (365.36,255.18) {3};
+\node (3) at (233.39,255.18) {4};
+\node (4) at (167.4,140.89) {5};
+\node (5) at (233.39,26.6) {6};
+\node (6) at (365.36,26.6) {1};
+\path[-] (1) edge (2);
+\path[-] (2) edge (3);
+\path[-] (3) edge (4);
+\path[-] (4) edge (5);
+\path[-] (5) edge (6);
+\path[-] (6) edge (1);
+\path[-] (3) edge (5);
+\path[-] (5) edge (2);
+\path[-] (2) edge (6);
+\end{tikzpicture}}
+$\longleftrightarrow$
+\raisebox{-.5\height}{\begin{forest}
+[16
+	[13
+		[12]
+		[23]
+	]
+	[36
+		[34]
+		[46
+			[45]
+			[46]
+		]
+	]
+]
+\end{forest}}
+\caption*{Method 2}
+\end{subfigure}%
+\begin{subfigure}{0.3\linewidth}
+\centering
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-0.5,xscale=0.5]
+\draw   (431.34,140.89) -- (365.36,255.18) node [pos=0.3, label=below:{5}] {};
+\draw (365.36,255.18) -- (233.39,255.18) node [pos=0.5, label=below:{(12)(3(45))}] {};
+\draw (233.39,255.18) -- (167.4,140.89) node [pos=0.7, label=below:{1}] {};
+\draw (167.4,140.89) -- (233.39,26.6) node [pos=0.3, label=2] {};
+\draw (233.39,26.6) -- (365.36,26.6) node [pos=0.5, label=3] {};
+\draw (365.36,26.6) -- (431.34,140.89) node [pos=0.7, label=4] {};
+\draw (233.39,26.6) -- (365.36,255.18) node [pos=0.5, label=above right:{3(45)}, xshift=-1em] {};
+\draw (233.39,26.6) -- (233.39,255.18) node [pos=0.5, label=left:{12}, xshift=0.6em] {};
+\draw (365.36,26.6) -- (365.36,255.18) node [pos=0.5, label=right:{45}, xshift=-0.3em] {};
+\end{tikzpicture}
+\caption*{Method 3}
+\end{subfigure}
+\end{figure}
 \end{proof}
 \end{hl}
 \end{theorem}
