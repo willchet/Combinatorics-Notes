@@ -1741,6 +1741,16 @@ f_n
 \end{hl}
 \end{lemma}
 
+\begin{corollary}
+$f_n$ can be computed by rounding $\frac{\varphi^{n+1}}{\sqrt 5}$ to the nearest integer.
+
+\begin{hl}
+\begin{proof}
+$\psi/\sqrt5=-0.28$ which is less than 0.5 in absolute value, and since $|\psi|<1$, we have that $|\psi^{n+1}/\sqrt5|<0.5$. Thus, this factor is negligible under rounding.
+\end{proof}
+\end{hl}
+\end{corollary}
+
 \subsection{Catalan Numbers}
 
 \begin{definition}
