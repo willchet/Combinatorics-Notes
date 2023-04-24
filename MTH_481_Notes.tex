@@ -329,6 +329,24 @@ Apply Absorption/Extraction and Vandermonde's Identity to obtain:
 \end{hl}
 \end{theorem}
 
+\begin{theorem}\label{truncate_alt_binom}
+$\displaystyle\sum_{i=0}^k(-1)^i\binom ni=(-1)^k\binom{n-1}k$
+
+\begin{hl}
+\begin{proof}
+Using generating functions with Wilf V, as well as the Generalized Binomial Theorem:
+\begin{align*}
+\sum_{i=0}^k(-1)^i\binom ni
+&=[x^k]\frac1{1-x}\sum_{i=0}^\infty (-1)^i\binom ni x^i
+=[x^k]\frac1{1-x}(1-x)^n
+=[x^k](1-x)^{n-1}\\
+&=[x^k]\sum_{i=0}^\infty(-1)^i\binom{n-1}ix^i
+=(-1)^k\binom{n-1}k\qedhere
+\end{align*}
+\end{proof}
+\end{hl}
+\end{theorem}
+
 \begin{example}
 For $2\leq k<n$, we have $k^n<\binom{kn}n$.
 
@@ -1947,8 +1965,7 @@ Q(x)
 &=\frac{\sqrt{1-4x^2}+2x-1}{2x(1-2x)}
 \end{align*}
 
-Thus:
-%!!! Make inside step a lemma. (alternating truncated binomial sum)
+Thus, using Theorem \ref{truncate_alt_binom}:
 \begin{align*}
 q_n
 &=[x^n]Q(x)
@@ -1961,9 +1978,6 @@ q_n
 &=2^n\sum_{k=0}^{n+1}[x^k]\sum_{k=0}^\infty[k\text{ even}]\binom{1/2}{k/2}(-1)^{k/2}x^{k}
 =2^n\sum_{\substack{k=0\\k\text{ even}}}^{n+1}\binom{1/2}{k/2}(-1)^{k/2}\\
 &=2^n\sum_{k=0}^{\lfloor\frac{n+1}2\rfloor}\binom{1/2}{k}(-1)^{k}
-=2^n[x^{\lfloor\frac{n+1}2\rfloor}]\frac{\sum_{k=0}^{\infty}\binom{1/2}{k}(-1)^{k}x^k}{1-x}
-=2^n[x^{\lfloor\frac{n+1}2\rfloor}]\frac{\sqrt{1-x}}{1-x}\\
-&=2^n[x^{\lfloor\frac{n+1}2\rfloor}](1-x)^{-1/2}
 =2^n\binom{-1/2}{\lfloor(n+1)/2\rfloor}(-1)^{\lfloor(n+1)/2\rfloor}
 =2^{n-2\lfloor\frac{n+1}2\rfloor}\binom{2\lfloor\frac{n+1}2\rfloor}{\lfloor\frac{n+1}2\rfloor}
 \end{align*}
