@@ -683,6 +683,25 @@ We thus have $\pi_I=4\,4\,2\,0\,1\,0$. Now suppose we are given $\pi_I=4\,4\,2\,
 \end{example}
 
 \begin{theorem}
+\;
+\begin{enumerate}
+\item $E(\pi)$ is transitive, so that if $(a,b)$ and $(b,c)$ are in $E(\pi)$, then $(a,c)\in E(\pi)$.
+\item Let $E$ be any transitive subset of $T=\{(x,y)\mid 1\leq y<x\leq n,\; x,y\in[n]\}$ whose complement $E^c=T\setminus E$ is also transitive. Then there is a permutation $\pi$ such that $E(\pi)=E$.
+\end{enumerate}
+
+\begin{hl}
+\begin{proof}
+\;
+\begin{enumerate}
+\item $(a,b),(b,c)\in E(\pi)$ implies $a$ comes before $b$ and $b$ comes before $c$ in the one-line representation. This implies $a$ comes before $c$ in the one-line representation, so that $(a,c)\in E(\pi)$.
+\item
+Consider a directed graph with vertices $\{1,\dots,n\}$. Add an edge $j\textcolor{red}{\rightarrow}i$ if $(j,i)\in E$. Add an edge $i\textcolor{codegreen}{\rightarrow}j$ if $(j,i)\in E^c$. This graph represents the order in which the elements $\{1,\dots,n\}$ must appear in the one-line representation of $\pi$, where edges go from earlier elements to later elements. A permutation realizing this graph exists iff the graph is acyclic (indeed, perform topological sorting). Suppose for contradiction that it was cyclic. By transitivity of red edges and green edges, we can find a sub-cycle such that the edges alternate color. If $v_1\textcolor{red}{\rightarrow}v_2\textcolor{codegreen}{\rightarrow}v_3$ or $v_1\textcolor{codegreen}{\rightarrow}v_2\textcolor{red}{\rightarrow}v_3$, then we must have $v_1\rightarrow v_3$ for some color, otherwise $v_1\leftarrow v_3$ for any color yields a contradiction with transitivity. Thus, we can find a smaller sub-cycle as long as the number of vertices in the cycle is at least 3. Continuing, we obtain a cycle with fewer than 3 elements, which is a contradiction, since no self-edges or bidirectional edges are possible. Now we can construct $\pi$ via topological sorting, and $E(\pi)=E$ by definition of $E$.\qedhere
+\end{enumerate}
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{theorem}
 The inversion number of $\pi$ equals the inversion number of $\pi^{-1}$, so that $i(\pi)=i(\pi^{-1})$.
 
 \begin{hl}
@@ -734,8 +753,6 @@ $\bullet$\\
 \begin{definition}
 Let $I_n(k)$ count the number of permutations in $S_n$ with exactly $k$ inversions. Define $I_0(0)=1$.
 \end{definition}
-
-%!!! Add transitivity of $E$, $E^c$, and converse
 
 \begin{theorem}
 \;
@@ -815,9 +832,6 @@ The \emph{sign} of a permutation $\pi$ is $\operatorname{sgn}(\pi)=(-1)^{i(\pi)}
 \item Using the cycle decomposition for a permutation, we have that a permutation is even if it can be written as an even number of transpositions, and odd if it can be written as an odd number of transpositions.
 \end{arrows}
 \end{definition}
-
-
-
 
 \subsection{Cycles}
 
@@ -969,6 +983,18 @@ n!
 \end{equation*}
 
 Thus, by Binomial Inversion, we have $D_n=\sum_{k=0}^n\binom nkk!(-1)^{n-k}$.
+
+\medskip
+
+Or, we can use Inclusion/Exclusion. Letting $N=n!$ and $p_j$ be the property that the permutation fixes $j$, then $N(p_j)=(n-1)!$, $N(p_j,p_k)=(n-2)!$, and so on. Thus:
+\begin{align*}
+D_n
+&=n!-\sum_{j}(n-1)!+\sum_{j<k}(n-2)!-\sum_{j<k<\ell}(n-3)!+\cdots+(-1)^r(n-n)!\\
+&=n!-\binom n1(n-1)!+\binom n2(n-2)!-\binom n3(n-3)!+\cdots+(-1)^r\binom nn(n-n)!\\
+&=\sum_{k=0}^n\binom nk(n-k)!(-1)^k
+=n!\sum_{k=0}^n\frac{(-1)^k}{k!}
+=\sum_{k=0}^n\binom{n}kk!(-1)^{n-k}\qedhere
+\end{align*}
 \end{proof}
 \end{hl}
 \end{theorem}
@@ -1028,6 +1054,41 @@ D_n=n![x^n]\frac{e^{-x}}{1-x}
 \end{hl}
 \end{proposition}
 
+\section{Sieve Method}
+\begin{theorem}[Principal of Inclusion/Exclusion]
+Let $S$ be a collection of $N$ objects and let $P=\{p_1,\dots,p_r\}$ be a set of properties that one or more of the elements in $S$ possess. Let $N(p_{i_1},\dots,p_{i_n})$ count the number of objects that satisfy at least the properties $p_{i_1},\dots,p_{i_n}$, and let $P_i$ be the set of elements satisfying $p_i$. Let $e_j$ count the number of objects with exactly $j$ properties. Then:
+\begin{equation*}
+e_0
+=\underbrace{N}_{N_0}-\underbrace{\sum_{j=1}^rN(p_j)}_{N_1}+\underbrace{\sum_{j<k}N(p_j,p_k)}_{N_2}-\underbrace{\sum_{j<k<\ell}N(p_j,p_k,p_\ell)}_{N_3}+\cdots+(-1)^r\underbrace{N(p_1,\dots,p_r)}_{N_r}
+\end{equation*}
+
+Alternatively, the number of objects satisfying at least one property is:
+\begin{equation*}
+\left|\bigcup_{j=1}^rP_j\right|
+=N_1-N_2+\cdots+(-1)^{r+1}N_r
+\end{equation*}
+
+The number satisfying at least $j$ properties is similarly computed, and by taking differences, the number satisfying exactly $j$ properties can be computed. Or, using generating functions $E(x)=\sum_ke_kx^k$ and $N(x)=\sum_kN_kx^k$, we have $E(x)=N(x-1)$, so that expanding $N(x-1)$ gives us all values of $e_j$.
+\begin{hl}
+\begin{proof}
+We have $N_k=\sum_{j=k}^r\binom jke_j$ by conditioning on the number of properties $j$ and then picking $k$ to use. Then the generating functions satisfy:
+\begin{equation*}
+N(x)
+=\sum_{k=0}^rN_kx^k
+=\sum_{k=0}^r\sum_{j=k}^r\binom jke_jx^k
+=\sum_{j=0}^re_j\sum_{k=0}^j\binom jkx^k
+=\sum_je_j(1+x)^j
+=E(1+x)
+\end{equation*}
+
+Then $E(x)=N(x-1)$. Substituting $x=0$ yields $e_0=N(-1)=\sum_kN_k(-1)^k$.
+\end{proof}
+\end{hl}
+\end{theorem}
+
+\begin{example}
+The number of nonnegative integer solutions to $x_1+x_2+x_3=17$ is given by the number of weak compositions as $\multbinom 3{17}=\binom{19}2=171$. If we add the restriction that $x_1\leq 6$, $x_2\leq10$, and $x_3\leq8$, then this can be counted using Inclusion/Exclusion with properties $p_1=(x_1>6)$, $p_2=(x_2>10)$, and $p_3=(x>8)$. Allocating the 7 guaranteed parts to $x_1$, we obtain that $N(p_1)=\multbinom 3{17-7}=\multbinom3{10}=66$, and similarly $N(p_2)=\multbinom3{6}=28$, $N(p_3)=\multbinom 38=45$, $N(p_1p_2)=0$, $N(p_1p_3)=\multbinom 31=3$, $N(p_2p_3)=0$, and $N(p_1p_2p_3)=0$. Then the total number of given by $171-66-28-45+3=35$.
+\end{example}
 
 \section{Partitions}
 
@@ -1550,7 +1611,7 @@ Let $\widetilde a_n=(-1)^na_n$ and $\widetilde b_n=(-1)^nb_n$. By the above resu
 \item\label{wilf5} If $F(x)\ogf\{f_n\}$, then $\displaystyle\frac1{1-x}F(x)\ogf\left\{\sum_{k=0}^nf_k\right\}$, i.e., $\displaystyle\frac1{1-x}F(x)$ is the generating function for the partial sums
 \item\label{wilf6} If $F(x)\ogf\{f_n\}$, then $x^kF(x)\ogf\{a_{n-k}\}$, where $a_{n-k}=0$ when $n-k<0$
 \end{enumerate}
-%!!! Proof
+%### Proof
 \end{theorem}
 
 \begin{example}
@@ -1578,7 +1639,7 @@ A(x)
 \end{arrows}
 \item If $F(x)\egf \{f_n\}$ and $G(x)\egf \{g_n\}$, then $\displaystyle F(x)G(x)\egf \left\{\sum_{k=0}^n\binom nkf_kg_{n-k}\right\}$
 \end{enumerate}
-%!!! Proof
+%### Proof
 \end{theorem}
 
 \subsection{Recurrences}
@@ -1601,7 +1662,12 @@ Let $a_n=n^2$. We find a closed form for the generating function $A(x)$. Note th
 
 \begin{theorem}\label{gen_shortcut}
 Let $p,q$ be coprime polynomials with $0\leq k=\deg p<\deg q=m$. Write $q(x)=\sum_{j=0}^mq_jx^j$ and suppose $q_0\neq0$. Let $f(x)=\frac{p(x)}{q(x)}\ogf \{f_n\}_{n\geq0}$. Then for all $n\geq0$, $f_n$ satisfies the recurrence $q_0f_{n+m}+q_1f_{n+m-1}+\cdots+q_mf_n=0$ with initial conditions $f_j=f^{(j)}(0)/j!$ for $0\leq j\leq m-1$.
-%!!! Proof
+
+\begin{hl}
+\begin{proof}
+The initial conditions follow by writing the Taylor series of $f$. The recurrence follows by rewriting $q(x)f(x)=p(x)$, then applying $[x^{n+m}]$ to each side. The LHS simplifies by Wilf III, and RHS is 0 since $\deg p<m\leq m+n$.
+\end{proof}
+\end{hl}
 \end{theorem}
 
 \begin{example}
@@ -1625,6 +1691,28 @@ a_n
 &=\frac{(n+1)!}2\sum_{k=1}^n\frac1{n+1}\left[\frac1k+\frac1{n+1-k}\right]
 =n!\,h_n
 \end{align*}
+\end{example}
+
+\begin{example}
+Consider counting the number of $n$-words $q_n$ over alphabet $[k]$ that do not contain a particular substring of length $m$. Assume this substring has no proper substrings that appear at both the beginning and end of the word (for example, $111211$ is invalid since it contains $11$ at the beginning and end). !!!
+
+\begin{hl}
+\begin{proof}
+$q_n=k^n$ when $n<m$, since the substring cannot be present. Otherwise, proceed with negative counting. Condition on the length $r$ of the word before the rightmost instance of the substring. This word has no restrictions, so there are $k^r$ options. The remaining $n-r-m$ letters cannot contain the substring, so are counted by $q_{n-r-m}$. Then, we have $q_n=k^n-\sum_{r=0}^{n-m}k^rq_{n-r-m}$. The generating function thus satisfies:
+\begin{align*}
+Q(x)
+&=\sum_{n=0}^\infty\left[k^n-\sum_{r=0}^{n-m}k^rq_{n-r-m}\right]x^n
+=\frac1{1-kx}-\sum_{n=0}^\infty\sum_{r=0}^{n-m}k^rq_{n-r-m}x^n\\
+&=\frac1{1-kx}-\sum_{n=m}^\infty\sum_{r=0}^{n-m}k^rq_{n-r-m}x^n
+=\frac1{1-kx}-\sum_{n=0}^\infty\sum_{r=0}^{n}k^rq_{n-r}x^{n+m}\\
+&=\frac1{1-kx}-x^m\sum_{n=0}^\infty\sum_{r=0}^{n}k^rq_{n-r}x^{n}
+=\frac1{1-kx}-x^m\frac1{1-kx}Q(x)
+=\frac{1-x^mQ(x)}{1-kx}
+\end{align*}
+
+Therefore, $Q(x)=\frac1{x^m-kx+1}$.
+\end{proof}
+\end{hl}
 \end{example}
 
 \subsection{Fibonacci Numbers}
@@ -1750,6 +1838,20 @@ $\psi/\sqrt5=-0.28$ which is less than 0.5 in absolute value, and since $|\psi|<
 \end{proof}
 \end{hl}
 \end{corollary}
+
+\begin{example}
+The number of binary strings with $n$ digits and no consecutive 1s is given by $f_{n+1}$.
+
+\begin{hl}
+\begin{proof}
+Let this be $t_n$. There is 1 0-digit string and 2 1-digit strings, so that $t_0=f_1$ and $t_1=f_2$. A string counted by $t_n$ either beings with $0$ and is followed by a string in $t_{n-1}$, or begins with $10$ and is followed by a string in $t_{n-2}$. Then $t_n=t_{n-1}+t_{n-2}$, so that $t_n=f_{n+1}$.
+
+\medskip
+
+Or, use generating functions. Build a string by joining $k$ entries from $\{0,10\}$ and then optionally appending a 1. The generating function holding the number of ways to do this grouped by the length of the string is $A_k(x)=(x+x^2)^k(1+x)$. Sum over all $k$ to obtain $A(x)=\frac{1+x}{1-x-x^2}$. Then $t_n=[x^n]\frac{1+x}{1-x-x^2}=[x^n]\frac1{1-x-x^2}+[x^n]\frac x{1-x-x^2}=f_n+f_{n-1}=f_{n+1}$.
+\end{proof}
+\end{hl}
+\end{example}
 
 \subsection{Catalan Numbers}
 
@@ -1999,13 +2101,15 @@ When $n$ is even, we obtain $\binom n{n/2}$. When $n$ is odd, we obtain $\frac12
 
 \subsection{Counting Using Products}
 
+\begin{theorem}
+Let $a_n$ count the number of ways to build a structure on an $n$-element set and $b_n$ count the number of ways to build a different structure on an $n$-element set. The product of their generating function $A(x)B(x)$ has coefficients counting the number of ways to divide up $[n]$ into two intervals, build the first structure on the first interval, and build the second structure on the second interval.
+\begin{arrows}
+\item This follows directly from the definition of multiplication for power series
+\end{arrows}
+\end{theorem}
 
 \begin{example}
-Suppose a semester of $n$ days is divided into two parts (of arbitrary length), and there is 1 holiday during the first part and 2 holidays during the second part. Let $s_n$ be the number of ways this can be accomplished. Condition on the number of days in the first part $k$. Choose the holiday in the first part $k$ ways, and choose the holidays in the second part $\binom{n-k}2$ ways. Thus, $s_n=\sum_{k=1}^{n-2}k\binom{n-k}2$.
-
-\medskip
-
-The appearance of this form suggests using the product of generating functions. Let $a_n=\binom n1$ and $b_n=\binom n2$, so that $S(x)=A(x)B(x)$. By Lemma \ref{binom_gen}:
+Suppose a semester of $n$ days is divided into two parts (of arbitrary length), and there is 1 holiday during the first part and 2 holidays during the second part. Let $s_n$ be the number of ways this can be accomplished. If the first part has $k$ days, then there are $a_k=k$ ways to select the holiday. If the second part has $k$ days, then there are $b_k=\binom k2$ ways to select the two holidays. By Lemma \ref{binom_gen}:
 \begin{equation*}
 S(x)
 =A(x)B(x)
@@ -2023,50 +2127,180 @@ s_n
 \end{equation*}
 \end{example}
 
-\section{Sieve Method}
-\begin{theorem}[Principal of Inclusion/Exclusion]
-Let $S$ be a collection of $N$ objects and let $P=\{p_1,\dots,p_r\}$ be a set of properties that one or more of the elements in $S$ possess. Let $N(p_{i_1},\dots,p_{i_n})$ count the number of objects that satisfy at least the properties $p_{i_1},\dots,p_{i_n}$, and let $P_i$ be the set of elements satisfying $p_i$. Let $e_j$ count the number of objects with exactly $j$ properties. Then:
-\begin{equation*}
-e_0
-=\underbrace{N}_{N_0}-\underbrace{\sum_{j=1}^rN(p_j)}_{N_1}+\underbrace{\sum_{j<k}N(p_j,p_k)}_{N_2}-\underbrace{\sum_{j<k<\ell}N(p_j,p_k,p_\ell)}_{N_3}+\cdots+(-1)^r\underbrace{N(p_1,\dots,p_r)}_{N_r}
-\end{equation*}
+\begin{example}
+Consider dividing a group of people into subgroups $A$, $B$, and $C$, and ask each subgroup to form a line. We also require that $A$ have an odd number of people, and that $B$ have an even number of people. We count the number of ways to do this. The exponential generating function representing the number of ways to arrange $n$ people in group $A$ is $A(x)=\sum_{n=0}^\infty\frac{1-(-1)^n}2n!\frac{x^n}{n!}=\sum_{n=0}^\infty\frac{1-(-1)^n}2x^n=\frac12\left[\sum_{n=0}^\infty x^n-\sum_{n=0}^\infty(-x)^n\right]=\frac12\left[\frac1{1-x}-\frac1{1+x}\right]$. The exponential generating function representing the number of ways to arrange $n$ people in group $B$ is $B(x)=\sum_{n=0}^\infty\frac{1+(-1)^n}2n!\frac{x^n}{n!}=\frac12\left[\frac1{1-x}+\frac1{1+x}\right]$. The remaining generating function is $C(x)=\sum_{n=0}^\infty x^n=\frac1{1-x}$. The total number of ways is thus encoded in the exponential generating function:
+\begin{align*}
+A(x)B(x)C(x)
+&=\frac12\left[\frac1{1-x}-\frac1{1+x}\right]\frac12\left[\frac1{1-x}+\frac1{1+x}\right]\frac1{1-x}
+=\frac14\left[-\frac{2x}{x^2-1}\right]\left[-\frac2{x^2-1}\right]\frac1{1-x}\\
+&=\frac{-x}{(x+1)^2(x-1)^3}
+=\frac{-1/16}{x+1}+\frac{-1/8}{(x+1)^2}+\frac{1/16}{x-1}+\frac{-1/4}{(x-1)^3}
+\end{align*}
 
-Alternatively, the number of objects satisfying at least one property is:
-\begin{equation*}
-\left|\bigcup_{j=1}^rP_j\right|
-=N_1-N_2+\cdots+(-1)^{r+1}N_r
-\end{equation*}
+Then, we have:
+\begin{align*}
+[x^n]A(x)B(x)C(x)
+&= -\frac1{16}[x^n]\frac{1}{x+1}-\frac18[x^n]\frac{1}{(x+1)^2}+\frac1{16}[x^n]\frac{1}{x-1}-\frac14[x^n]\frac{1}{(x-1)^3}\\
+&= -\frac1{16}(-(-1)^{n+1})
+-\frac18\left((-1)^{n+2}\binom{n+1}{1}\right)
++\frac1{16}(-(1)^{n+1})
+-\frac14\left(-(1)^{n+3}\binom{n+2}2\right)\\
+&= \frac1{16}(-1)^{n+1}
++\frac18(-1)^{n+1}(n+1)
+-\frac1{16}
++\frac18(n+2)(n+1)\\
+&= \frac1{16}[(-1)^{n+1}-1]
++\frac18(n+1)[n+2+(-1)^{n+1}]
+\end{align*}
 
-The number satisfying at least $j$ properties is similarly computed, and by taking differences, the number satisfying exactly $j$ properties can be computed. Or, using generating functions $E(x)=\sum_ke_kx^k$ and $N(x)=\sum_kN_kx^k$, we have $E(x)=N(x-1)$, so that expanding $N(x-1)$ gives us all values of $e_j$.
-\begin{hl}
-\begin{proof}
-We have $N_k=\sum_{j=k}^r\binom jke_j$ by conditioning on the number of properties $j$ and then picking $k$ to use. Then the generating functions satisfy:
+Since this is an exponential generating function, the total number of ways is:
 \begin{equation*}
-N(x)
-=\sum_{k=0}^rN_kx^k
-=\sum_{k=0}^r\sum_{j=k}^r\binom jke_jx^k
-=\sum_{j=0}^re_j\sum_{k=0}^j\binom jkx^k
-=\sum_je_j(1+x)^j
-=E(1+x)
+n!\left[\frac1{16}[(-1)^{n+1}-1]
++\frac18(n+1)[n+2+(-1)^{n+1}]\right]
+=
+\left\{
+\begin{NiceArray}{ll}
+\frac{n!\cdot n(n+2)}8&\text{if }n\text{ is even}\\
+\frac{(n+1)!\cdot(n+3)}8&\text{if }n\text{ is odd}
+\end{NiceArray}
+\right.
 \end{equation*}
+\end{example}
 
-Then $E(x)=N(x-1)$. Substituting $x=0$ yields $e_0=N(-1)=\sum_kN_k(-1)^k$.
-\end{proof}
-\end{hl}
-\end{theorem}
+\subsection{Snake Oil Method}
+
+\begin{concept}
+The \emph{Snake Oil Method} uses generating functions to compute sums containing a free variable. First, a free variable $n$ is identified and the sum is named $g_n$. The generating function $G(x)$ is written, which now contains two summations. Interchange the order of summation, then try to identify the coefficients in this new form.
+\begin{arrows}
+\item The name points to the fact that this method may or may not work, and when it does work, it may seem miraculous or not easily explainable
+\end{arrows}
+\end{concept}
 
 \begin{example}
-Consider counting the derangements in $S_n$, as in Example \ref{derangements}. Letting $N=n!$ and $p_j$ be the property that the permutation fixes $j$, then $N(p_j)=(n-1)!$, $N(p_j,p_k)=(n-2)!$, and so on. Thus:
+Consider the summation $a_n=\displaystyle\sum_{k=0}^\infty\binom{n+k}{mk}\alpha^{n-k}$ for some $n,m\in\N$ and $\alpha\in\R$. Its generating function with respect to $n$ is $\displaystyle A(x)=\frac{\alpha(1-\alpha x)^{m-1}}{(1-\alpha x)^m-(\alpha x)^{m-1}}$, which can be used to find the closed form of $a_n$ depending on the value of $m$ and $\alpha$. For example, when $m=2$ and $\alpha=2$, we obtain $a_n=\frac13(1+2\cdot4^n)$.
+
+\begin{hl}
+\begin{proof}
+Using the free variable $n$, we have:
 \begin{align*}
-!n
-&=n!-\sum_{j}(n-1)!+\sum_{j<k}(n-2)!-\sum_{j<k<\ell}(n-3)!+\cdots+(-1)^r(n-n)!\\
-&=n!-\binom n1(n-1)!+\binom n2(n-2)!-\binom n3\sum_{j<k<\ell}(n-3)!+\cdots+(-1)^r\binom nn(n-n)!\\
-&=\sum_{j=0}^n\binom nj(n-j)!(-1)^j
-=n!\sum_{j=0}^n\frac{(-1)^j}{j!}
+A(x)
+&=\sum_{n=0}^\infty\sum_{k=0}^\infty\binom{n+k}{mk}\alpha^{n-k}x^n
+=\sum_{k=0}^\infty\alpha^{-k}\sum_{n=0}^\infty\binom{n+k}{mk}(\alpha x)^n\\
+&=\sum_{k=0}^\infty\alpha^{-k}(\alpha x)^{-k}\sum_{n=0}^\infty\binom{n+k}{mk}(\alpha x)^{n+k}
+=\sum_{k=0}^\infty\alpha^{-k}(\alpha x)^{-k}\sum_{n=k}^\infty\binom{n}{mk}(\alpha x)^{n}\\
+&\overset{\ref{sum_bin_times_monom}}=\sum_{k=0}^\infty\alpha^{-k}(\alpha x)^{-k}\frac{(\alpha x)^{mk}}{(1-\alpha x)^{mk+1}}
+=\frac1{1-\alpha x}\sum_{k=0}^\infty\left(\frac{(\alpha x)^{m-1}}{\alpha(1-\alpha x)^m}\right)^k
+=\frac1{1-\alpha x}\frac{1}{1-\frac{(\alpha x)^{m-1}}{\alpha(1-\alpha x)^m}}\\
+&=\frac1{1-\alpha x}\frac{\alpha(1-\alpha x)^m}{\alpha(1-\alpha x)^m-(\alpha x)^{m-1}}
+=\frac{\alpha(1-\alpha x)^{m-1}}{\alpha(1-\alpha x)^m-(\alpha x)^{m-1}}
 \end{align*}
+
+Consider the case where $m=2$ and $\alpha=2$. Then $A(x)=\frac{1-2 x}{(1-2 x)^2-x}=\frac{1-2x}{1-5x+4x^2}$. Then:
+\begin{equation*}
+a_n=[x^n]\frac{1-2x}{1-5x+4x^2}
+=[x^n]\left(\frac{1/3}{1-x}+\frac{2/3}{1-4x}\right)
+=\frac13(1+2\cdot4^n)\qedhere
+\end{equation*}
+\end{proof}
+\end{hl}
 \end{example}
 
 \begin{example}
-The number of nonnegative integer solutions to $x_1+x_2+x_3=17$ is given by the number of weak compositions as $\multbinom 3{17}=\binom{19}2=171$. If we add the restriction that $x_1\leq 6$, $x_2\leq10$, and $x_3\leq8$, then this can be counted using Inclusion/Exclusion with properties $p_1=(x_1>6)$, $p_2=(x_2>10)$, and $p_3=(x>8)$. Allocating the 7 guaranteed parts to $x_1$, we obtain that $N(p_1)=\multbinom 3{17-7}=\multbinom3{10}=66$, and similarly $N(p_2)=\multbinom3{6}=28$, $N(p_3)=\multbinom 38=45$, $N(p_1p_2)=0$, $N(p_1p_3)=\multbinom 31=3$, $N(p_2p_3)=0$, and $N(p_1p_2p_3)=0$. Then the total number of given by $171-66-28-45+3=35$.
+Consider the summation $\sum_{k=0}^\infty\binom nk\binom{2n}{n-k}$. This is equal to $\binom{3n}n$ by Vandermonde's Identity, but we can also use the Snake Oil Method. Using $n$ as the free variable results in the summation $\sum_{k=0}^\infty\binom{2n}{n-k}\frac{x^k}{(1-x)^{k+1}}$, which is not particularly nice to evaluate. Instead, if we add a free variable $m$ so that $a_n=\sum_{k=0}^\infty\binom nk\binom{m}{n-k}$, then we can proceed with the generating function with respect to $m$:
+\begin{align*}
+A(x)
+&=\sum_{m=0}^\infty\sum_{k=0}^\infty\binom nk\binom{m}{n-k}x^m
+=\sum_{k=0}^\infty\binom nk\sum_{m=0}^\infty\binom{m}{n-k}x^m
+=\sum_{k=0}^\infty\binom nk\frac{x^{n-k}}{(1-x)^{n-k+1}}\\
+&=\frac{x^n}{(1-x)^{n+1}}\sum_{k=0}^\infty\binom nk\left(\frac{1-x}x\right)^k
+=\frac{x^n}{(1-x)^{n+1}}\left(1+\frac{1-x}x\right)^n
+=\frac{1}{(1-x)^{n+1}}
+\end{align*}
+
+Thus, $a_{n}=[x^{2n}]\frac{1}{(1-x)^{n+1}}=\binom{3n}n$.
+\end{example}
+
+\begin{example}
+$\displaystyle\sum_{k=0}^\infty\binom{2n+1}{2p+2k+1}\binom{p+k}k=4^{n-p}\binom{2n-p}{p}$
+
+\begin{hl}
+\begin{proof}
+Let $s=2n+1$, and consider the generating function with respect to $s$:
+\begin{align*}
+S(x)
+&=
+\sum_{s=0}^\infty\sum_{k=0}^\infty\binom{s}{2p+2k+1}\binom{p+k}kx^s
+=\sum_{k=0}^\infty\binom{p+k}p\sum_{s=0}^\infty\binom{s}{2p+2k+1}x^s\\
+&=\sum_{k=0}^\infty\binom{p+k}p\frac{x^{2p+2k+1}}{(1-x)^{2p+2k+2}}
+=\sum_{k=p}^\infty\binom{k}p\frac{x^{2k+1}}{(1-x)^{2k+2}}
+=\frac x{(1-x)^2}\sum_{k=p}^\infty\binom{k}p\left(\frac{x^{2}}{(1-x)^{2}}\right)^k\\
+&=\frac x{(1-x)^2}\frac{\left(\frac{x^{2}}{(1-x)^{2}}\right)^{p}}{\left(1-\frac{x^{2}}{(1-x)^{2}}\right)^{p+1}}
+=\frac x{(1-x)^2}\left(\frac{x^{2}}{(1-x)^{2}}\right)^{p}\left(\frac{(1-x)^{2}}{1-2x}\right)^{p+1}
+= \frac{x^{2p+1}}{(1-2x)^{p+1}}
+\end{align*}
+
+Extracting the coefficients:
+\begin{align*}
+[x^s]\frac{x^{2p+1}}{(1-2x)^{p+1}}
+&=[x^{s-2p-1}]\frac{1}{(1-2x)^{p+1}}
+=(-2)^{-p-1}[x^{s-2p-1}]\frac{1}{(x-1/2)^{p+1}}\\
+&=(-2)^{-p-1}\left(\frac1{1/2}\right)^{(s-2p-1)+(p+1)}\binom{(s-2p-1)+(p+1)-1}{(p+1)-1}(-1)^{p+1}\\
+&=2^{s-2p-1}\binom{s-p-1}{p}
+=2^{2n-2p}\binom{2n-p}{p}
+=4^{n-p}\binom{2n-p}p\qedhere
+\end{align*}
+\end{proof}
+\end{hl}
+\end{example}
+
+\begin{example}
+$\displaystyle\sum_{k=0}^\infty\binom{2n+1}{2k}\binom{m+k}{2n}=\binom{2m+1}{2n}$
+
+\begin{hl}
+\begin{proof}
+Consider the generating function in $m$:
+\begin{align*}
+A(x)
+&=\sum_{m=0}^\infty\sum_{k=0}^\infty\binom{2n+1}{2k}\binom{m+k}{2n}x^m
+=\sum_{k=0}^\infty\binom{2n+1}{2k}\sum_{m=0}^\infty\binom{m+k}{2n}x^m\\
+&=\sum_{k=0}^\infty\binom{2n+1}{2k}x^{-k}\sum_{m=0}^\infty\binom{m+k}{2n}x^{m+k}
+=\sum_{k=0}^\infty\binom{2n+1}{2k}x^{-k}\sum_{m=k}^\infty\binom{m}{2n}x^{m}
+\end{align*}
+
+In order for a term in the original sum to be nonzero, we must have $k\leq n$, so that $k<2k\leq 2n$. Thus, we may change the index of the above summation to be $m=0$, since all terms introduced will have $\binom m{2n}=0$. Then:
+
+\begin{align*}
+A(x)
+&=\sum_{k=0}^\infty\binom{2n+1}{2k}x^{-k}\sum_{m=0}^\infty\binom{m}{2n}x^{m}
+=\sum_{k=0}^\infty\binom{2n+1}{2k}x^{-k}\frac{x^{2n}}{(1-x)^{2n+1}}\\
+&=\sum_{k=0}^n\binom{2n+1}{2n+1-2k}\frac{x^{2n-k}}{(1-x)^{2n+1}}
+=\sum_{k=0}^n\binom{2n+1}{2(n-k)+1}\frac{x^{n+(n-k)}}{(1-x)^{2n+1}}\\
+&=\sum_{k=0}^n\binom{2n+1}{2k+1}\frac{x^{n+k}}{(1-x)^{2n+1}}
+=\frac{x^n}{(1-x)^{2n+1}}\sum_{k=0}^n\binom{2n+1}{2k+1}x^k
+\end{align*}
+
+Now consider the generating function in $y=\sqrt x$:
+\begin{align*}
+B(x)
+&=\frac{y^{2n}}{(1-y^2)^{2n+1}}\sum_{k=0}^n\binom{2n+1}{2k+1}y^{2k}
+=\frac{y^{2n-1}}{(1-y^2)^{2n+1}}\sum_{k=0}^n\binom{2n+1}{2k+1}y^{2k+1}\\
+&=\frac{y^{2n-1}}{(1-y)^{2n+1}(1+y)^{2n+1}}\frac{(1+y)^{2n+1}-(1-y)^{2n+1}}2
+=\frac{y^{2n-1}}{2(1-y)^{2n+1}}-\frac{y^{2n-1}}{2(1+y)^{2n+1}}\\
+&=\frac1{2y}\left[\frac{y^{2n}}{(1-y)^{2n+1}}-\frac{y^{2n}}{(1+y)^{2n+1}}\right]
+\end{align*}
+
+Thus:
+\begin{align*}
+[x^m]A(x)
+&=[y^{2m}]B(x)
+=[y^{2m}]\frac1{2y}\left(\frac{y^{2n}}{(1-y)^{2n+1}}-\frac{y^{2n}}{(1+y)^{2n+1}}\right)\\
+&=\frac12\left([y^{2m+1}]\frac{y^{2n}}{(1-y)^{2n+1}}-[y^{2m+1}]\frac{y^{2n}}{(1+y)^{2n+1}}\right)\\
+&=\frac12\left([y^{2m+1}]\frac{y^{2n}}{(1-y)^{2n+1}}-[(-y)^{2m+1}]\frac{(-y)^{2n}}{(1-y)^{2n+1}}\right)\\
+&=\frac12\left([y^{2m+1}]\frac{y^{2n}}{(1-y)^{2n+1}}+[y^{2m+1}]\frac{y^{2n}}{(1-y)^{2n+1}}\right)
+=[y^{2m+1}]\frac{y^{2n}}{(1-y)^{2n+1}}
+=\binom{2m+1}{2n}\qedhere
+\end{align*}
+\end{proof}
+\end{hl}
 \end{example}
 \end{document}
